@@ -2,6 +2,8 @@
 [![Deno](https://img.shields.io/badge/deno-2.4.2-black?logo=deno)](https://deno.land/)
 [![Discord](https://img.shields.io/discord/GUILD_ID?label=discord&logo=discord)](https://discord.gg/xkSVNT2xYR)
 
+![alt text](vidbitsnap.png) 
+
 # nitrologic microPAL VidBit 0.0.6 🤖
 
 An RP2350 microcontroller video game harness.
