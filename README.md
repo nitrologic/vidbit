@@ -22,14 +22,14 @@ https://github.com/nitrologic/vidbit
 6 4 2  1 3 5
 ```
 
-| pin | name |
-| --- | ----------- |
-| 1   | +Data
-| 2   | rx0
-| 3   | GND
-| 4   | VCC
-| 5   | +Clock
-| 6   | tx0
+| pin | GPIO | name |
+| --- | ---- | ----------- |
+| 1   | GP0  | +Data
+| 2   | GP2  | rx0
+| 3   |      | GND
+| 4   |      | VCC
+| 5   | GP1  | +Clock
+| 6   | GP3  | tx0
 
 # ATARI 9 PIN
 ```
