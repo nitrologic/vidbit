@@ -1,0 +1,45 @@
+simon was here , code released from entheogen 28/05/2026
+
+C:\nitrologic\entheogen\microtools\bin>reset.exe
+Volume: \\?\Volume{95a10ddd-610f-4707-9aa5-0dba1b528fd5}\
+  Mount Point: F:\
+  File System: NTFS
+  Volume Name: WDBlue
+  Serial Number: 7AC2-18D7
+
+Volume: \\?\Volume{8f32867a-d7df-4550-a33c-9ba2ae880d40}\
+  Mount Point: D:\
+  File System: NTFS
+  Volume Name: EVO980
+  Serial Number: 42F4-32EC
+
+Volume: \\?\Volume{2e7dfc00-7904-4071-8f0c-0ce88f6c9b6d}\
+  Mount Point: C:\
+  File System: NTFS
+  Volume Name: 
+  Serial Number: 345C-0303
+
+Volume: \\?\Volume{0ac5bb4e-2452-4b02-8757-535a10df8db9}\
+  Mount Point: None
+  File System: NTFS
+  Volume Name: 
+  Serial Number: 8C1A-994F
+
+Volume: \\?\Volume{35fa8580-0a34-11ee-b988-50ebf676aa4f}\
+  Mount Point: E:\
+  File System: FAT
+  Volume Name: RPI-RP2
+  Serial Number: 0003-9C82
+
+Volume: \\?\Volume{e59f3f9e-2a1d-11f1-ba75-50ebf676aa4f}\
+  Mount Point: G:\
+  File System: FAT
+  Volume Name: RP2350
+  Serial Number: 165A-C9F0
+
+Volume: \\?\Volume{cee7f931-dacd-4b86-8fdb-695d9a3b524e}\
+  Mount Point: None
+  File System: FAT32
+  Volume Name: 
+  Serial Number: CA5B-5C80
+  

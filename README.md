@@ -8,7 +8,7 @@ An RP2350 microcontroller video game harness.
 
 ## documentation
 
-https://github.com/nitrologic/vidbit
+this document - https://github.com/nitrologic/vidbit
 
 # CONNECTORS
 
