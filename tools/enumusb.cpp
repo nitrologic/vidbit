@@ -5,7 +5,8 @@ int main(){
 
 //	devices.jsonifyDevices(Strings attributeMask,std::string& result){
 
-	int error=devices.enumInputs("input");
+	int error=devices.enumTTY();//enumInputs("input");
+
 	std::cout << "enuminputs : " << error << std::endl;
 
 	return 0;

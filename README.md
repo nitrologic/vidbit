@@ -1,6 +1,6 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) 
 
-![alt text](vidbitsnap.png) 
+![alt text](pics/vidbitsnap.png) 
 
 # nitrologic microPAL VidBit 0.0.6 🤖
 
@@ -53,7 +53,7 @@ this document - https://github.com/nitrologic/vidbit
 
 # pics
 
-![alt text](joy9.jpg) 
+![alt text](pics/joy9.jpg) 
 
 
 # codeblocks

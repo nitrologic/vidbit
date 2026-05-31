@@ -204,6 +204,43 @@ struct Devices{
 		return 0;
 	}
 
+	int enumTTY() {
+		udev *udev = udev_new();
+		if (!udev) return -1;
+
+		udev_enumerate *enumerate = udev_enumerate_new(udev);
+		udev_enumerate_add_match_subsystem(enumerate, "tty");
+		udev_enumerate_scan_devices(enumerate);
+
+		udev_list_entry *devices = udev_enumerate_get_list_entry(enumerate);
+		udev_list_entry *entry;
+
+		udev_list_entry_foreach(entry, devices) {
+			const char *path = udev_list_entry_get_name(entry);
+
+			udev_device *dev = udev_device_new_from_syspath(udev, path);
+			const char *devnode = udev_device_get_devnode(dev);
+
+			if (devnode) {
+
+				if (dev->values.count("ID_MODEL")){
+					std::string model=in->values["ID_MODEL"];
+					std::cout << model << std::endl;
+				}
+
+				std::cout << devnode << std::endl;
+
+			}
+
+			udev_device_unref(dev);
+		}
+
+		udev_enumerate_unref(enumerate);
+		udev_unref(udev);
+
+		return 0;
+		}	
+
 //	"ID_INPUT_KEYBOARD", ID_INPUT_KEY, ID_INPUT_MOUSE, ID_INPUT_TOUCHPAD, ID_INPUT_TOUCHSCREEN, ID_INPUT_TABLET, ID_INPUT_JOYSTICK, ID_INPUT_ACCELEROMETER
 
 	int enumInputs(const char *subsystem){
