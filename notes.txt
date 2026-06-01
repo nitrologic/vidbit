@@ -1,1 +1,1254 @@
+skid@pi5m2:~/vidbit/tools/bin $ ./reset 
+props CURRENT_TAGS = :systemd:uaccess:seat:
+props DEVLINKS = /dev/serial/by-id/usb-Raspberry_Pi_Pico_3526E7A3A6A4BD33-if00 /dev/serial/by-path/platform-xhci-hcd.0-usb-0:1:1.0
+props DEVNAME = /dev/ttyACM0
+props DEVPATH = /devices/platform/axi/1000120000.pcie/1f00200000.usb/xhci-hcd.0/usb1/1-1/1-1:1.0/tty/ttyACM0
+props ID_BUS = usb
+props ID_FOR_SEAT = tty-platform-xhci-hcd_0-usb-0_1_1_0
+props ID_MM_CANDIDATE = 1
+props ID_MODEL = Pico
+props ID_MODEL_ENC = Pico
+props ID_MODEL_ID = 0009
+props ID_PATH = platform-xhci-hcd.0-usb-0:1:1.0
+props ID_PATH_TAG = platform-xhci-hcd_0-usb-0_1_1_0
+props ID_REVISION = 0100
+props ID_SERIAL = Raspberry_Pi_Pico_3526E7A3A6A4BD33
+props ID_SERIAL_SHORT = 3526E7A3A6A4BD33
+props ID_TYPE = generic
+props ID_USB_CLASS_FROM_DATABASE = Miscellaneous Device
+props ID_USB_DRIVER = cdc_acm
+props ID_USB_INTERFACES = :020200:0a0000:
+props ID_USB_INTERFACE_NUM = 00
+props ID_USB_MODEL = Pico
+props ID_USB_MODEL_ENC = Pico
+props ID_USB_MODEL_ID = 0009
+props ID_USB_PROTOCOL_FROM_DATABASE = Interface Association
+props ID_USB_REVISION = 0100
+props ID_USB_SERIAL = Raspberry_Pi_Pico_3526E7A3A6A4BD33
+props ID_USB_SERIAL_SHORT = 3526E7A3A6A4BD33
+props ID_USB_TYPE = generic
+props ID_USB_VENDOR = Raspberry_Pi
+props ID_USB_VENDOR_ENC = Raspberry\x20Pi
+props ID_USB_VENDOR_ID = 2e8a
+props ID_VENDOR = Raspberry_Pi
+props ID_VENDOR_ENC = Raspberry\x20Pi
+props ID_VENDOR_ID = 2e8a
+props MAJOR = 166
+props MINOR = 0
+props SUBSYSTEM = tty
+props TAGS = :systemd:uaccess:seat:
+props USEC_INITIALIZED = 4611461190
+/dev/ttyACM0 : initialized : 1, model : Pico, vendor : Raspberry_Pi
+
+props CURRENT_TAGS = :systemd:
+props DEVLINKS = /dev/serial0
+props DEVNAME = /dev/ttyAMA10
+props DEVPATH = /devices/platform/soc@107c000000/107d001000.serial/107d001000.serial:0/107d001000.serial:0.0/tty/ttyAMA10
+props ID_MM_CANDIDATE = 1
+props MAJOR = 204
+props MINOR = 74
+props SUBSYSTEM = tty
+props TAGS = :systemd:
+props USEC_INITIALIZED = 2859490
+/dev/ttyAMA10 : initialized : 1, model : <null>, vendor : <null>
+
+props DEVNAME = /dev/console
+props DEVPATH = /devices/virtual/tty/console
+props ID_MM_CANDIDATE = 1
+props MAJOR = 5
+props MINOR = 1
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4066173
+/dev/console : initialized : 1, model : <null>, vendor : <null>
+
+props DEVMODE = 0666
+props DEVNAME = /dev/ptmx
+props DEVPATH = /devices/virtual/tty/ptmx
+props ID_MM_CANDIDATE = 1
+props MAJOR = 5
+props MINOR = 2
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4067233
+/dev/ptmx : initialized : 1, model : <null>, vendor : <null>
+
+props DEVMODE = 0666
+props DEVNAME = /dev/tty
+props DEVPATH = /devices/virtual/tty/tty
+props ID_MM_CANDIDATE = 1
+props MAJOR = 5
+props MINOR = 0
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4067665
+/dev/tty : initialized : 1, model : <null>, vendor : <null>
+
+props DEVNAME = /dev/tty0
+props DEVPATH = /devices/virtual/tty/tty0
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 0
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4070788
+/dev/tty0 : initialized : 1, model : <null>, vendor : <null>
+
+props DEVNAME = /dev/tty1
+props DEVPATH = /devices/virtual/tty/tty1
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 1
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4071551
+/dev/tty1 : initialized : 1, model : <null>, vendor : <null>
+
+props DEVNAME = /dev/tty10
+props DEVPATH = /devices/virtual/tty/tty10
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 10
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4071969
+/dev/tty10 : initialized : 1, model : <null>, vendor : <null>
+
+props DEVNAME = /dev/tty11
+props DEVPATH = /devices/virtual/tty/tty11
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 11
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4071310
+/dev/tty11 : initialized : 1, model : <null>, vendor : <null>
+
+props DEVNAME = /dev/tty12
+props DEVPATH = /devices/virtual/tty/tty12
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 12
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4069377
+/dev/tty12 : initialized : 1, model : <null>, vendor : <null>
+
+props DEVNAME = /dev/tty13
+props DEVPATH = /devices/virtual/tty/tty13
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 13
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4071782
+/dev/tty13 : initialized : 1, model : <null>, vendor : <null>
+
+props DEVNAME = /dev/tty14
+props DEVPATH = /devices/virtual/tty/tty14
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 14
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4069900
+/dev/tty14 : initialized : 1, model : <null>, vendor : <null>
+
+props DEVNAME = /dev/tty15
+props DEVPATH = /devices/virtual/tty/tty15
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 15
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4072415
+/dev/tty15 : initialized : 1, model : <null>, vendor : <null>
+
+props DEVNAME = /dev/tty16
+props DEVPATH = /devices/virtual/tty/tty16
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 16
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4073393
+/dev/tty16 : initialized : 1, model : <null>, vendor : <null>
+
+props DEVNAME = /dev/tty17
+props DEVPATH = /devices/virtual/tty/tty17
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 17
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4070413
+/dev/tty17 : initialized : 1, model : <null>, vendor : <null>
+
+props DEVNAME = /dev/tty18
+props DEVPATH = /devices/virtual/tty/tty18
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 18
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4073401
+/dev/tty18 : initialized : 1, model : <null>, vendor : <null>
+
+props DEVNAME = /dev/tty19
+props DEVPATH = /devices/virtual/tty/tty19
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 19
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4070939
+/dev/tty19 : initialized : 1, model : <null>, vendor : <null>
+
+props DEVNAME = /dev/tty2
+props DEVPATH = /devices/virtual/tty/tty2
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 2
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4072212
+/dev/tty2 : initialized : 1, model : <null>, vendor : <null>
+
+props DEVNAME = /dev/tty20
+props DEVPATH = /devices/virtual/tty/tty20
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 20
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4075250
+/dev/tty20 : initialized : 1, model : <null>, vendor : <null>
+
+props DEVNAME = /dev/tty21
+props DEVPATH = /devices/virtual/tty/tty21
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 21
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4069372
+/dev/tty21 : initialized : 1, model : <null>, vendor : <null>
+
+props DEVNAME = /dev/tty22
+props DEVPATH = /devices/virtual/tty/tty22
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 22
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4072955
+/dev/tty22 : initialized : 1, model : <null>, vendor : <null>
+
+props DEVNAME = /dev/tty23
+props DEVPATH = /devices/virtual/tty/tty23
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 23
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4071503
+/dev/tty23 : initialized : 1, model : <null>, vendor : <null>
+
+props DEVNAME = /dev/tty24
+props DEVPATH = /devices/virtual/tty/tty24
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 24
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4071448
+/dev/tty24 : initialized : 1, model : <null>, vendor : <null>
+
+props DEVNAME = /dev/tty25
+props DEVPATH = /devices/virtual/tty/tty25
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 25
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4071320
+/dev/tty25 : initialized : 1, model : <null>, vendor : <null>
+
+props DEVNAME = /dev/tty26
+props DEVPATH = /devices/virtual/tty/tty26
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 26
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4070834
+/dev/tty26 : initialized : 1, model : <null>, vendor : <null>
+
+props DEVNAME = /dev/tty27
+props DEVPATH = /devices/virtual/tty/tty27
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 27
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4071861
+/dev/tty27 : initialized : 1, model : <null>, vendor : <null>
+
+props DEVNAME = /dev/tty28
+props DEVPATH = /devices/virtual/tty/tty28
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 28
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4073668
+/dev/tty28 : initialized : 1, model : <null>, vendor : <null>
+
+props DEVNAME = /dev/tty29
+props DEVPATH = /devices/virtual/tty/tty29
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 29
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4075778
+/dev/tty29 : initialized : 1, model : <null>, vendor : <null>
+
+props DEVNAME = /dev/tty3
+props DEVPATH = /devices/virtual/tty/tty3
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 3
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4074633
+/dev/tty3 : initialized : 1, model : <null>, vendor : <null>
+
+props DEVNAME = /dev/tty30
+props DEVPATH = /devices/virtual/tty/tty30
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 30
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4075890
+/dev/tty30 : initialized : 1, model : <null>, vendor : <null>
+
+props DEVNAME = /dev/tty31
+props DEVPATH = /devices/virtual/tty/tty31
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 31
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4075127
+/dev/tty31 : initialized : 1, model : <null>, vendor : <null>
+
+props DEVNAME = /dev/tty32
+props DEVPATH = /devices/virtual/tty/tty32
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 32
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4079947
+/dev/tty32 : initialized : 1, model : <null>, vendor : <null>
+
+props DEVNAME = /dev/tty33
+props DEVPATH = /devices/virtual/tty/tty33
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 33
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4076362
+/dev/tty33 : initialized : 1, model : <null>, vendor : <null>
+
+props DEVNAME = /dev/tty34
+props DEVPATH = /devices/virtual/tty/tty34
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 34
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4076795
+/dev/tty34 : initialized : 1, model : <null>, vendor : <null>
+
+props DEVNAME = /dev/tty35
+props DEVPATH = /devices/virtual/tty/tty35
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 35
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4076784
+/dev/tty35 : initialized : 1, model : <null>, vendor : <null>
+
+props DEVNAME = /dev/tty36
+props DEVPATH = /devices/virtual/tty/tty36
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 36
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4074145
+/dev/tty36 : initialized : 1, model : <null>, vendor : <null>
+
+props DEVNAME = /dev/tty37
+props DEVPATH = /devices/virtual/tty/tty37
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 37
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4074539
+/dev/tty37 : initialized : 1, model : <null>, vendor : <null>
+
+props DEVNAME = /dev/tty38
+props DEVPATH = /devices/virtual/tty/tty38
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 38
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4075629
+/dev/tty38 : initialized : 1, model : <null>, vendor : <null>
+
+props DEVNAME = /dev/tty39
+props DEVPATH = /devices/virtual/tty/tty39
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 39
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4076127
+/dev/tty39 : initialized : 1, model : <null>, vendor : <null>
+
+props DEVNAME = /dev/tty4
+props DEVPATH = /devices/virtual/tty/tty4
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 4
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4076545
+/dev/tty4 : initialized : 1, model : <null>, vendor : <null>
+
+props DEVNAME = /dev/tty40
+props DEVPATH = /devices/virtual/tty/tty40
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 40
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4076967
+/dev/tty40 : initialized : 1, model : <null>, vendor : <null>
+
+props DEVNAME = /dev/tty41
+props DEVPATH = /devices/virtual/tty/tty41
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 41
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4074292
+/dev/tty41 : initialized : 1, model : <null>, vendor : <null>
+
+props DEVNAME = /dev/tty42
+props DEVPATH = /devices/virtual/tty/tty42
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 42
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4076261
+/dev/tty42 : initialized : 1, model : <null>, vendor : <null>
+
+props DEVNAME = /dev/tty43
+props DEVPATH = /devices/virtual/tty/tty43
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 43
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4076689
+/dev/tty43 : initialized : 1, model : <null>, vendor : <null>
+
+props DEVNAME = /dev/tty44
+props DEVPATH = /devices/virtual/tty/tty44
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 44
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4075549
+/dev/tty44 : initialized : 1, model : <null>, vendor : <null>
+
+props DEVNAME = /dev/tty45
+props DEVPATH = /devices/virtual/tty/tty45
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 45
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4079151
+/dev/tty45 : initialized : 1, model : <null>, vendor : <null>
+
+props DEVNAME = /dev/tty46
+props DEVPATH = /devices/virtual/tty/tty46
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 46
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4080418
+/dev/tty46 : initialized : 1, model : <null>, vendor : <null>
+
+props DEVNAME = /dev/tty47
+props DEVPATH = /devices/virtual/tty/tty47
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 47
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4079315
+/dev/tty47 : initialized : 1, model : <null>, vendor : <null>
+
+props DEVNAME = /dev/tty48
+props DEVPATH = /devices/virtual/tty/tty48
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 48
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4080836
+/dev/tty48 : initialized : 1, model : <null>, vendor : <null>
+
+props DEVNAME = /dev/tty49
+props DEVPATH = /devices/virtual/tty/tty49
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 49
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4081811
+/dev/tty49 : initialized : 1, model : <null>, vendor : <null>
+
+props DEVNAME = /dev/tty5
+props DEVPATH = /devices/virtual/tty/tty5
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 5
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4078922
+/dev/tty5 : initialized : 1, model : <null>, vendor : <null>
+
+props DEVNAME = /dev/tty50
+props DEVPATH = /devices/virtual/tty/tty50
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 50
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4078518
+/dev/tty50 : initialized : 1, model : <null>, vendor : <null>
+
+props DEVNAME = /dev/tty51
+props DEVPATH = /devices/virtual/tty/tty51
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 51
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4082231
+/dev/tty51 : initialized : 1, model : <null>, vendor : <null>
+
+props DEVNAME = /dev/tty52
+props DEVPATH = /devices/virtual/tty/tty52
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 52
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4080407
+/dev/tty52 : initialized : 1, model : <null>, vendor : <null>
+
+props DEVNAME = /dev/tty53
+props DEVPATH = /devices/virtual/tty/tty53
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 53
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4081666
+/dev/tty53 : initialized : 1, model : <null>, vendor : <null>
+
+props DEVNAME = /dev/tty54
+props DEVPATH = /devices/virtual/tty/tty54
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 54
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4082072
+/dev/tty54 : initialized : 1, model : <null>, vendor : <null>
+
+props DEVNAME = /dev/tty55
+props DEVPATH = /devices/virtual/tty/tty55
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 55
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4082402
+/dev/tty55 : initialized : 1, model : <null>, vendor : <null>
+
+props DEVNAME = /dev/tty56
+props DEVPATH = /devices/virtual/tty/tty56
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 56
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4081245
+/dev/tty56 : initialized : 1, model : <null>, vendor : <null>
+
+props DEVNAME = /dev/tty57
+props DEVPATH = /devices/virtual/tty/tty57
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 57
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4078459
+/dev/tty57 : initialized : 1, model : <null>, vendor : <null>
+
+props DEVNAME = /dev/tty58
+props DEVPATH = /devices/virtual/tty/tty58
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 58
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4079362
+/dev/tty58 : initialized : 1, model : <null>, vendor : <null>
+
+props DEVNAME = /dev/tty59
+props DEVPATH = /devices/virtual/tty/tty59
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 59
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4077997
+/dev/tty59 : initialized : 1, model : <null>, vendor : <null>
+
+props DEVNAME = /dev/tty6
+props DEVPATH = /devices/virtual/tty/tty6
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 6
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4079538
+/dev/tty6 : initialized : 1, model : <null>, vendor : <null>
+
+props DEVNAME = /dev/tty60
+props DEVPATH = /devices/virtual/tty/tty60
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 60
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4082641
+/dev/tty60 : initialized : 1, model : <null>, vendor : <null>
+
+props DEVNAME = /dev/tty61
+props DEVPATH = /devices/virtual/tty/tty61
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 61
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4078755
+/dev/tty61 : initialized : 1, model : <null>, vendor : <null>
+
+props DEVNAME = /dev/tty62
+props DEVPATH = /devices/virtual/tty/tty62
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 62
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4078975
+/dev/tty62 : initialized : 1, model : <null>, vendor : <null>
+
+props DEVNAME = /dev/tty63
+props DEVPATH = /devices/virtual/tty/tty63
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 63
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4079962
+/dev/tty63 : initialized : 1, model : <null>, vendor : <null>
+
+props DEVNAME = /dev/tty7
+props DEVPATH = /devices/virtual/tty/tty7
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 7
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4079845
+/dev/tty7 : initialized : 1, model : <null>, vendor : <null>
+
+props DEVNAME = /dev/tty8
+props DEVPATH = /devices/virtual/tty/tty8
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 8
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4084604
+/dev/tty8 : initialized : 1, model : <null>, vendor : <null>
+
+props DEVNAME = /dev/tty9
+props DEVPATH = /devices/virtual/tty/tty9
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 9
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4080435
+/dev/tty9 : initialized : 1, model : <null>, vendor : <null>
+
+props CURRENT_TAGS = :systemd:
+props DEVNAME = /dev/ttyprintk
+props DEVPATH = /devices/virtual/tty/ttyprintk
+props ID_MM_CANDIDATE = 1
+props MAJOR = 5
+props MINOR = 3
+props SUBSYSTEM = tty
+props TAGS = :systemd:
+props USEC_INITIALIZED = 4080289
+/dev/ttyprintk : initialized : 1, model : <null>, vendor : <null>
+
+
+
+
+
+skid@pi5m2:~/vidbit/tools/bin $ ./reset 
+props CURRENT_TAGS = :systemd:
+props DEVLINKS = /dev/serial0
+props DEVNAME = /dev/ttyAMA10
+props DEVPATH = /devices/platform/soc@107c000000/107d001000.serial/107d001000.serial:0/107d001000.serial:0.0/tty/ttyAMA10
+props ID_MM_CANDIDATE = 1
+props MAJOR = 204
+props MINOR = 74
+props SUBSYSTEM = tty
+props TAGS = :systemd:
+props USEC_INITIALIZED = 2859490
+/dev/ttyAMA10 : initialized : 1, model : <null>, vendor : <null>
+
+props DEVNAME = /dev/console
+props DEVPATH = /devices/virtual/tty/console
+props ID_MM_CANDIDATE = 1
+props MAJOR = 5
+props MINOR = 1
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4066173
+/dev/console : initialized : 1, model : <null>, vendor : <null>
+
+props DEVMODE = 0666
+props DEVNAME = /dev/ptmx
+props DEVPATH = /devices/virtual/tty/ptmx
+props ID_MM_CANDIDATE = 1
+props MAJOR = 5
+props MINOR = 2
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4067233
+/dev/ptmx : initialized : 1, model : <null>, vendor : <null>
+
+props DEVMODE = 0666
+props DEVNAME = /dev/tty
+props DEVPATH = /devices/virtual/tty/tty
+props ID_MM_CANDIDATE = 1
+props MAJOR = 5
+props MINOR = 0
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4067665
+/dev/tty : initialized : 1, model : <null>, vendor : <null>
+props DEVNAME = /dev/tty0
+props DEVPATH = /devices/virtual/tty/tty0
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 0
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4070788
+/dev/tty0 : initialized : 1, model : <null>, vendor : <null>
+props DEVNAME = /dev/tty1
+props DEVPATH = /devices/virtual/tty/tty1
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 1
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4071551
+/dev/tty1 : initialized : 1, model : <null>, vendor : <null>
+props DEVNAME = /dev/tty10
+props DEVPATH = /devices/virtual/tty/tty10
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 10
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4071969
+/dev/tty10 : initialized : 1, model : <null>, vendor : <null>
+props DEVNAME = /dev/tty11
+props DEVPATH = /devices/virtual/tty/tty11
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 11
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4071310
+/dev/tty11 : initialized : 1, model : <null>, vendor : <null>
+props DEVNAME = /dev/tty12
+props DEVPATH = /devices/virtual/tty/tty12
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 12
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4069377
+/dev/tty12 : initialized : 1, model : <null>, vendor : <null>
+props DEVNAME = /dev/tty13
+props DEVPATH = /devices/virtual/tty/tty13
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 13
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4071782
+/dev/tty13 : initialized : 1, model : <null>, vendor : <null>
+props DEVNAME = /dev/tty14
+props DEVPATH = /devices/virtual/tty/tty14
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 14
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4069900
+/dev/tty14 : initialized : 1, model : <null>, vendor : <null>
+props DEVNAME = /dev/tty15
+props DEVPATH = /devices/virtual/tty/tty15
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 15
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4072415
+/dev/tty15 : initialized : 1, model : <null>, vendor : <null>
+props DEVNAME = /dev/tty16
+props DEVPATH = /devices/virtual/tty/tty16
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 16
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4073393
+/dev/tty16 : initialized : 1, model : <null>, vendor : <null>
+props DEVNAME = /dev/tty17
+props DEVPATH = /devices/virtual/tty/tty17
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 17
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4070413
+/dev/tty17 : initialized : 1, model : <null>, vendor : <null>
+props DEVNAME = /dev/tty18
+props DEVPATH = /devices/virtual/tty/tty18
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 18
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4073401
+/dev/tty18 : initialized : 1, model : <null>, vendor : <null>
+props DEVNAME = /dev/tty19
+props DEVPATH = /devices/virtual/tty/tty19
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 19
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4070939
+/dev/tty19 : initialized : 1, model : <null>, vendor : <null>
+props DEVNAME = /dev/tty2
+props DEVPATH = /devices/virtual/tty/tty2
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 2
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4072212
+/dev/tty2 : initialized : 1, model : <null>, vendor : <null>
+props DEVNAME = /dev/tty20
+props DEVPATH = /devices/virtual/tty/tty20
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 20
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4075250
+/dev/tty20 : initialized : 1, model : <null>, vendor : <null>
+props DEVNAME = /dev/tty21
+props DEVPATH = /devices/virtual/tty/tty21
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 21
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4069372
+/dev/tty21 : initialized : 1, model : <null>, vendor : <null>
+props DEVNAME = /dev/tty22
+props DEVPATH = /devices/virtual/tty/tty22
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 22
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4072955
+/dev/tty22 : initialized : 1, model : <null>, vendor : <null>
+props DEVNAME = /dev/tty23
+props DEVPATH = /devices/virtual/tty/tty23
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 23
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4071503
+/dev/tty23 : initialized : 1, model : <null>, vendor : <null>
+props DEVNAME = /dev/tty24
+props DEVPATH = /devices/virtual/tty/tty24
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 24
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4071448
+/dev/tty24 : initialized : 1, model : <null>, vendor : <null>
+props DEVNAME = /dev/tty25
+props DEVPATH = /devices/virtual/tty/tty25
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 25
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4071320
+/dev/tty25 : initialized : 1, model : <null>, vendor : <null>
+props DEVNAME = /dev/tty26
+props DEVPATH = /devices/virtual/tty/tty26
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 26
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4070834
+/dev/tty26 : initialized : 1, model : <null>, vendor : <null>
+props DEVNAME = /dev/tty27
+props DEVPATH = /devices/virtual/tty/tty27
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 27
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4071861
+/dev/tty27 : initialized : 1, model : <null>, vendor : <null>
+props DEVNAME = /dev/tty28
+props DEVPATH = /devices/virtual/tty/tty28
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 28
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4073668
+/dev/tty28 : initialized : 1, model : <null>, vendor : <null>
+props DEVNAME = /dev/tty29
+props DEVPATH = /devices/virtual/tty/tty29
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 29
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4075778
+/dev/tty29 : initialized : 1, model : <null>, vendor : <null>
+props DEVNAME = /dev/tty3
+props DEVPATH = /devices/virtual/tty/tty3
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 3
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4074633
+/dev/tty3 : initialized : 1, model : <null>, vendor : <null>
+props DEVNAME = /dev/tty30
+props DEVPATH = /devices/virtual/tty/tty30
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 30
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4075890
+/dev/tty30 : initialized : 1, model : <null>, vendor : <null>
+props DEVNAME = /dev/tty31
+props DEVPATH = /devices/virtual/tty/tty31
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 31
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4075127
+/dev/tty31 : initialized : 1, model : <null>, vendor : <null>
+props DEVNAME = /dev/tty32
+props DEVPATH = /devices/virtual/tty/tty32
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 32
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4079947
+/dev/tty32 : initialized : 1, model : <null>, vendor : <null>
+props DEVNAME = /dev/tty33
+props DEVPATH = /devices/virtual/tty/tty33
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 33
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4076362
+/dev/tty33 : initialized : 1, model : <null>, vendor : <null>
+props DEVNAME = /dev/tty34
+props DEVPATH = /devices/virtual/tty/tty34
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 34
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4076795
+/dev/tty34 : initialized : 1, model : <null>, vendor : <null>
+props DEVNAME = /dev/tty35
+props DEVPATH = /devices/virtual/tty/tty35
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 35
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4076784
+/dev/tty35 : initialized : 1, model : <null>, vendor : <null>
+props DEVNAME = /dev/tty36
+props DEVPATH = /devices/virtual/tty/tty36
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 36
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4074145
+/dev/tty36 : initialized : 1, model : <null>, vendor : <null>
+props DEVNAME = /dev/tty37
+props DEVPATH = /devices/virtual/tty/tty37
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 37
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4074539
+/dev/tty37 : initialized : 1, model : <null>, vendor : <null>
+props DEVNAME = /dev/tty38
+props DEVPATH = /devices/virtual/tty/tty38
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 38
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4075629
+/dev/tty38 : initialized : 1, model : <null>, vendor : <null>
+props DEVNAME = /dev/tty39
+props DEVPATH = /devices/virtual/tty/tty39
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 39
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4076127
+/dev/tty39 : initialized : 1, model : <null>, vendor : <null>
+props DEVNAME = /dev/tty4
+props DEVPATH = /devices/virtual/tty/tty4
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 4
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4076545
+/dev/tty4 : initialized : 1, model : <null>, vendor : <null>
+props DEVNAME = /dev/tty40
+props DEVPATH = /devices/virtual/tty/tty40
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 40
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4076967
+/dev/tty40 : initialized : 1, model : <null>, vendor : <null>
+props DEVNAME = /dev/tty41
+props DEVPATH = /devices/virtual/tty/tty41
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 41
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4074292
+/dev/tty41 : initialized : 1, model : <null>, vendor : <null>
+props DEVNAME = /dev/tty42
+props DEVPATH = /devices/virtual/tty/tty42
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 42
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4076261
+/dev/tty42 : initialized : 1, model : <null>, vendor : <null>
+props DEVNAME = /dev/tty43
+props DEVPATH = /devices/virtual/tty/tty43
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 43
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4076689
+/dev/tty43 : initialized : 1, model : <null>, vendor : <null>
+props DEVNAME = /dev/tty44
+props DEVPATH = /devices/virtual/tty/tty44
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 44
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4075549
+/dev/tty44 : initialized : 1, model : <null>, vendor : <null>
+props DEVNAME = /dev/tty45
+props DEVPATH = /devices/virtual/tty/tty45
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 45
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4079151
+/dev/tty45 : initialized : 1, model : <null>, vendor : <null>
+props DEVNAME = /dev/tty46
+props DEVPATH = /devices/virtual/tty/tty46
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 46
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4080418
+/dev/tty46 : initialized : 1, model : <null>, vendor : <null>
+props DEVNAME = /dev/tty47
+props DEVPATH = /devices/virtual/tty/tty47
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 47
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4079315
+/dev/tty47 : initialized : 1, model : <null>, vendor : <null>
+props DEVNAME = /dev/tty48
+props DEVPATH = /devices/virtual/tty/tty48
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 48
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4080836
+/dev/tty48 : initialized : 1, model : <null>, vendor : <null>
+props DEVNAME = /dev/tty49
+props DEVPATH = /devices/virtual/tty/tty49
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 49
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4081811
+/dev/tty49 : initialized : 1, model : <null>, vendor : <null>
+props DEVNAME = /dev/tty5
+props DEVPATH = /devices/virtual/tty/tty5
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 5
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4078922
+/dev/tty5 : initialized : 1, model : <null>, vendor : <null>
+props DEVNAME = /dev/tty50
+props DEVPATH = /devices/virtual/tty/tty50
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 50
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4078518
+/dev/tty50 : initialized : 1, model : <null>, vendor : <null>
+props DEVNAME = /dev/tty51
+props DEVPATH = /devices/virtual/tty/tty51
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 51
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4082231
+/dev/tty51 : initialized : 1, model : <null>, vendor : <null>
+props DEVNAME = /dev/tty52
+props DEVPATH = /devices/virtual/tty/tty52
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 52
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4080407
+/dev/tty52 : initialized : 1, model : <null>, vendor : <null>
+props DEVNAME = /dev/tty53
+props DEVPATH = /devices/virtual/tty/tty53
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 53
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4081666
+/dev/tty53 : initialized : 1, model : <null>, vendor : <null>
+props DEVNAME = /dev/tty54
+props DEVPATH = /devices/virtual/tty/tty54
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 54
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4082072
+/dev/tty54 : initialized : 1, model : <null>, vendor : <null>
+props DEVNAME = /dev/tty55
+props DEVPATH = /devices/virtual/tty/tty55
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 55
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4082402
+/dev/tty55 : initialized : 1, model : <null>, vendor : <null>
+props DEVNAME = /dev/tty56
+props DEVPATH = /devices/virtual/tty/tty56
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 56
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4081245
+/dev/tty56 : initialized : 1, model : <null>, vendor : <null>
+props DEVNAME = /dev/tty57
+props DEVPATH = /devices/virtual/tty/tty57
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 57
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4078459
+/dev/tty57 : initialized : 1, model : <null>, vendor : <null>
+props DEVNAME = /dev/tty58
+props DEVPATH = /devices/virtual/tty/tty58
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 58
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4079362
+/dev/tty58 : initialized : 1, model : <null>, vendor : <null>
+props DEVNAME = /dev/tty59
+props DEVPATH = /devices/virtual/tty/tty59
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 59
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4077997
+/dev/tty59 : initialized : 1, model : <null>, vendor : <null>
+props DEVNAME = /dev/tty6
+props DEVPATH = /devices/virtual/tty/tty6
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 6
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4079538
+/dev/tty6 : initialized : 1, model : <null>, vendor : <null>
+props DEVNAME = /dev/tty60
+props DEVPATH = /devices/virtual/tty/tty60
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 60
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4082641
+/dev/tty60 : initialized : 1, model : <null>, vendor : <null>
+props DEVNAME = /dev/tty61
+props DEVPATH = /devices/virtual/tty/tty61
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 61
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4078755
+/dev/tty61 : initialized : 1, model : <null>, vendor : <null>
+props DEVNAME = /dev/tty62
+props DEVPATH = /devices/virtual/tty/tty62
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 62
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4078975
+/dev/tty62 : initialized : 1, model : <null>, vendor : <null>
+props DEVNAME = /dev/tty63
+props DEVPATH = /devices/virtual/tty/tty63
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 63
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4079962
+/dev/tty63 : initialized : 1, model : <null>, vendor : <null>
+props DEVNAME = /dev/tty7
+props DEVPATH = /devices/virtual/tty/tty7
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 7
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4079845
+/dev/tty7 : initialized : 1, model : <null>, vendor : <null>
+props DEVNAME = /dev/tty8
+props DEVPATH = /devices/virtual/tty/tty8
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 8
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4084604
+/dev/tty8 : initialized : 1, model : <null>, vendor : <null>
+props DEVNAME = /dev/tty9
+props DEVPATH = /devices/virtual/tty/tty9
+props ID_MM_CANDIDATE = 1
+props MAJOR = 4
+props MINOR = 9
+props SUBSYSTEM = tty
+props USEC_INITIALIZED = 4080435
+/dev/tty9 : initialized : 1, model : <null>, vendor : <null>
+props CURRENT_TAGS = :systemd:
+props DEVNAME = /dev/ttyprintk
+props DEVPATH = /devices/virtual/tty/ttyprintk
+props ID_MM_CANDIDATE = 1
+props MAJOR = 5
+props MINOR = 3
+props SUBSYSTEM = tty
+props TAGS = :systemd:
+props USEC_INITIALIZED = 4080289
+/dev/ttyprintk : initialized : 1, model : <null>, vendor : <null>
+enuminputs : 0
+skid@pi5m2:~/vidbit/tools/bin $ 
+
+
 [![Discord](https://img.shields.io/discord/GUILD_ID?label=discord&logo=discord)](https://discord.gg/xkSVNT2xYR)
+
+
+
+# on my pi
+
+```
+skid@pi5m2:~ $ cat /usr/local/bin/relay 
+pushd /home/skid/relay
+deno task relay
+popd
+```
+

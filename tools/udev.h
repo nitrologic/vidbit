@@ -209,6 +209,71 @@ struct Devices{
 		if (!udev) return -1;
 
 		udev_enumerate *enumerate = udev_enumerate_new(udev);
+		if (!enumerate) {
+			udev_unref(udev);
+			return -1;
+		}
+
+		udev_enumerate_add_match_subsystem(enumerate, "tty");
+		udev_enumerate_scan_devices(enumerate);
+
+		udev_list_entry *devices = udev_enumerate_get_list_entry(enumerate);
+		udev_list_entry *entry;
+
+		udev_list_entry_foreach(entry, devices) {
+			const char *path = udev_list_entry_get_name(entry);
+
+			udev_device *dev = udev_device_new_from_syspath(udev, path);
+			if (!dev) {
+				std::cout << "udev_device_new_from_syspath failure" << std::endl; 
+				continue;
+			}
+
+#ifdef DUMP			
+			udev_list_entry *deventry;
+			udev_list_entry_foreach(deventry,udev_device_get_properties_list_entry(dev))
+			{
+				std::cout 
+					<< std::endl
+					<< udev_list_entry_get_name(deventry)
+					<< " = "
+					<< udev_list_entry_get_value(deventry)
+					<< std::endl;
+			}
+#endif
+			deviceInfo *info = new deviceInfo(path);   // allocate; must be freed later if stored
+			info->scan(dev);
+
+			int initialized=udev_device_get_is_initialized(dev);
+			const char *vendor = udev_device_get_property_value(dev, "ID_VENDOR");
+			const char *model = udev_device_get_property_value(dev, "ID_MODEL");
+			const char *devnode = udev_device_get_devnode(dev);
+
+			if(vendor){
+//			const bool found=strcmp(vendor,"Raspberry_Pi")==0;
+				std::cout << (devnode ? devnode : "?")
+					<< " : "
+					<< "initialized : " << initialized
+					<< ", model : " << (model?model:"<null>")
+					<< ", vendor : " << (vendor?vendor:"<null>")
+					<< std::endl;
+			}
+
+			// Optionally: store info in a class member, but for now just print & delete
+			delete info;
+			udev_device_unref(dev);
+		}
+
+		udev_enumerate_unref(enumerate);
+		udev_unref(udev);
+		return 0;
+	}
+#ifdef BORK
+	int enumTTY2() {
+		udev *udev = udev_new();
+		if (!udev) return -1;
+
+		udev_enumerate *enumerate = udev_enumerate_new(udev);
 		udev_enumerate_add_match_subsystem(enumerate, "tty");
 		udev_enumerate_scan_devices(enumerate);
 
@@ -240,7 +305,7 @@ struct Devices{
 
 		return 0;
 		}	
-
+#endif
 //	"ID_INPUT_KEYBOARD", ID_INPUT_KEY, ID_INPUT_MOUSE, ID_INPUT_TOUCHPAD, ID_INPUT_TOUCHSCREEN, ID_INPUT_TABLET, ID_INPUT_JOYSTICK, ID_INPUT_ACCELEROMETER
 
 	int enumInputs(const char *subsystem){
