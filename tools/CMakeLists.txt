@@ -7,8 +7,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 add_executable(reset
 #	enumvolumes.cpp
 	enumports.cpp
-	reset.cpp
-#	reset.cpp
+	resetcoms.cpp
 )
 
 target_include_directories(reset PRIVATE .)

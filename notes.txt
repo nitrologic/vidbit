@@ -1,1 +1,53 @@
 [![Discord](https://img.shields.io/discord/GUILD_ID?label=discord&logo=discord)](https://discord.gg/xkSVNT2xYR)
+
+/*
+	// Disable flow control unless explicitly required
+	dcb.fOutxCtsFlow = FALSE;
+	dcb.fOutxDsrFlow = FALSE;
+	dcb.fDsrSensitivity = FALSE;
+	dcb.fOutX = FALSE;
+	dcb.fInX = FALSE;
+	dcb.fTXContinueOnXoff = TRUE;
+
+	// Keep binary mode, no parity checking
+	dcb.fBinary = TRUE;
+	dcb.fParity = FALSE;
+
+	if (!SetCommState(hSerial, &dcb)) {
+			std::cerr << "[configureComPort] SetCommState failed, err=" << GetLastError() << std::endl;
+			return false;
+	}
+	COMMTIMEOUTS timeouts;
+	ZeroMemory(&timeouts, sizeof(timeouts));
+
+	// Read config (not critical for write-only use, but sane defaults)
+	timeouts.ReadIntervalTimeout = 50;
+	timeouts.ReadTotalTimeoutMultiplier = 10;
+	timeouts.ReadTotalTimeoutConstant = 100;
+
+	// Important: bounded write time
+	timeouts.WriteTotalTimeoutMultiplier = 10;   // ms per byte
+	timeouts.WriteTotalTimeoutConstant = 500;    // base ms
+
+	if (!SetCommTimeouts(hSerial, &timeouts)) {
+			std::cerr << "[configureComPort] SetCommTimeouts failed, err=" << GetLastError() << std::endl;
+			return false;
+	}
+
+	// Clear any stale buffers/state
+	if (!PurgeComm(hSerial, PURGE_RXCLEAR | PURGE_TXCLEAR | PURGE_RXABORT | PURGE_TXABORT)) {
+			std::cerr << "[configureComPort] PurgeComm failed, err=" << GetLastError() << std::endl;
+	}
+
+	// Explicitly apply modem control lines now
+	if (!EscapeCommFunction(hSerial, SETDTR)) {
+			std::cerr << "[configureComPort] SETDTR failed, err=" << GetLastError() << std::endl;
+	}
+	if (!EscapeCommFunction(hSerial, SETRTS)) {
+			std::cerr << "[configureComPort] SETRTS failed, err=" << GetLastError() << std::endl;
+	}
+
+
+}
+*/
+

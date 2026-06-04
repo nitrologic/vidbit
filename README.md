@@ -6,6 +6,10 @@
 
 An RP2350 microcontroller video game harness.
 
+## tools
+
+* resetcoms 0.1 - send reboot command to all com ports with path "USB\\VID_2E8" 
+
 ## documentation
 
 this document - https://github.com/nitrologic/vidbit
@@ -51,10 +55,21 @@ this document - https://github.com/nitrologic/vidbit
 | 8   | GND
 | 9   | Button
 
-# pics
 
-![alt text](joy9.jpg) 
+# integrated circuit blocks
 
+```
+# 74-165 Shift Register
+
+⬜╔═1═LOAD═□═VCC 16═╗🟥
+⬜║ 2 CLK    INH 15 ║⬜
+⬛║ 3 E        D 14 ║⬛
+⬛║ 4 F        C 13 ║⬛
+⬛║ 5 G        B 12 ║⬛
+⬛║ 6 H        A 11 ║⬛
+⬜║ 7 _QH    SER 10 ║⬜
+🟩╚═8═GND══════QH═9═╝⬜
+```
 
 # codeblocks
 
@@ -67,3 +82,16 @@ this document - https://github.com/nitrologic/vidbit
 "markdown":"↩↪↗↘↖↙◀▶✳✴",
 "square":"🔳🔲✅❎",
 ```
+
+# pics
+
+<img src="joy9.jpg" width="480"> 
+
+"upper": "𝙰𝙱𝙲𝙳𝙴𝙵𝙶𝙷𝙸𝙹𝙺𝙻𝙼𝙽𝙾𝙿𝚀𝚁𝚂𝚃𝚄𝚅𝚆𝚇𝚈𝚉"
+"lower": "𝚊𝚋𝚌𝚍𝚎𝚏𝚐𝚑𝚒𝚓𝚔𝚕𝚖𝚗𝚘𝚙𝚚𝚛𝚜𝚝𝚞𝚟𝚠𝚡𝚢𝚣"
+"digits": "𝟶𝟷𝟸𝟹𝟺𝟻𝟼𝟽𝟾𝟿"
+
+# ①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳
+
+import unicodedata
+clean = unicodedata.normalize("NFKC", "𝟶𝟷𝟸𝟹")  # → "0123"
