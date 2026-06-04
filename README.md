@@ -1,6 +1,6 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) 
 
-![alt text](vidbitsnap.png) 
+![alt text](pics/vidbitsnap.png) 
 
 # nitrologic microPAL VidBit 0.0.6 🤖
 
@@ -55,21 +55,10 @@ this document - https://github.com/nitrologic/vidbit
 | 8   | GND
 | 9   | Button
 
+# pics
 
-# integrated circuit blocks
+![alt text](pics/joy9.jpg) 
 
-```
-# 74-165 Shift Register
-
-⬜╔═1═LOAD═□═VCC 16═╗🟥
-⬜║ 2 CLK    INH 15 ║⬜
-⬛║ 3 E        D 14 ║⬛
-⬛║ 4 F        C 13 ║⬛
-⬛║ 5 G        B 12 ║⬛
-⬛║ 6 H        A 11 ║⬛
-⬜║ 7 _QH    SER 10 ║⬜
-🟩╚═8═GND══════QH═9═╝⬜
-```
 
 # codeblocks
 
