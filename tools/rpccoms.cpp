@@ -1,6 +1,6 @@
-// echocoms.cpp
+// rpccoms.cpp
 
-// 0.1 sends <ping> prints reply
+// 0.1 reset clock
 
 #include <iostream>
 #include "tools.h"
@@ -34,7 +34,7 @@ int readComPort(comHandle handle, uint8_t* buffer, size_t maxSize){
     return (int)bytesRead;
 }
 
-void readerThread(comHandle h, const std::string& portName){
+void rpcThread(comHandle h, const std::string& portName){
 	const size_t bufSize = 4096;
 	auto buffer = std::make_unique<uint8_t[]>(bufSize);
 	std::cout << "[thread] starting reader for " << portName << std::endl;
@@ -59,7 +59,7 @@ void readerThread(comHandle h, const std::string& portName){
 }
 
 void echoComPort(comHandle handle, const char *portName){
-	std::thread reader(readerThread, handle, portName);
+	std::thread reader(rpcThread, handle, portName);
 	reader.detach();
 	printComPort(handle,"<ping>\n");
 }

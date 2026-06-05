@@ -11,6 +11,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 
 if(WIN32)
+
 add_executable(echo
 #	enumvolumes.cpp
 	enumports.cpp
@@ -18,6 +19,14 @@ add_executable(echo
 )
 target_include_directories(echo PRIVATE .)
 target_link_libraries(echo PRIVATE setupapi)
+
+add_executable(rpc
+	enumports.cpp
+	rpccoms.cpp
+)
+target_include_directories(rpc PRIVATE .)
+target_link_libraries(rpc PRIVATE setupapi)
+
 endif()
 
 
