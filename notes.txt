@@ -1,3 +1,14 @@
+#ifdef _oldcode		
+		if (pos == std::string::npos) {
+			return std::nullopt;
+		}
+// todo: remove special \n case 
+		std::string line = buffer.substr(0, pos);
+		buffer.erase(0, pos + 1);
+		return line;
+#endif		
+
+
 skid@pi5m2:~/vidbit/tools/bin $ ./reset 
 props CURRENT_TAGS = :systemd:uaccess:seat:
 props DEVLINKS = /dev/serial/by-id/usb-Raspberry_Pi_Pico_3526E7A3A6A4BD33-if00 /dev/serial/by-path/platform-xhci-hcd.0-usb-0:1:1.0
