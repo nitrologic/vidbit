@@ -60,10 +60,10 @@ public:
 	// readLine() skips empty lines
 	std::optional<std::string> readLine() {
 		std::lock_guard<std::mutex> lock(mutex);
-		size_t pos = buffer.find('\r\n');
+		size_t pos = buffer.find("\r\n",2);
 		while(pos==0){
 			buffer.erase(0, pos + 2);
-			pos = buffer.find("\r\n");
+			pos = buffer.find("\r\n",2);
 		}
 		if (pos != std::string::npos) {
 			std::string line = buffer.substr(0, pos);
@@ -121,7 +121,7 @@ void echoComPort(comHandle handle, const char *portName){
 }
 
 int main() {
-	std::cout << "echocoms 0.1 looking for \"USB\\VID_2E8\""<<std::endl;
+	std::cout << "rpccoms 0.1 looking for \"USB\\VID_2E8\""<<std::endl;
 	auto ports = enumerateComPorts();
 	for (const auto& port : ports) {
 		if(port.devicePath.rfind("USB\\VID_2E8",0)==0){

@@ -12,6 +12,19 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 if(WIN32)
 
+add_executable(win32tool
+	win32coms.cpp
+)
+target_compile_definitions(win32tool PRIVATE UNICODE _UNICODE)
+target_include_directories(win32tool PRIVATE .)
+target_link_libraries(win32tool PRIVATE setupapi ole32)
+
+endif()
+
+
+
+if(WIN32)
+
 add_executable(echo
 #	enumvolumes.cpp
 	enumports.cpp
