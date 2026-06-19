@@ -141,17 +141,33 @@ int main() {
 		}
 	}
 
-   	std::this_thread::sleep_for(std::chrono::seconds(1));
+	std::this_thread::sleep_for(std::chrono::seconds(1));
+
+	TIME_ZONE_INFORMATION timezoneInformation;
+	DWORD result = GetTimeZoneInformation(&timezoneInformation);
+	LONG offsetMinutes = -timezoneInformation.Bias;
+	long timezoneDelta = offsetMinutes * 60;
+	std::cout << "timezoneDelta:" << timezoneDelta << std::endl;
+
+	auto now = std::chrono::system_clock::now();
+	auto seconds = std::chrono::duration_cast<std::chrono::seconds>(now.time_since_epoch()).count();
+
+	std::string rtc = std::to_string(seconds+timezoneDelta);
+	std::string setRTC = "{\"jsonrpc\":\"2.0\",\"method\":\"rtc.set\",\"params\":{\"time\":" + rtc + "},\"id\":1}\n";
+//	std::string setRTC="{\"jsonrpc\":\"2.0\",\"method\":\"rtc.set\",\"params\":{\"time\":359155200},\"id\":1}\n";
+	std::cout << "setRTC:" << setRTC << std::endl;
 
 	for (const auto& handle : comHandles) {
-		printComPort(handle,"<ping>\n");
+//		printComPort(handle,"<ping>\n");
+		printComPort(handle,setRTC);
 	}
 
 	std::this_thread::sleep_for(std::chrono::seconds(10));
 
 	std::optional<std::string> line;
-	while(line=rpcFifo.readLine()){        
+	while(line=rpcFifo.readLine()){
 		std::cout << "readline:" << line.value() << std::endl;
 	}
+
 	return 0;
 }
