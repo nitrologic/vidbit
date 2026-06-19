@@ -1,3 +1,13 @@
+               110 Ω (MSB)
+  GPIO Pin A ────[═══]────┐
+                          │   (+)       (–) [Stripe]
+                          ├────┤(───────────» To RCA Center Pin
+                          │  220µF Cap
+  GPIO Pin B ────[═══]────┘
+               220 Ω (LSB)
+
+
+
 #ifdef _oldcode		
 		if (pos == std::string::npos) {
 			return std::nullopt;

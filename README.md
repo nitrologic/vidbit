@@ -55,6 +55,31 @@ this document - https://github.com/nitrologic/vidbit
 | 8   | GND
 | 9   | Button
 
+# VGA 15 PIN
+
+| pin | name |
+| --- | ----------- |
+| 1   | Red
+| 2   | Green
+| 3   | Blue
+| 4   | ID2
+| 5   | GND
+| 6   | Red GND
+| 7   | Green GND
+| 8   | Blue GND
+| 9   | * 5V KEY
+| 10  | * GND SYNC
+| 11  | NC ID0 RES
+| 12  | * ID1 SDA   | GP0
+| 13  | HSYNC
+| 14  | VSYNC
+| 15  | * ID3 SCL   | GP1
+
+## DDC2B / I²C
+
+
+
+
 # pics
 
 ![alt text](pics/joy9.jpg) 

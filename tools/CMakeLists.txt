@@ -21,7 +21,17 @@ target_link_libraries(win32tool PRIVATE setupapi ole32)
 
 endif()
 
+if(WIN32)
 
+add_executable(tx
+#	enumvolumes.cpp
+	enumports.cpp
+	transmitcoms.cpp
+)
+target_include_directories(tx PRIVATE .)
+target_link_libraries(tx PRIVATE setupapi)
+
+endif()
 
 if(WIN32)
 
@@ -51,6 +61,7 @@ add_executable(reset
 )
 target_include_directories(reset PRIVATE .)
 target_link_libraries(reset PRIVATE setupapi)
+
 endif()
 
 if(LINUX)
