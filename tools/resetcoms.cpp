@@ -10,10 +10,11 @@ inline byteData toBytes(const std::string& str) {
 }
 
 int main() {
-	std::cout << "resetcoms 0.1 looking for \"USB\\VID_2E8\""<<std::endl;
+	std::cout << "resetcoms 0.2 looking for \"USB\\VID_2E8\" or \"USB\\VID_1209\""<<std::endl;
 	auto ports = enumerateComPorts();
 	for (const auto& port : ports) {
-		if(port.devicePath.rfind("USB\\VID_2E8",0)==0){
+		bool isPico=(port.devicePath.rfind("USB\\VID_2E8",0)==0) || (port.devicePath.rfind("USB\\VID_1209",0)==0);
+		if(isPico){
 			byteData boot = toBytes("\nBOOT\n");
 			comHandle h=openComPort(port.portName);
 			if(h){

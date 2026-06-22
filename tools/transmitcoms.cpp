@@ -15,10 +15,11 @@ int main(int argc, char* argv[]) {
         return 1;
     }
     std::string payload=std::string("\n")+argv[1]+"\n";
-	std::cout << "transmitcoms 0.1 looking for \"USB\\VID_2E8\""<<std::endl;
+	std::cout << "transmitcoms 0.21 looking for \"USB\\VID_2E8\" or \"USB\\VID_1209\""<<std::endl;
 	auto ports = enumerateComPorts();
 	for (const auto& port : ports) {
-		if(port.devicePath.rfind("USB\\VID_2E8",0)==0){
+		bool isPico=(port.devicePath.rfind("USB\\VID_2E8",0)==0) || (port.devicePath.rfind("USB\\VID_1209",0)==0);
+		if(isPico){
 			byteData bytes = toBytes(payload);
 			comHandle h=openComPort(port.portName);
 			if(h){

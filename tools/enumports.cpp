@@ -40,14 +40,19 @@ void closeComPort(HANDLE hSerial) {
 
 // TODO: accumulate bytesWritten until all sent
 
-void writeComPort(HANDLE hSerial,const byteData &data){
-	DWORD bytesWritten = 0;
-	BOOL success = WriteFile(hSerial,data.data(),static_cast<DWORD>(data.size()),&bytesWritten,NULL);
-	if(success){
-		std::cout << "[writeComPort] bytesWritten " << bytesWritten << std::endl;
-	}else{
-		std::cout << "[writeComPort] failure" << std::endl;
+bool writeComPort(HANDLE hSerial,const byteData &byteData){
+	int index=0;
+	while(index<byteData.size()){
+		DWORD bytesWritten = 0;
+		DWORD count=byteData.size()-index;
+		BOOL success = WriteFile(hSerial,byteData.data()+index,count,&bytesWritten,NULL);
+		if(!success){
+			std::cout << "[writeComPort] failure" << std::endl;
+			return false;
+		}
+		index+=bytesWritten;
 	}
+	return true;
 }
 
 HANDLE openComPort(const std::string& portName) {

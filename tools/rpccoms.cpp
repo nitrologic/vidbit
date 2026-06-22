@@ -121,10 +121,11 @@ void echoComPort(comHandle handle, const char *portName){
 }
 
 int main() {
-	std::cout << "rpccoms 0.1 looking for \"USB\\VID_2E8\""<<std::endl;
+	std::cout << "rpccoms 0.2 looking for \"USB\\VID_2E8\" and \"USB\\VID_1209\""<<std::endl;
 	auto ports = enumerateComPorts();
 	for (const auto& port : ports) {
-		if(port.devicePath.rfind("USB\\VID_2E8",0)==0){
+		const bool isPico=(port.devicePath.rfind("USB\\VID_2E8",0)==0)||(port.devicePath.rfind("USB\\VID_1209",0)==0);
+		if(isPico){
 			comHandle h=openComPort(port.portName);
 			if(h){
 				std::cout << "echoing " << port.portName << " handle:" << h << std::endl;
@@ -147,7 +148,7 @@ int main() {
 	DWORD result = GetTimeZoneInformation(&timezoneInformation);
 	LONG offsetMinutes = -timezoneInformation.Bias;
 	long timezoneDelta = offsetMinutes * 60;
-	std::cout << "timezoneDelta:" << timezoneDelta << std::endl;
+//	std::cout << "timezoneDelta:" << timezoneDelta << std::endl;
 
 	auto now = std::chrono::system_clock::now();
 	auto seconds = std::chrono::duration_cast<std::chrono::seconds>(now.time_since_epoch()).count();

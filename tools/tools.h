@@ -18,5 +18,5 @@ using comHandle=void *;
 
 std::vector<ComPortInfo> enumerateComPorts();
 comHandle openComPort(const std::string& portName);
-void writeComPort(comHandle handle, const byteData &payload);
+bool writeComPort(comHandle handle, const byteData &payload);
 void closeComPort(comHandle handle);

@@ -18,7 +18,6 @@ inline byteData toBytes(const std::string& str) {
 void printComPort(comHandle handle,const std::string &text){
 	const byteData data=toBytes(text);
 	writeComPort(handle,data);
-
 }
 
 int readComPort(comHandle handle, uint8_t* buffer, size_t maxSize){
