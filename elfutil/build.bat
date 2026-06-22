@@ -1,4 +1,6 @@
-set erroe
+rem set error
+
+rem copy ..\..\entheogen\vidbit\bin\vidbot1.elf .
 
 mkdir bin
 pushd bin
@@ -10,9 +12,7 @@ if %errorlevel% neq 0 (
     exit /b %errorlevel%
 )
 
-rem reset.exe
-rem echo.exe
-rpc.exe
-rem win32tool.exe
-rem tx "{\"jsonrpc\":\"2.0\",\"method\":\"rtc.set\",\"params\":{\"time\":347155200},\"id\":1}"
 popd
+
+bin\elfutil.exe vidbot1.elf
+

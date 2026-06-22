@@ -20,16 +20,30 @@ void *NULL_HANDLE=0;
 bool initComPort(HANDLE hSerial){
 	DCB dcb={sizeof(dcb)};
 	if (!GetCommState(hSerial, &dcb)) {
-		std::cerr << "[configureComPort] GetCommState failed, err=" << GetLastError() << std::endl;
+		std::cerr << "[initComPort] GetCommState failed, err=" << GetLastError() << std::endl;
 		return false;
 	}
 	dcb.fDtrControl = DTR_CONTROL_ENABLE;
 	dcb.fRtsControl = RTS_CONTROL_ENABLE;
 	BOOL ok=SetCommState(hSerial,&dcb);
 	if(!ok){
-		std::cerr << "[configureComPort] GetCommState failed, err=" << GetLastError() << std::endl;
+		std::cerr << "[initComPort] SetCommState failed, err=" << GetLastError() << std::endl;
 		return false;
 	}
+
+	COMMTIMEOUTS timeouts = { 0 };
+	timeouts.ReadIntervalTimeout = 50;
+	timeouts.ReadTotalTimeoutConstant = 100;
+//	timeouts.ReadIntervalTimeout = MAXDWORD;
+//	timeouts.ReadTotalTimeoutMultiplier = 0;
+//	timeouts.ReadTotalTimeoutConstant = 0;
+//	timeouts.WriteTotalTimeoutMultiplier = 0;
+//	timeouts.WriteTotalTimeoutConstant = 0;
+	if (!SetCommTimeouts(hSerial, &timeouts)) {
+		std::cerr << "[initComPort] SetCommTimeouts failed, err=" << GetLastError() << std::endl;
+		return false;
+	}
+
 	return true;
 }
 
