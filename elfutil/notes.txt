@@ -1,0 +1,712 @@
+elfutil 0.2
+[ELF32] path:vidbot1.elf
+[ELF32] header:{e_type:0x2[ET_EXEC], e_machine:0x28[EM_ARM], e_entry:0x1000014d, e_phoff:0x34, e_shoff:0x3fca8, e_phnum:8, e_shnum:32, e_shstrndx:31}
+[ELF32] p0:{type:0x70000001[ARM_EXIDX], vaddr:0x10001494, memsz:0x8, filesz:0x8, flags:R--}
+[ELF32] p1:{type:0x1[LOAD], vaddr:0x10000000, memsz:0x14b8, filesz:0x14b8, flags:RWX}
+[ELF32] p2:{type:0x1[LOAD], vaddr:0x20000110, memsz:0x1e8, filesz:0x1e8, flags:RWX}
+[ELF32] p3:{type:0x1[LOAD], vaddr:0x100016a0, memsz:0x14, filesz:0x14, flags:R--}
+[ELF32] p4:{type:0x1[LOAD], vaddr:0x200002f8, memsz:0x1fc, filesz:0x0, flags:RW-}
+[ELF32] p5:{type:0x1[LOAD], vaddr:0x200004f4, memsz:0x800, filesz:0x0, flags:R--}
+[ELF32] p6:{type:0x1[LOAD], vaddr:0x20000000, memsz:0x110, filesz:0x0, flags:RW-}
+[ELF32] p7:{type:0x1[LOAD], vaddr:0x20081000, memsz:0x800, filesz:0x0, flags:R--}
+[ELF32] sh0:{name:"", type:NULL}
+[ELF32] sh1:{name:".text", type:PROGBITS}
+00001000  00 20 08 20 5d 01 00 10  1b 01 00 10 1d 01 00 10  |. . ]...........|
+00001010  11 01 00 10 11 01 00 10  11 01 00 10 11 01 00 10  |................|
+00001020  19 01 00 10 19 01 00 10  19 01 00 10 1f 01 00 10  |................|
+00001030  11 01 00 10 19 01 00 10  21 01 00 10 23 01 00 10  |........!...#...|
+00001040  11 01 00 10 11 01 00 10  11 01 00 10 11 01 00 10  |................|
+00001050  11 01 00 10 11 01 00 10  11 01 00 10 11 01 00 10  |................|
+00001060  11 01 00 10 11 01 00 10  11 01 00 10 11 01 00 10  |................|
+00001070  11 01 00 10 11 01 00 10  11 01 00 10 11 01 00 10  |................|
+00001080  11 01 00 10 11 01 00 10  11 01 00 10 11 01 00 10  |................|
+00001090  11 01 00 10 11 01 00 10  11 01 00 10 11 01 00 10  |................|
+000010a0  11 01 00 10 11 01 00 10  11 01 00 10 11 01 00 10  |................|
+000010b0  11 01 00 10 11 01 00 10  11 01 00 10 11 01 00 10  |................|
+000010c0  11 01 00 10 11 01 00 10  11 01 00 10 11 01 00 10  |................|
+000010d0  11 01 00 10 11 01 00 10  11 01 00 10 11 01 00 10  |................|
+000010e0  11 01 00 10 11 01 00 10  11 01 00 10 11 01 00 10  |................|
+000010f0  11 01 00 10 11 01 00 10  11 01 00 10 11 01 00 10  |................|
+00001100  11 01 00 10 11 01 00 10  11 01 00 10 11 01 00 10  |................|
+00001110  ef f3 05 80 10 38 00 be  00 be 00 be 00 be 00 be  |.....8..........|
+00001120  00 be 00 be f2 eb 88 71  9c 14 00 10 b8 14 00 10  |.......q........|
+00001130  a0 01 00 10 90 a3 1a e7  d3 de ff ff 42 01 21 10  |............B.!.|
+00001140  ff 01 00 00 68 15 00 00  79 35 12 ab 4f f0 00 00  |....h...y5..O...|
+00001150  1e 49 08 60 06 c8 81 f3  08 88 10 47 4f f0 50 40  |.I.`.......GO.P@|
+00001160  00 68 10 b1 4f f0 00 00  f2 e7 0d a4 0e cc 00 29  |.h..O..........)|
+
+elfutil 0.2
+[ELF32] path:vidbot1.elf
+[ELF32] header:{e_type:0x2[ET_EXEC], e_machine:0x28[EM_ARM], e_entry:0x1000014d, e_phoff:0x34, e_shoff:0x3fca8, e_phnum:8, e_shnum:32, e_shstrndx:31}
+[ELF32] p0:{type:0x70000001[ARM_EXIDX], vaddr:0x10001494, memsz:0x8, filesz:0x8, flags:R--}
+[ELF32] p1:{type:0x1[LOAD], vaddr:0x10000000, memsz:0x14b8, filesz:0x14b8, flags:RWX}
+[ELF32] p2:{type:0x1[LOAD], vaddr:0x20000110, memsz:0x1e8, filesz:0x1e8, flags:RWX}
+[ELF32] p3:{type:0x1[LOAD], vaddr:0x100016a0, memsz:0x14, filesz:0x14, flags:R--}
+[ELF32] p4:{type:0x1[LOAD], vaddr:0x200002f8, memsz:0x1fc, filesz:0x0, flags:RW-}
+[ELF32] p5:{type:0x1[LOAD], vaddr:0x200004f4, memsz:0x800, filesz:0x0, flags:R--}
+[ELF32] p6:{type:0x1[LOAD], vaddr:0x20000000, memsz:0x110, filesz:0x0, flags:RW-}
+[ELF32] p7:{type:0x1[LOAD], vaddr:0x20081000, memsz:0x800, filesz:0x0, flags:R--}
+[ELF32] sh0:{name:"", type:NULL}
+[ELF32] sh1:{name:".text", type:PROGBITS}
+[ELF32] sh2:{name:".rodata", type:PROGBITS}
+[ELF32] sh3:{name:".ARM.exidx", type:ARM_EXIDX}
+[ELF32] sh4:{name:".binary_info", type:PROGBITS}
+[ELF32] sh5:{name:".ram_vector_table", type:NOBITS}
+[ELF32] sh6:{name:".uninitialized_data", type:PROGBITS}
+[ELF32] sh7:{name:".data", type:PROGBITS}
+[ELF32] sh8:{name:".got", type:PROGBITS}
+[ELF32] sh9:{name:".got.plt", type:PROGBITS}
+[ELF32] sh10:{name:".tdata", type:PROGBITS}
+[ELF32] sh11:{name:".tbss", type:NOBITS}
+[ELF32] sh12:{name:".bss", type:NOBITS}
+[ELF32] sh13:{name:".heap", type:NOBITS}
+[ELF32] sh14:{name:".scratch_x", type:PROGBITS}
+[ELF32] sh15:{name:".scratch_y", type:PROGBITS}
+[ELF32] sh16:{name:".stack_dummy", type:NOBITS}
+[ELF32] sh17:{name:".flash_end", type:PROGBITS}
+[ELF32] sh18:{name:".debug_info", type:PROGBITS}
+[ELF32] sh19:{name:".debug_abbrev", type:PROGBITS}
+[ELF32] sh20:{name:".debug_aranges", type:PROGBITS}
+[ELF32] sh21:{name:".debug_rnglists", type:PROGBITS}
+[ELF32] sh22:{name:".debug_line", type:PROGBITS}
+[ELF32] sh23:{name:".debug_str", type:PROGBITS}
+[ELF32] sh24:{name:".comment", type:PROGBITS}
+[ELF32] sh25:{name:".ARM.attributes", type:ARM_ATTRIBUTES}
+[ELF32] sh26:{name:".debug_frame", type:PROGBITS}
+[ELF32] sh27:{name:".debug_loclists", type:PROGBITS}
+[ELF32] sh28:{name:".debug_line_str", type:PROGBITS}
+[ELF32] sh29:{name:".symtab", type:SYMTAB}
+[ELF32] sh30:{name:".strtab", type:STRTAB}
+[ELF32] sh31:{name:".shstrtab", type:STRTAB}
+
+[ELF32] symbols (478):
+[ELF32] sym0:{name:"<null>", value:0x0, size:0x0}
+[ELF32] sym1:{name:"<null>", value:0x10000000, size:0x0}
+[ELF32] sym2:{name:"<null>", value:0x10001410, size:0x0}
+[ELF32] sym3:{name:"<null>", value:0x10001494, size:0x0}
+[ELF32] sym4:{name:"<null>", value:0x1000149c, size:0x0}
+[ELF32] sym5:{name:"<null>", value:0x20000000, size:0x0}
+[ELF32] sym6:{name:"<null>", value:0x20000110, size:0x0}
+[ELF32] sym7:{name:"<null>", value:0x20000110, size:0x0}
+[ELF32] sym8:{name:"<null>", value:0x200002c0, size:0x0}
+[ELF32] sym9:{name:"<null>", value:0x200002ec, size:0x0}
+[ELF32] sym10:{name:"<null>", value:0x200002f8, size:0x0}
+[ELF32] sym11:{name:"<null>", value:0x200002f8, size:0x0}
+[ELF32] sym12:{name:"<null>", value:0x200002f8, size:0x0}
+[ELF32] sym13:{name:"<null>", value:0x200004f4, size:0x0}
+[ELF32] sym14:{name:"<null>", value:0x20080000, size:0x0}
+[ELF32] sym15:{name:"<null>", value:0x20081000, size:0x0}
+[ELF32] sym16:{name:"<null>", value:0x20081000, size:0x0}
+[ELF32] sym17:{name:"<null>", value:0x100016a0, size:0x0}
+[ELF32] sym18:{name:"<null>", value:0x0, size:0x0}
+[ELF32] sym19:{name:"<null>", value:0x0, size:0x0}
+[ELF32] sym20:{name:"<null>", value:0x0, size:0x0}
+[ELF32] sym21:{name:"<null>", value:0x0, size:0x0}
+[ELF32] sym22:{name:"<null>", value:0x0, size:0x0}
+[ELF32] sym23:{name:"<null>", value:0x0, size:0x0}
+[ELF32] sym24:{name:"<null>", value:0x0, size:0x0}
+[ELF32] sym25:{name:"<null>", value:0x0, size:0x0}
+[ELF32] sym26:{name:"<null>", value:0x0, size:0x0}
+[ELF32] sym27:{name:"<null>", value:0x0, size:0x0}
+[ELF32] sym28:{name:"<null>", value:0x0, size:0x0}
+[ELF32] sym29:{name:"crt0.S.obj", value:0x0, size:0x0}
+[ELF32] sym30:{name:"$d", value:0x10000000, size:0x0}
+[ELF32] sym31:{name:"_reset_handler", value:0x1000015d, size:0x0}
+[ELF32] sym32:{name:"$t", value:0x10000110, size:0x0}
+[ELF32] sym33:{name:"binary_info_header", value:0x10000124, size:0x0}
+[ELF32] sym34:{name:"data_cpy_table", value:0x100001a0, size:0x0}
+[ELF32] sym35:{name:"$d", value:0x10000138, size:0x0}
+[ELF32] sym36:{name:"embedded_block", value:0x10000138, size:0x0}
+[ELF32] sym37:{name:"embedded_block_end", value:0x1000014c, size:0x0}
+[ELF32] sym38:{name:"embedded_end_block", value:0x100016a0, size:0x0}
+[ELF32] sym39:{name:"$t", value:0x1000014c, size:0x0}
+[ELF32] sym40:{name:"_enter_vtable_in_r0", value:0x10000150, size:0x0}
+[ELF32] sym41:{name:"hold_non_core0_in_bootrom", value:0x10000164, size:0x0}
+[ELF32] sym42:{name:"data_cpy", value:0x1000019a, size:0x0}
+[ELF32] sym43:{name:"bss_fill_test", value:0x10000182, size:0x0}
+[ELF32] sym44:{name:"bss_fill_loop", value:0x10000180, size:0x0}
+[ELF32] sym45:{name:"platform_entry", value:0x10000186, size:0x0}
+[ELF32] sym46:{name:"data_cpy_loop", value:0x10000196, size:0x0}
+[ELF32] sym47:{name:"$d", value:0x100001a0, size:0x0}
+[ELF32] sym48:{name:"$t", value:0x100001c8, size:0x0}
+[ELF32] sym49:{name:"$d", value:0x20081000, size:0x0}
+[ELF32] sym50:{name:"StackSize", value:0x800, size:0x0}
+[ELF32] sym51:{name:"$d", value:0x200004f4, size:0x0}
+[ELF32] sym52:{name:"HeapSize", value:0x800, size:0x0}
+[ELF32] sym53:{name:"$d", value:0x100016a0, size:0x0}
+[ELF32] sym54:{name:"embedded_end_block_end", value:0x100016b4, size:0x0}
+[ELF32] sym55:{name:"$d", value:0x100001ca, size:0x0}
+[ELF32] sym56:{name:"$d", value:0x100001cc, size:0x0}
+[ELF32] sym57:{name:"bot1.cpp", value:0x0, size:0x0}
+[ELF32] sym58:{name:"$t", value:0x100001e4, size:0x0}
+[ELF32] sym59:{name:"panic.c", value:0x0, size:0x0}
+[ELF32] sym60:{name:"$d", value:0x10001410, size:0x0}
+[ELF32] sym61:{name:"$t", value:0x100001e8, size:0x0}
+[ELF32] sym62:{name:"$d", value:0x10000214, size:0x0}
+[ELF32] sym63:{name:"claim.c", value:0x0, size:0x0}
+[ELF32] sym64:{name:"$t", value:0x1000021c, size:0x0}
+[ELF32] sym65:{name:"$d", value:0x10000244, size:0x0}
+[ELF32] sym66:{name:"$t", value:0x1000024c, size:0x0}
+[ELF32] sym67:{name:"$d", value:0x10000264, size:0x0}
+[ELF32] sym68:{name:"$t", value:0x1000026c, size:0x0}
+[ELF32] sym69:{name:"sync.c", value:0x0, size:0x0}
+[ELF32] sym70:{name:"$t", value:0x1000029c, size:0x0}
+[ELF32] sym71:{name:"$d", value:0x100002b0, size:0x0}
+[ELF32] sym72:{name:"striped_spin_lock_num", value:0x20000248, size:0x1}
+[ELF32] sym73:{name:"sync_spin_lock.c", value:0x0, size:0x0}
+[ELF32] sym74:{name:"$t", value:0x100002b4, size:0x0}
+[ELF32] sym75:{name:"spinlock_set_extexclall", value:0x100002b5, size:0xe}
+[ELF32] sym76:{name:"$t", value:0x100002c4, size:0x0}
+[ELF32] sym77:{name:"$d", value:0x100002e0, size:0x0}
+[ELF32] sym78:{name:"$d", value:0x10001408, size:0x0}
+[ELF32] sym79:{name:"$d", value:0x20000478, size:0x0}
+[ELF32] sym80:{name:"irq.c", value:0x0, size:0x0}
+[ELF32] sym81:{name:"$t", value:0x100002e8, size:0x0}
+[ELF32] sym82:{name:"$t", value:0x10000328, size:0x0}
+[ELF32] sym83:{name:"$d", value:0x10000348, size:0x0}
+[ELF32] sym84:{name:"$t", value:0x1000034c, size:0x0}
+[ELF32] sym85:{name:"$t", value:0x10000360, size:0x0}
+[ELF32] sym86:{name:"$d", value:0x1000036c, size:0x0}
+[ELF32] sym87:{name:"$t", value:0x10000370, size:0x0}
+[ELF32] sym88:{name:"$d", value:0x100003dc, size:0x0}
+[ELF32] sym89:{name:"$d", value:0x1000140c, size:0x0}
+[ELF32] sym90:{name:"lock_core.c", value:0x0, size:0x0}
+[ELF32] sym91:{name:"$t", value:0x100003ec, size:0x0}
+[ELF32] sym92:{name:"$d", value:0x100003fc, size:0x0}
+[ELF32] sym93:{name:"mutex.c", value:0x0, size:0x0}
+[ELF32] sym94:{name:"$t", value:0x10000404, size:0x0}
+[ELF32] sym95:{name:"$t", value:0x10000420, size:0x0}
+[ELF32] sym96:{name:"$t", value:0x1000043c, size:0x0}
+[ELF32] sym97:{name:"$d", value:0x1000046c, size:0x0}
+[ELF32] sym98:{name:"$t", value:0x20000110, size:0x0}
+[ELF32] sym99:{name:"$t", value:0x20000160, size:0x0}
+[ELF32] sym100:{name:"$t", value:0x200001d0, size:0x0}
+[ELF32] sym101:{name:"$t", value:0x20000204, size:0x0}
+[ELF32] sym102:{name:"$d", value:0x100013f0, size:0x0}
+[ELF32] sym103:{name:"time.c", value:0x0, size:0x0}
+[ELF32] sym104:{name:"$t", value:0x10000478, size:0x0}
+[ELF32] sym105:{name:"sleep_until_callback", value:0x10000479, size:0x40}
+[ELF32] sym106:{name:"$d", value:0x100004b4, size:0x0}
+[ELF32] sym107:{name:"sleep_notifier", value:0x200004f0, size:0x4}
+[ELF32] sym108:{name:"$t", value:0x100004b8, size:0x0}
+[ELF32] sym109:{name:"alarm_pool_irq_handler", value:0x100004b9, size:0x2f0}
+[ELF32] sym110:{name:"$d", value:0x10000790, size:0x0}
+[ELF32] sym111:{name:"pools", value:0x200004d0, size:0x20}
+[ELF32] sym112:{name:"$t", value:0x100007a8, size:0x0}
+[ELF32] sym113:{name:"$d", value:0x100007b0, size:0x0}
+[ELF32] sym114:{name:"default_alarm_pool", value:0x2000024c, size:0x18}
+[ELF32] sym115:{name:"$t", value:0x100007b4, size:0x0}
+[ELF32] sym116:{name:"$t", value:0x1000087c, size:0x0}
+[ELF32] sym117:{name:"$t", value:0x100008bc, size:0x0}
+[ELF32] sym118:{name:"$t", value:0x1000093c, size:0x0}
+[ELF32] sym119:{name:"$d", value:0x100009e8, size:0x0}
+[ELF32] sym120:{name:"$t", value:0x100009f0, size:0x0}
+[ELF32] sym121:{name:"$d", value:0x100009f4, size:0x0}
+[ELF32] sym122:{name:"$t", value:0x100009f8, size:0x0}
+[ELF32] sym123:{name:"$d", value:0x10000b00, size:0x0}
+[ELF32] sym124:{name:"$d", value:0x100013f8, size:0x0}
+[ELF32] sym125:{name:"$d", value:0x200004d0, size:0x0}
+[ELF32] sym126:{name:"$d", value:0x200004f0, size:0x0}
+[ELF32] sym127:{name:"$d", value:0x2000024c, size:0x0}
+[ELF32] sym128:{name:"default_alarm_pool_entries", value:0x200002f8, size:0x180}
+[ELF32] sym129:{name:"$d", value:0x200002f8, size:0x0}
+[ELF32] sym130:{name:"timer.c", value:0x0, size:0x0}
+[ELF32] sym131:{name:"$d", value:0x10001424, size:0x0}
+[ELF32] sym132:{name:"$t", value:0x10000b20, size:0x0}
+[ELF32] sym133:{name:"$d", value:0x10000b3c, size:0x0}
+[ELF32] sym134:{name:"claimed", value:0x20000498, size:0x2}
+[ELF32] sym135:{name:"$t", value:0x10000b48, size:0x0}
+[ELF32] sym136:{name:"$t", value:0x10000b58, size:0x0}
+[ELF32] sym137:{name:"$d", value:0x10000b60, size:0x0}
+[ELF32] sym138:{name:"$d", value:0x20000498, size:0x0}
+[ELF32] sym139:{name:"clocks.c", value:0x0, size:0x0}
+[ELF32] sym140:{name:"configured_freq", value:0x2000049c, size:0x28}
+[ELF32] sym141:{name:"$t", value:0x10000b64, size:0x0}
+[ELF32] sym142:{name:"$d", value:0x10000c38, size:0x0}
+[ELF32] sym143:{name:"$t", value:0x10000c40, size:0x0}
+[ELF32] sym144:{name:"$d", value:0x10000c4c, size:0x0}
+[ELF32] sym145:{name:"$d", value:0x2000049c, size:0x0}
+[ELF32] sym146:{name:"pll.c", value:0x0, size:0x0}
+[ELF32] sym147:{name:"$t", value:0x10000c50, size:0x0}
+[ELF32] sym148:{name:"$d", value:0x10000ccc, size:0x0}
+[ELF32] sym149:{name:"ticks.c", value:0x0, size:0x0}
+[ELF32] sym150:{name:"$t", value:0x10000cdc, size:0x0}
+[ELF32] sym151:{name:"bootrom.c", value:0x0, size:0x0}
+[ELF32] sym152:{name:"$t", value:0x10000cf4, size:0x0}
+[ELF32] sym153:{name:"bootrom_lock.c", value:0x0, size:0x0}
+[ELF32] sym154:{name:"$t", value:0x10000d0c, size:0x0}
+[ELF32] sym155:{name:"$d", value:0x10000d1c, size:0x0}
+[ELF32] sym156:{name:"$d", value:0x100013ec, size:0x0}
+[ELF32] sym157:{name:"boot_lock.c", value:0x0, size:0x0}
+[ELF32] sym158:{name:"$t", value:0x10000d20, size:0x0}
+[ELF32] sym159:{name:"$d", value:0x10000d34, size:0x0}
+[ELF32] sym160:{name:"$t", value:0x10000d3c, size:0x0}
+[ELF32] sym161:{name:"$d", value:0x100013e4, size:0x0}
+[ELF32] sym162:{name:"xosc.c", value:0x0, size:0x0}
+[ELF32] sym163:{name:"$t", value:0x10000d40, size:0x0}
+[ELF32] sym164:{name:"$d", value:0x10000d64, size:0x0}
+[ELF32] sym165:{name:"runtime.c", value:0x0, size:0x0}
+[ELF32] sym166:{name:"$t", value:0x10000d70, size:0x0}
+[ELF32] sym167:{name:"first_per_core_initializer", value:0x10000d71, size:0x2}
+[ELF32] sym168:{name:"$d", value:0x10001448, size:0x0}
+[ELF32] sym169:{name:"$t", value:0x10000d74, size:0x0}
+[ELF32] sym170:{name:"$d", value:0x10000d80, size:0x0}
+[ELF32] sym171:{name:"$t", value:0x10000d84, size:0x0}
+[ELF32] sym172:{name:"$d", value:0x10000db0, size:0x0}
+[ELF32] sym173:{name:"$d", value:0x100013fc, size:0x0}
+[ELF32] sym174:{name:"runtime_init.c", value:0x0, size:0x0}
+[ELF32] sym175:{name:"$t", value:0x10000dbc, size:0x0}
+[ELF32] sym176:{name:"$d", value:0x10000ddc, size:0x0}
+[ELF32] sym177:{name:"$t", value:0x10000df0, size:0x0}
+[ELF32] sym178:{name:"$d", value:0x10000e04, size:0x0}
+[ELF32] sym179:{name:"$t", value:0x10000e0c, size:0x0}
+[ELF32] sym180:{name:"$d", value:0x10000e24, size:0x0}
+[ELF32] sym181:{name:"$t", value:0x10000e28, size:0x0}
+[ELF32] sym182:{name:"$d", value:0x10000e40, size:0x0}
+[ELF32] sym183:{name:"$t", value:0x10000e48, size:0x0}
+[ELF32] sym184:{name:"$t", value:0x10000e5c, size:0x0}
+[ELF32] sym185:{name:"$t", value:0x10000e70, size:0x0}
+[ELF32] sym186:{name:"$t", value:0x10000e74, size:0x0}
+[ELF32] sym187:{name:"$d", value:0x10000ed4, size:0x0}
+[ELF32] sym188:{name:"$d", value:0x100013f4, size:0x0}
+[ELF32] sym189:{name:"$d", value:0x20000000, size:0x0}
+[ELF32] sym190:{name:"$d", value:0x100013e8, size:0x0}
+[ELF32] sym191:{name:"$d", value:0x100013e0, size:0x0}
+[ELF32] sym192:{name:"$d", value:0x100013dc, size:0x0}
+[ELF32] sym193:{name:"$d", value:0x10001404, size:0x0}
+[ELF32] sym194:{name:"$d", value:0x100013d8, size:0x0}
+[ELF32] sym195:{name:"$d", value:0x100013d4, size:0x0}
+[ELF32] sym196:{name:"$d", value:0x10001400, size:0x0}
+[ELF32] sym197:{name:"$d", value:0x100013d0, size:0x0}
+[ELF32] sym198:{name:"runtime_init_clocks.c", value:0x0, size:0x0}
+[ELF32] sym199:{name:"$t", value:0x10000eec, size:0x0}
+[ELF32] sym200:{name:"$d", value:0x10000fa0, size:0x0}
+[ELF32] sym201:{name:"printf.c", value:0x0, size:0x0}
+[ELF32] sym202:{name:"$t", value:0x10000fc8, size:0x0}
+[ELF32] sym203:{name:"_out_char", value:0x10000fc9, size:0x8}
+[ELF32] sym204:{name:"lazy_vsnprintf", value:0x200004cc, size:0x4}
+[ELF32] sym205:{name:"$t", value:0x10000fd0, size:0x0}
+[ELF32] sym206:{name:"$d", value:0x10000ffc, size:0x0}
+[ELF32] sym207:{name:"$d", value:0x200004cc, size:0x0}
+[ELF32] sym208:{name:"newlib_interface.c", value:0x0, size:0x0}
+[ELF32] sym209:{name:"$t", value:0x10001004, size:0x0}
+[ELF32] sym210:{name:"$t", value:0x10001008, size:0x0}
+[ELF32] sym211:{name:"$t", value:0x10001010, size:0x0}
+[ELF32] sym212:{name:"$d", value:0x10001040, size:0x0}
+[ELF32] sym213:{name:"stdio.c", value:0x0, size:0x0}
+[ELF32] sym214:{name:"$t", value:0x1000104c, size:0x0}
+[ELF32] sym215:{name:"stdio_out_chars_no_crlf", value:0x1000104d, size:0x8}
+[ELF32] sym216:{name:"$t", value:0x10001054, size:0x0}
+[ELF32] sym217:{name:"stdio_out_chars_crlf", value:0x10001055, size:0xac}
+[ELF32] sym218:{name:"$d", value:0x100010fc, size:0x0}
+[ELF32] sym219:{name:"crlf_str.0", value:0x10001490, size:0x2}
+[ELF32] sym220:{name:"drivers", value:0x200004c4, size:0x4}
+[ELF32] sym221:{name:"filter", value:0x200004c8, size:0x4}
+[ELF32] sym222:{name:"$t", value:0x10001100, size:0x0}
+[ELF32] sym223:{name:"$d", value:0x10001130, size:0x0}
+[ELF32] sym224:{name:"print_mutex", value:0x200002b8, size:0x8}
+[ELF32] sym225:{name:"$t", value:0x10001138, size:0x0}
+[ELF32] sym226:{name:"$d", value:0x10001140, size:0x0}
+[ELF32] sym227:{name:"$t", value:0x10001144, size:0x0}
+[ELF32] sym228:{name:"$d", value:0x10001200, size:0x0}
+[ELF32] sym229:{name:"$t", value:0x10001214, size:0x0}
+[ELF32] sym230:{name:"$d", value:0x10001234, size:0x0}
+[ELF32] sym231:{name:"$t", value:0x10001238, size:0x0}
+[ELF32] sym232:{name:"$t", value:0x10001258, size:0x0}
+[ELF32] sym233:{name:"$d", value:0x10001490, size:0x0}
+[ELF32] sym234:{name:"$d", value:0x200002b8, size:0x0}
+[ELF32] sym235:{name:"$d", value:0x200004c8, size:0x0}
+[ELF32] sym236:{name:"$d", value:0x200004c4, size:0x0}
+[ELF32] sym237:{name:"libc_a-memcpy.o", value:0x0, size:0x0}
+[ELF32] sym238:{name:"$t", value:0x10001278, size:0x0}
+[ELF32] sym239:{name:"$d", value:0x10001494, size:0x0}
+[ELF32] sym240:{name:"strlen-stub.c", value:0x0, size:0x0}
+[ELF32] sym241:{name:"$t", value:0x10001364, size:0x0}
+[ELF32] sym242:{name:"standard_binary_info.c", value:0x0, size:0x0}
+[ELF32] sym243:{name:"$d", value:0x1000149c, size:0x0}
+[ELF32] sym244:{name:"__bi_ptr84", value:0x1000149c, size:0x4}
+[ELF32] sym245:{name:"__bi_84", value:0x20000264, size:0xc}
+[ELF32] sym246:{name:"$d", value:0x10001454, size:0x0}
+[ELF32] sym247:{name:"$d", value:0x20000264, size:0x0}
+[ELF32] sym248:{name:"$d", value:0x100014a0, size:0x0}
+[ELF32] sym249:{name:"__bi_ptr78", value:0x100014a0, size:0x4}
+[ELF32] sym250:{name:"__bi_78", value:0x20000270, size:0xc}
+[ELF32] sym251:{name:"$d", value:0x20000270, size:0x0}
+[ELF32] sym252:{name:"$d", value:0x100014a4, size:0x0}
+[ELF32] sym253:{name:"__bi_ptr54", value:0x100014a4, size:0x4}
+[ELF32] sym254:{name:"__bi_54", value:0x2000027c, size:0xc}
+[ELF32] sym255:{name:"$d", value:0x2000027c, size:0x0}
+[ELF32] sym256:{name:"$d", value:0x100014a8, size:0x0}
+[ELF32] sym257:{name:"__bi_ptr48", value:0x100014a8, size:0x4}
+[ELF32] sym258:{name:"__bi_48", value:0x20000288, size:0xc}
+[ELF32] sym259:{name:"$d", value:0x20000288, size:0x0}
+[ELF32] sym260:{name:"$d", value:0x100014ac, size:0x0}
+[ELF32] sym261:{name:"__bi_ptr42", value:0x100014ac, size:0x4}
+[ELF32] sym262:{name:"__bi_42", value:0x20000294, size:0xc}
+[ELF32] sym263:{name:"$d", value:0x20000294, size:0x0}
+[ELF32] sym264:{name:"$d", value:0x100014b0, size:0x0}
+[ELF32] sym265:{name:"__bi_ptr34", value:0x100014b0, size:0x4}
+[ELF32] sym266:{name:"__bi_34", value:0x200002a0, size:0xc}
+[ELF32] sym267:{name:"$d", value:0x200002a0, size:0x0}
+[ELF32] sym268:{name:"$d", value:0x100014b4, size:0x0}
+[ELF32] sym269:{name:"__bi_ptr26", value:0x100014b4, size:0x4}
+[ELF32] sym270:{name:"__bi_26", value:0x200002ac, size:0xc}
+[ELF32] sym271:{name:"$d", value:0x200002ac, size:0x0}
+[ELF32] sym272:{name:"<null>", value:0x0, size:0x0}
+[ELF32] sym273:{name:"__mutex_array_end", value:0x200002c0, size:0x0}
+[ELF32] sym274:{name:"__mutex_array_start", value:0x200002b8, size:0x0}
+[ELF32] sym275:{name:"__init_array_end", value:0x10001410, size:0x0}
+[ELF32] sym276:{name:"__preinit_array_end", value:0x10001410, size:0x0}
+[ELF32] sym277:{name:"_GLOBAL_OFFSET_TABLE_", value:0x200002ec, size:0x0}
+[ELF32] sym278:{name:"__init_array_start", value:0x10001410, size:0x0}
+[ELF32] sym279:{name:"__preinit_array_start", value:0x100013d0, size:0x0}
+[ELF32] sym280:{name:"$d", value:0x20000248, size:0x0}
+[ELF32] sym281:{name:"$d", value:0x10000124, size:0x0}
+[ELF32] sym282:{name:"__best_effort_wfe_or_timeout_veneer", value:0x20000241, size:0x8}
+[ELF32] sym283:{name:"$t", value:0x20000240, size:0x0}
+[ELF32] sym284:{name:"$d", value:0x20000244, size:0x0}
+[ELF32] sym285:{name:"__mutex_try_enter_block_until_veneer", value:0x100013c1, size:0x8}
+[ELF32] sym286:{name:"$t", value:0x100013c0, size:0x0}
+[ELF32] sym287:{name:"$d", value:0x100013c4, size:0x0}
+[ELF32] sym288:{name:"__mutex_exit_veneer", value:0x100013c9, size:0x8}
+[ELF32] sym289:{name:"$t", value:0x100013c8, size:0x0}
+[ELF32] sym290:{name:"$d", value:0x100013cc, size:0x0}
+[ELF32] sym291:{name:"irq_set_exclusive_handler", value:0x10000371, size:0x7c}
+[ELF32] sym292:{name:"__boot2_start__", value:0x10001410, size:0x0}
+[ELF32] sym293:{name:"isr_securefault", value:0x10000111, size:0x0}
+[ELF32] sym294:{name:"_sw_spin_locks", value:0x20000478, size:0x20}
+[ELF32] sym295:{name:"isr_irq30", value:0x10000111, size:0x0}
+[ELF32] sym296:{name:"__data_start__", value:0x20000110, size:0x0}
+[ELF32] sym297:{name:"__unhandled_user_irq", value:0x10000111, size:0x0}
+[ELF32] sym298:{name:"__binary_info_end", value:0x100014b8, size:0x0}
+[ELF32] sym299:{name:"__tls_base", value:0x200002f8, size:0x0}
+[ELF32] sym300:{name:"isr_irq49", value:0x10000111, size:0x0}
+[ELF32] sym301:{name:"clock_get_hz", value:0x10000c41, size:0x10}
+[ELF32] sym302:{name:"runtime_init", value:0x10001011, size:0x3c}
+[ELF32] sym303:{name:"spin_locks_reset", value:0x100002c5, size:0x24}
+[ELF32] sym304:{name:"runtime_init_per_core_irq_priorities", value:0x100002e9, size:0x40}
+[ELF32] sym305:{name:"__exidx_end", value:0x1000149c, size:0x0}
+[ELF32] sym306:{name:"xosc_init", value:0x10000d41, size:0x30}
+[ELF32] sym307:{name:"rom_func_lookup", value:0x10000cf5, size:0x16}
+[ELF32] sym308:{name:"stdio_putchar", value:0x10001239, size:0x1e}
+[ELF32] sym309:{name:"__etext", value:0x100014b8, size:0x0}
+[ELF32] sym310:{name:"isr_irq13", value:0x10000111, size:0x0}
+[ELF32] sym311:{name:"__embedded_block_end", value:0x1000014c, size:0x0}
+[ELF32] sym312:{name:"isr_irq43", value:0x10000111, size:0x0}
+[ELF32] sym313:{name:"isr_irq45", value:0x10000111, size:0x0}
+[ELF32] sym314:{name:"isr_irq27", value:0x10000111, size:0x0}
+[ELF32] sym315:{name:"isr_irq32", value:0x10000111, size:0x0}
+[ELF32] sym316:{name:"hard_assertion_failure", value:0x10000d75, size:0x10}
+[ELF32] sym317:{name:"__scratch_x_end__", value:0x20080000, size:0x0}
+[ELF32] sym318:{name:"alarm_pool_get_default_timer", value:0x100009f1, size:0x8}
+[ELF32] sym319:{name:"isr_irq31", value:0x10000111, size:0x0}
+[ELF32] sym320:{name:"isr_pendsv", value:0x10000121, size:0x0}
+[ELF32] sym321:{name:"runtime_init_bootrom_reset", value:0x10000e49, size:0x14}
+[ELF32] sym322:{name:"memcpy", value:0x10001279, size:0xec}
+[ELF32] sym323:{name:"__pre_init_runtime_init_install_ram_vector_table", value:0x100013f4, size:0x4}
+[ELF32] sym324:{name:"isr_irq5", value:0x10000111, size:0x0}
+[ELF32] sym325:{name:"isr_irq11", value:0x10000111, size:0x0}
+[ELF32] sym326:{name:"isr_nmi", value:0x1000011b, size:0x0}
+[ELF32] sym327:{name:"isr_irq23", value:0x10000111, size:0x0}
+[ELF32] sym328:{name:"__HeapLimit", value:0x20080000, size:0x0}
+[ELF32] sym329:{name:"runtime_init_early_resets", value:0x10000dbd, size:0x34}
+[ELF32] sym330:{name:"__bss_start__", value:0x200002f8, size:0x0}
+[ELF32] sym331:{name:"__scratch_y_start__", value:0x20081000, size:0x0}
+[ELF32] sym332:{name:"isr_usagefault", value:0x10000111, size:0x0}
+[ELF32] sym333:{name:"isr_irq48", value:0x10000111, size:0x0}
+[ELF32] sym334:{name:"__wrap_putchar", value:0x10001239, size:0x1e}
+[ELF32] sym335:{name:"isr_irq35", value:0x10000111, size:0x0}
+[ELF32] sym336:{name:"clock_configure_undivided", value:0x10000b65, size:0xdc}
+[ELF32] sym337:{name:"runtime_init_bootrom_locking_enable", value:0x10000d0d, size:0x14}
+[ELF32] sym338:{name:"isr_irq18", value:0x10000111, size:0x0}
+[ELF32] sym339:{name:"__exidx_start", value:0x10001494, size:0x0}
+[ELF32] sym340:{name:"isr_irq50", value:0x10000111, size:0x0}
+[ELF32] sym341:{name:"isr_hardfault", value:0x1000011d, size:0x0}
+[ELF32] sym342:{name:"runtime_init_post_clock_resets", value:0x10000e29, size:0x20}
+[ELF32] sym343:{name:"time_us_64", value:0x10000b59, size:0xc}
+[ELF32] sym344:{name:"isr_irq40", value:0x10000111, size:0x0}
+[ELF32] sym345:{name:"__logical_binary_start", value:0x10000000, size:0x0}
+[ELF32] sym346:{name:"isr_irq28", value:0x10000111, size:0x0}
+[ELF32] sym347:{name:"isr_irq19", value:0x10000111, size:0x0}
+[ELF32] sym348:{name:"isr_irq36", value:0x10000111, size:0x0}
+[ELF32] sym349:{name:"weak_raw_vprintf", value:0x10000fd1, size:0x34}
+[ELF32] sym350:{name:"hw_claim_unlock", value:0x1000024d, size:0x20}
+[ELF32] sym351:{name:"_entry_point", value:0x1000014d, size:0x0}
+[ELF32] sym352:{name:"isr_irq41", value:0x10000111, size:0x0}
+[ELF32] sym353:{name:"isr_irq0", value:0x10000111, size:0x0}
+[ELF32] sym354:{name:"__scratch_x_source__", value:0x100016a0, size:0x0}
+[ELF32] sym355:{name:"stdio_put_string", value:0x10001145, size:0xd0}
+[ELF32] sym356:{name:"__pre_init_runtime_init_early_resets", value:0x100013d4, size:0x4}
+[ELF32] sym357:{name:"boot_locks_reset", value:0x10000d21, size:0x1c}
+[ELF32] sym358:{name:"__StackBottom", value:0x20081800, size:0x0}
+[ELF32] sym359:{name:"runtime_init_spin_locks_reset", value:0x10000e71, size:0x4}
+[ELF32] sym360:{name:"isr_irq6", value:0x10000111, size:0x0}
+[ELF32] sym361:{name:"isr_invalid", value:0x10000119, size:0x0}
+[ELF32] sym362:{name:"tick_start", value:0x10000cdd, size:0x16}
+[ELF32] sym363:{name:"unhandled_user_irq_num_in_r0", value:0x10000116, size:0x0}
+[ELF32] sym364:{name:"runtime_init_per_core_enable_coprocessors", value:0x10000e0d, size:0x1c}
+[ELF32] sym365:{name:"hw_claim_or_assert", value:0x1000026d, size:0x30}
+[ELF32] sym366:{name:"isr_memmanage", value:0x10000111, size:0x0}
+[ELF32] sym367:{name:"__flash_binary_end", value:0x100016b4, size:0x0}
+[ELF32] sym368:{name:"runtime_init_usb_power_down", value:0x10000df1, size:0x1c}
+[ELF32] sym369:{name:"__StackOneBottom", value:0x20081000, size:0x0}
+[ELF32] sym370:{name:"end", value:0x200004f4, size:0x0}
+[ELF32] sym371:{name:"alarm_pool_add_alarm_at", value:0x1000087d, size:0x3e}
+[ELF32] sym372:{name:"__StackOneTop", value:0x20081000, size:0x0}
+[ELF32] sym373:{name:"__data_end__", value:0x200002f8, size:0x0}
+[ELF32] sym374:{name:"next_striped_spin_lock_num", value:0x1000029d, size:0x18}
+[ELF32] sym375:{name:"recursive_mutex_init", value:0x10000421, size:0x1a}
+[ELF32] sym376:{name:"irq_get_vtable_handler", value:0x10000361, size:0x10}
+[ELF32] sym377:{name:"__bss_end__", value:0x200004f4, size:0x0}
+[ELF32] sym378:{name:"alarm_pool_get_default", value:0x100007a9, size:0xc}
+[ELF32] sym379:{name:"mutex_exit", value:0x20000205, size:0x3a}
+[ELF32] sym380:{name:"isr_irq37", value:0x10000111, size:0x0}
+[ELF32] sym381:{name:"__scratch_y_end__", value:0x20081000, size:0x0}
+[ELF32] sym382:{name:"__binary_info_start", value:0x1000149c, size:0x0}
+[ELF32] sym383:{name:"__pre_init_runtime_init_bootrom_reset", value:0x100013d0, size:0x4}
+[ELF32] sym384:{name:"isr_irq42", value:0x10000111, size:0x0}
+[ELF32] sym385:{name:"__wrap_puts", value:0x10001259, size:0x1e}
+[ELF32] sym386:{name:"__scratch_y_source__", value:0x100016a0, size:0x0}
+[ELF32] sym387:{name:"isr_irq22", value:0x10000111, size:0x0}
+[ELF32] sym388:{name:"__vectors", value:0x10000000, size:0x0}
+[ELF32] sym389:{name:"isr_irq17", value:0x10000111, size:0x0}
+[ELF32] sym390:{name:"__pre_init_runtime_init_boot_locks_reset", value:0x100013e4, size:0x4}
+[ELF32] sym391:{name:"isr_irq38", value:0x10000111, size:0x0}
+[ELF32] sym392:{name:"runtime_init_mutex", value:0x1000043d, size:0x3c}
+[ELF32] sym393:{name:"__pre_init_runtime_init_post_clock_resets", value:0x100013e0, size:0x4}
+[ELF32] sym394:{name:"isr_irq14", value:0x10000111, size:0x0}
+[ELF32] sym395:{name:"panic", value:0x100001e9, size:0x34}
+[ELF32] sym396:{name:"__pre_init_runtime_init_per_core_enable_coprocessors", value:0x10001404, size:0x4}
+[ELF32] sym397:{name:"__vectors_end", value:0x10000110, size:0x0}
+[ELF32] sym398:{name:"__default_isrs_start", value:0x10000110, size:0x0}
+[ELF32] sym399:{name:"mutex_try_enter", value:0x20000111, size:0x50}
+[ELF32] sym400:{name:"__flash_binary_start", value:0x10000000, size:0x0}
+[ELF32] sym401:{name:"mutex_init", value:0x10000405, size:0x1a}
+[ELF32] sym402:{name:"isr_irq2", value:0x10000111, size:0x0}
+[ELF32] sym403:{name:"__tdata_end", value:0x200002f8, size:0x0}
+[ELF32] sym404:{name:"__boot2_end__", value:0x10001410, size:0x0}
+[ELF32] sym405:{name:"best_effort_wfe_or_timeout", value:0x1000093d, size:0xb4}
+[ELF32] sym406:{name:"main", value:0x100001e5, size:0x4}
+[ELF32] sym407:{name:"__pre_init_runtime_init_clocks", value:0x100013dc, size:0x4}
+[ELF32] sym408:{name:"isr_irq10", value:0x10000111, size:0x0}
+[ELF32] sym409:{name:"lock_init", value:0x100003ed, size:0x18}
+[ELF32] sym410:{name:"isr_irq8", value:0x10000111, size:0x0}
+[ELF32] sym411:{name:"__binary_info_header_end", value:0x10000138, size:0x0}
+[ELF32] sym412:{name:"__pre_init_first_per_core_initializer", value:0x100013fc, size:0x4}
+[ELF32] sym413:{name:"irq_set_enabled", value:0x1000034d, size:0x14}
+[ELF32] sym414:{name:"isr_debugmonitor", value:0x10000111, size:0x0}
+[ELF32] sym415:{name:"__tls_end", value:0x200002f8, size:0x0}
+[ELF32] sym416:{name:"__end__", value:0x200004f4, size:0x0}
+[ELF32] sym417:{name:"stdio_flush", value:0x10001215, size:0x24}
+[ELF32] sym418:{name:"ram_vector_table", value:0x20000000, size:0x110}
+[ELF32] sym419:{name:"isr_irq24", value:0x10000111, size:0x0}
+[ELF32] sym420:{name:"isr_irq46", value:0x10000111, size:0x0}
+[ELF32] sym421:{name:"isr_irq1", value:0x10000111, size:0x0}
+[ELF32] sym422:{name:"irq_set_mask_n_enabled", value:0x10000329, size:0x24}
+[ELF32] sym423:{name:"isr_irq47", value:0x10000111, size:0x0}
+[ELF32] sym424:{name:"alarm_pool_add_alarm_at_force_in_context", value:0x100007b5, size:0xc8}
+[ELF32] sym425:{name:"isr_irq51", value:0x10000111, size:0x0}
+[ELF32] sym426:{name:"stdout_serialize_end", value:0x10001139, size:0xc}
+[ELF32] sym427:{name:"isr_irq7", value:0x10000111, size:0x0}
+[ELF32] sym428:{name:"__StackTop", value:0x20082000, size:0x0}
+[ELF32] sym429:{name:"isr_irq21", value:0x10000111, size:0x0}
+[ELF32] sym430:{name:"hw_claim_lock", value:0x1000021d, size:0x30}
+[ELF32] sym431:{name:"isr_irq39", value:0x10000111, size:0x0}
+[ELF32] sym432:{name:"isr_irq20", value:0x10000111, size:0x0}
+[ELF32] sym433:{name:"isr_irq15", value:0x10000111, size:0x0}
+[ELF32] sym434:{name:"stdout_serialize_begin", value:0x10001101, size:0x38}
+[ELF32] sym435:{name:"runtime_init_boot_locks_reset", value:0x10000d3d, size:0x4}
+[ELF32] sym436:{name:"isr_irq25", value:0x10000111, size:0x0}
+[ELF32] sym437:{name:"__pre_init_spinlock_set_extexclall", value:0x10001408, size:0x4}
+[ELF32] sym438:{name:"isr_irq34", value:0x10000111, size:0x0}
+[ELF32] sym439:{name:"isr_svcall", value:0x1000011f, size:0x0}
+[ELF32] sym440:{name:"__scratch_x_start__", value:0x20080000, size:0x0}
+[ELF32] sym441:{name:"__VECTOR_TABLE", value:0x10000000, size:0x0}
+[ELF32] sym442:{name:"mutex_try_enter_block_until", value:0x200001d1, size:0x34}
+[ELF32] sym443:{name:"__StackLimit", value:0x20080000, size:0x0}
+[ELF32] sym444:{name:"__pre_init_runtime_init_mutex", value:0x100013f0, size:0x4}
+[ELF32] sym445:{name:"exit", value:0x10001009, size:0x6}
+[ELF32] sym446:{name:"isr_irq4", value:0x10000111, size:0x0}
+[ELF32] sym447:{name:"isr_busfault", value:0x10000111, size:0x0}
+[ELF32] sym448:{name:"runtime_init_clocks", value:0x10000eed, size:0xdc}
+[ELF32] sym449:{name:"stdio_puts", value:0x10001259, size:0x1e}
+[ELF32] sym450:{name:"__tbss_end", value:0x200002f8, size:0x0}
+[ELF32] sym451:{name:"__pre_init_runtime_init_bootrom_locking_enable", value:0x100013ec, size:0x4}
+[ELF32] sym452:{name:"mutex_enter_block_until", value:0x20000161, size:0x6e}
+[ELF32] sym453:{name:"runtime_init_install_ram_vector_table", value:0x10000e75, size:0x78}
+[ELF32] sym454:{name:"_exit", value:0x10001005, size:0x4}
+[ELF32] sym455:{name:"isr_irq16", value:0x10000111, size:0x0}
+[ELF32] sym456:{name:"__pre_init_runtime_init_default_alarm_pool", value:0x100013f8, size:0x4}
+[ELF32] sym457:{name:"isr_irq44", value:0x10000111, size:0x0}
+[ELF32] sym458:{name:"isr_irq29", value:0x10000111, size:0x0}
+[ELF32] sym459:{name:"isr_irq26", value:0x10000111, size:0x0}
+[ELF32] sym460:{name:"strlen", value:0x10001365, size:0x5c}
+[ELF32] sym461:{name:"__default_isrs_end", value:0x10000124, size:0x0}
+[ELF32] sym462:{name:"isr_irq33", value:0x10000111, size:0x0}
+[ELF32] sym463:{name:"__pre_init_runtime_init_per_core_bootrom_reset", value:0x10001400, size:0x4}
+[ELF32] sym464:{name:"__pre_init_runtime_init_spin_locks_reset", value:0x100013e8, size:0x4}
+[ELF32] sym465:{name:"runtime_run_initializers", value:0x10000d85, size:0x38}
+[ELF32] sym466:{name:"__pre_init_runtime_init_usb_power_down", value:0x100013d8, size:0x4}
+[ELF32] sym467:{name:"isr_irq3", value:0x10000111, size:0x0}
+[ELF32] sym468:{name:"isr_systick", value:0x10000123, size:0x0}
+[ELF32] sym469:{name:"__pre_init_runtime_init_per_core_irq_priorities", value:0x1000140c, size:0x4}
+[ELF32] sym470:{name:"runtime_init_per_core_bootrom_reset", value:0x10000e5d, size:0x14}
+[ELF32] sym471:{name:"timer_hardware_alarm_claim", value:0x10000b21, size:0x28}
+[ELF32] sym472:{name:"alarm_pool_cancel_alarm", value:0x100008bd, size:0x7e}
+[ELF32] sym473:{name:"timer_time_us_64", value:0x10000b49, size:0x10}
+[ELF32] sym474:{name:"isr_irq12", value:0x10000111, size:0x0}
+[ELF32] sym475:{name:"isr_irq9", value:0x10000111, size:0x0}
+[ELF32] sym476:{name:"pll_init", value:0x10000c51, size:0x8c}
+[ELF32] sym477:{name:"runtime_init_default_alarm_pool", value:0x100009f9, size:0x128}
+[ELF32] p0:{type:0x70000001, vaddr:0x10001494, memsz:0x8, filesz:0x8}
+[ELF32] p1:{type:0x1, vaddr:0x10000000, memsz:0x14b8, filesz:0x14b8}
+[ELF32] p2:{type:0x1, vaddr:0x20000110, memsz:0x1e8, filesz:0x1e8}
+[ELF32] p3:{type:0x1, vaddr:0x100016a0, memsz:0x14, filesz:0x14}
+[ELF32] p4:{type:0x1, vaddr:0x200002f8, memsz:0x1fc, filesz:0x0}
+[ELF32] p5:{type:0x1, vaddr:0x200004f4, memsz:0x800, filesz:0x0}
+[ELF32] p6:{type:0x1, vaddr:0x20000000, memsz:0x110, filesz:0x0}
+[ELF32] p7:{type:0x1, vaddr:0x20081000, memsz:0x800, filesz:0x0}
+
+C:\nitrologic\vidbit\elfutil>bin\elfutil.exe vidbot1.elf 
+elfutil 0.2
+elf loaded path:vidbot1.elf
+e_type:0x2 ET_EXEC
+e_machine:0x28 EM_ARM
+e_entry:0x1000014d
+e_phoff:0x34
+e_shoff:0x3fca8
+e_phnum:8
+e_shnum:32
+e_shstrndx:31
+p0 type:70000001 vaddr:10001494 memsz:8 filesz:8
+p1 type:1 vaddr:10000000 memsz:14b8 filesz:14b8
+p2 type:1 vaddr:20000110 memsz:1e8 filesz:1e8
+p3 type:1 vaddr:100016a0 memsz:14 filesz:14
+p4 type:1 vaddr:200002f8 memsz:1fc filesz:0
+p5 type:1 vaddr:200004f4 memsz:800 filesz:0
+p6 type:1 vaddr:20000000 memsz:110 filesz:0
+p7 type:1 vaddr:20081000 memsz:800 filesz:0
+sh0 name: 
+sh1 name: .text
+sh2 name: .rodata
+sh3 name: .ARM.exidx
+sh4 name: .binary_info
+sh5 name: .ram_vector_table
+sh6 name: .uninitialized_data
+sh7 name: .data
+sh8 name: .got
+sh9 name: .got.plt
+sha name: .tdata
+shb name: .tbss
+shc name: .bss
+shd name: .heap
+she name: .scratch_x
+shf name: .scratch_y
+sh10 name: .stack_dummy
+sh11 name: .flash_end
+sh12 name: .debug_info
+sh13 name: .debug_abbrev
+sh14 name: .debug_aranges
+sh15 name: .debug_rnglists
+sh16 name: .debug_line
+sh17 name: .debug_str
+sh18 name: .comment
+sh19 name: .ARM.attributes
+sh1a name: .debug_frame
+sh1b name: .debug_loclists
+sh1c name: .debug_line_str
+sh1d name: .symtab
+sh1e name: .strtab
+sh1f name: .shstrtab
+
+
+/*
+
+#define EI_MAG0       0
+#define EI_MAG1       1
+#define EI_MAG2       2
+#define EI_MAG3       3
+#define EI_CLASS      4
+#define EI_DATA       5
+#define EI_VERSION    6
+#define EI_OSABI      7
+#define EI_ABIVERSION 8
+
+#define ELFCLASS32  1
+#define ELFCLASS64  2
+
+#define ELFDATA2LSB 1
+#define ELFDATA2MSB 2
+
+enum et { NONE, REL, EXEC, DYN, CORE };
+
+#define EM_ARM  0x28
+
+#define PT_NULL    0
+#define PT_LOAD    1
+#define PT_DYNAMIC 2
+#define PT_INTERP  3
+#define PT_NOTE    4
+#define PT_SHLIB   5
+#define PT_PHDR    6
+#define PT_TLS     7
+
+#define PF_X  0x1
+#define PF_W  0x2
+#define PF_R  0x4
+
+#define SHT_NULL     0
+#define SHT_PROGBITS 1
+#define SHT_SYMTAB   2
+#define SHT_STRTAB   3
+#define SHT_RELA     4
+#define SHT_HASH     5
+#define SHT_DYNAMIC  6
+#define SHT_NOTE     7
+#define SHT_NOBITS   8
+#define SHT_REL      9
+#define SHT_SHLIB    10
+#define SHT_DYNSYM   11
+
+struct elf32 {
+	uint8_t  e_ident[16];
+	uint16_t e_type;
+	uint16_t e_machine;
+	uint32_t e_version;
+	uint32_t e_entry;
+	uint32_t e_phoff;
+	uint32_t e_shoff;
+	uint32_t e_flags;
+	uint16_t e_ehsize;
+	uint16_t e_phentsize;
+	uint16_t e_phnum;
+	uint16_t e_shentsize;
+	uint16_t e_shnum;
+	uint16_t e_shstrndx;
+};
+
+struct elf32_phdr {
+	uint32_t p_type;
+	uint32_t p_offset;
+	uint32_t p_vaddr;
+	uint32_t p_paddr;
+	uint32_t p_filesz;
+	uint32_t p_memsz;
+	uint32_t p_flags;
+	uint32_t p_align;
+};
+
+struct elf32_shdr {
+	uint32_t sh_name;
+	uint32_t sh_type;
+	uint32_t sh_flags;
+	uint32_t sh_addr;
+	uint32_t sh_offset;
+	uint32_t sh_size;
+	uint32_t sh_link;
+	uint32_t sh_info;
+	uint32_t sh_addralign;
+	uint32_t sh_entsize;
+};
+
+*/

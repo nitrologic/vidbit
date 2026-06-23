@@ -13,6 +13,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 if(WIN32)
 
 add_executable(elfutil
+    dumpmem.cpp
 	elfutil.cpp
 )
 target_compile_definitions(elfutil PRIVATE UNICODE _UNICODE)

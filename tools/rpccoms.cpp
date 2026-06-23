@@ -30,7 +30,7 @@ inline byteData toBytes(const std::string& str) {
 }
 
 bool printComPort(comHandle handle,const std::string &text){
-	const byteData data=toBytes(text);
+	const byteData data=toBytes(text+"\r\n");
 	bool success=writeComPort(handle,data);
 	return success;
 }
@@ -39,6 +39,7 @@ int readComPort(comHandle handle, uint8_t* buffer, size_t maxSize){
 	HANDLE h = (HANDLE)handle;
 	DWORD bytesRead = 0;
 	if (!ReadFile(h, buffer, (DWORD)maxSize, &bytesRead, NULL)) return -1;
+	if(bytesRead) std::cout << "[RPC] readfile bytesRead:" << bytesRead << std::endl;
 	return (int)bytesRead;
 }
 
@@ -52,11 +53,24 @@ private:
 public:
 	void onReceive(uint8_t *bytes, int count) {
 		std::lock_guard<std::mutex> lock(mutex);
-		buffer.append(reinterpret_cast<char*>(bytes), count);
+		std::string payload=std::string(reinterpret_cast<char*>(bytes), count);
+		buffer.append(payload);
+//		std::cout << "[RPC] onReceive count:" << count << std::endl;		
+	}
+
+	std::optional<std::string> readLine() {
+		std::lock_guard<std::mutex> lock(mutex);
+		size_t pos = buffer.find("\n");
+		if (pos != std::string::npos) {
+			std::string line = buffer.substr(0, pos);
+			buffer.erase(0, pos + 1);
+			return line;
+		}
+		return std::nullopt;
 	}
 
 	// readLine() skips empty lines
-	std::optional<std::string> readLine() {
+	std::optional<std::string> readLine2() {
 		std::lock_guard<std::mutex> lock(mutex);
 		size_t pos = buffer.find("\r\n",2);
 		while(pos==0){
@@ -93,8 +107,7 @@ void rpcThread(comHandle h, const std::string& portName){
 		int n = readComPort(h, bptr, bufSize - 1);
 		if (n > 0){
 			rpcReceive(bptr,n);
-//			buffer[n] = 0;
-//			std::cout << portName << " received: " << (char*)buffer.get() << std::endl;
+//			std::cout << "[RPC] rpcReceive n:" << n << std::endl;
 		}
 		else if (n == -1)
 		{
@@ -117,7 +130,7 @@ void echoComPort(comHandle handle, const char *portName){
 	comHandles.push_back(handle);
 	std::thread reader(rpcThread, handle, portName);
 	reader.detach();
-	printComPort(handle,"<ping>\n");
+//	printComPort(handle,"<ping>");
 }
 
 int main() {
@@ -155,9 +168,9 @@ int main() {
 	auto now = std::chrono::system_clock::now();
 	auto seconds = std::chrono::duration_cast<std::chrono::seconds>(now.time_since_epoch()).count();
 	std::string rtc = std::to_string(seconds+timezoneDelta);
-	std::string setRTC = "{\"jsonrpc\":\"2.0\",\"method\":\"rtc.set\",\"params\":{\"time\":" + rtc + "},\"id\":1}\n";
+	std::string setRTC = "{\"jsonrpc\":\"2.0\",\"method\":\"rtc.set\",\"params\":{\"time\":" + rtc + "},\"id\":1}";
 //	std::string setRTC="{\"jsonrpc\":\"2.0\",\"method\":\"rtc.set\",\"params\":{\"time\":359155200},\"id\":1}\n";
-	std::cout << "[RPC] " << setRTC << std::endl;
+	std::cout << "[RPC] setRTC:" << setRTC << std::endl;
 	for (const auto& handle : comHandles) {
 //		printComPort(handle,"<ping>\n");
 		printComPort(handle,setRTC);
@@ -178,7 +191,7 @@ int main() {
 		if(shorty){
 			std::cout << "[RPC] anykey:" << (shorty?1:0) << std::endl;
 		}
-		bool escape=GetAsyncKeyState(VK_ESCAPE)!=0;
+		bool escape=GetAsyncKeyState(VK_ESCAPE)<0;
 		if(escape) break;
 	}
 
