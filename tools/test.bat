@@ -7,6 +7,7 @@ ninja
 
 if %errorlevel% neq 0 (
     echo cmake ninja failure errorlevel:%errorlevel%
+    popd
     exit /b %errorlevel%
 )
 

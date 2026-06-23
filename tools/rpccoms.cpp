@@ -22,6 +22,28 @@
 
 #include <windows.h>
 
+bool printComPort(comHandle handle,const std::string &text);
+
+struct comPort{
+	std::string name;
+	comHandle handle;
+	comPort(std::string portName,comHandle portHandle): name(std::move(portName)), handle(portHandle){
+	}
+	void disconnect(){
+		handle=nullptr;
+	}
+	void connect(comHandle portHandle){
+		handle=portHandle;
+	}
+	void print(std::string line){
+		if(handle){
+			printComPort(handle,line);
+		}
+	}
+};
+
+
+
 bool anyKeyDown();
 void pollMessages(HWND targetWindow);
 
@@ -98,7 +120,34 @@ void rpcReceive(uint8_t *bytes,int count){
 	rpcFifo.onReceive(bytes,count);
 }
 
-void rpcThread(comHandle h, const std::string& portName){
+void rpcThread(comPort &port){
+	const size_t bufSize = 4096;
+	auto buffer = std::make_unique<uint8_t[]>(bufSize);
+	std::cout << "[thread] starting reader for " << port.name << std::endl;
+	while (true){
+		auto bptr=buffer.get();
+		int n = readComPort(port.handle, bptr, bufSize - 1);
+		if (n > 0){
+			rpcReceive(bptr,n);
+//			std::cout << "[RPC] rpcReceive n:" << n << std::endl;
+		}
+		else if (n == -1)
+		{
+			std::cout << port.name << " disconnected." << std::endl;
+//			exit(0);
+			break;
+		}
+		else
+		{
+//			std::cout << portName << " read error." << std::endl;
+//			break;
+		}
+		std::this_thread::sleep_for(std::chrono::milliseconds(10));
+	}
+}
+
+
+void rpcThread2(comHandle h, const std::string portName){
 	const size_t bufSize = 4096;
 	auto buffer = std::make_unique<uint8_t[]>(bufSize);
 	std::cout << "[thread] starting reader for " << portName << std::endl;
@@ -112,7 +161,7 @@ void rpcThread(comHandle h, const std::string& portName){
 		else if (n == -1)
 		{
 			std::cout << portName << " disconnected." << std::endl;
-			exit(0);
+//			exit(0);
 			break;
 		}
 		else
@@ -124,18 +173,53 @@ void rpcThread(comHandle h, const std::string& portName){
 	}
 }
 
-std::vector<comHandle> comHandles={};
+std::vector<comPort> comHandles={};
+
+int scanPorts(){	
+	auto ports = enumerateComPorts();
+	for (const auto& portinfo : ports) {
+		const bool isPico=(portinfo.devicePath.rfind("USB\\VID_2E8A",0)==0);
+		if(isPico){
+			bool anon=true;
+			std::string name=portinfo.portName;
+			for(comPort &port:comHandles){
+				if(port.name==name){
+					anon=false;
+					if(port.handle==nullptr){
+						comHandle handle=openComPort(name);
+						if(handle){
+							port.handle=handle;
+							std::cout << "[RPC] reconnected port:" << name << std::endl;
+						}else{
+							std::cout << "[RPC] scanPorts reconnect failed for " << name << std::endl;
+						}
+					}
+					break;
+				}
+			}
+			if(anon){
+				comHandle handle=openComPort(name);
+				if(handle){
+					comHandles.emplace_back(name,handle);
+					std::cout << "[RPC] reconnected port:" << name << std::endl;
+				}else{
+					std::cout << "[RPC] scanPorts connection fail name:" << name << std::endl;
+				}
+			}
+		}
+	}
+	return 0;
+}
 
 void echoComPort(comHandle handle, const char *portName){
-	comHandles.push_back(handle);
-	std::thread reader(rpcThread, handle, portName);
+	std::string name=portName;
+	comPort &port=comHandles.emplace_back(name,handle);
+	std::thread reader(rpcThread, std::ref(port));//handle, portName);
 	reader.detach();
 //	printComPort(handle,"<ping>");
 }
 
-int main() {
-	HWND consoleWindow=GetConsoleWindow();
-	std::cout << "rpccoms 0.2 looking for \"USB\\VID_2E8A\" from "<<((int64_t)consoleWindow)<<std::endl;
+int enumeratePorts(){	
 	auto ports = enumerateComPorts();
 	for (const auto& port : ports) {
 		const bool isPico=(port.devicePath.rfind("USB\\VID_2E8A",0)==0);
@@ -155,6 +239,19 @@ int main() {
 			std::cout << "}" << std::endl;
 		}
 	}
+	return 0;
+}
+void printPorts(std::string line){
+	for (auto& port : comHandles) {
+//		printComPort(port.handle,line);
+		port.print(line);
+	}
+
+}
+int main() {
+	HWND consoleWindow=GetConsoleWindow();
+	std::cout << "rpccoms 0.3 looking for \"USB\\VID_2E8A\" from "<<((int64_t)consoleWindow)<<std::endl;
+	enumeratePorts();
 
 	std::this_thread::sleep_for(std::chrono::seconds(1));
 
@@ -171,13 +268,12 @@ int main() {
 	std::string setRTC = "{\"jsonrpc\":\"2.0\",\"method\":\"rtc.set\",\"params\":{\"time\":" + rtc + "},\"id\":1}";
 //	std::string setRTC="{\"jsonrpc\":\"2.0\",\"method\":\"rtc.set\",\"params\":{\"time\":359155200},\"id\":1}\n";
 	std::cout << "[RPC] setRTC:" << setRTC << std::endl;
-	for (const auto& handle : comHandles) {
-//		printComPort(handle,"<ping>\n");
-		printComPort(handle,setRTC);
-	}
+
+	printPorts(setRTC);
 
 	std::this_thread::sleep_for(std::chrono::seconds(1));
 
+	bool inReset=false;
 	std::optional<std::string> lineValue;
 	while(true){
 		lineValue=rpcFifo.readLine();
@@ -193,6 +289,16 @@ int main() {
 		}
 		bool escape=GetAsyncKeyState(VK_ESCAPE)<0;
 		if(escape) break;
+		bool reset=GetAsyncKeyState(VK_SPACE)<0;
+		if(reset){
+			if(!inReset){
+				std::cout << "[RPC] reset" << std::endl;
+				inReset=true;
+				scanPorts();
+			}
+		}else{
+			inReset=false;
+		}
 	}
 
 	std::cout << "[RPC] done" << std::endl;

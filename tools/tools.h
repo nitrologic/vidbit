@@ -12,7 +12,6 @@ struct ComPortInfo {
 	std::string portDescription;
 };
 
-
 using byteData=std::vector<uint8_t> ;
 using comHandle=void *;
 
