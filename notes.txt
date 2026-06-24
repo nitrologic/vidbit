@@ -1,3 +1,137 @@
+# pics
+
+![alt text](pics/joy9.jpg) 
+
+
+# codeblocks
+
+```
+"rect":"▪▫■□▢▣",
+"hatched":"▤▥▦▧▨▩",
+"pointChars":"◯⊙⊚⦾⦿◉◎◍❂○●◦◌",
+"starChars":"✩✪✫✬✭✮✯✰✱✲✳✴✵✶✷✸✹✺✻✼✽✾✿❀❁",
+"circles":"◐◒◑◓◔◕",
+"markdown":"↩↪↗↘↖↙◀▶✳✴",
+"square":"🔳🔲✅❎",
+```
+
+# pics
+
+<img src="joy9.jpg" width="480"> 
+
+"upper": "𝙰𝙱𝙲𝙳𝙴𝙵𝙶𝙷𝙸𝙹𝙺𝙻𝙼𝙽𝙾𝙿𝚀𝚁𝚂𝚃𝚄𝚅𝚆𝚇𝚈𝚉"
+"lower": "𝚊𝚋𝚌𝚍𝚎𝚏𝚐𝚑𝚒𝚓𝚔𝚕𝚖𝚗𝚘𝚙𝚚𝚛𝚜𝚝𝚞𝚟𝚠𝚡𝚢𝚣"
+"digits": "𝟶𝟷𝟸𝟹𝟺𝟻𝟼𝟽𝟾𝟿"
+
+# ①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳
+
+import unicodedata
+clean = unicodedata.normalize("NFKC", "𝟶𝟷𝟸𝟹")  # → "0123"
+
+
+Version A
+
+GND --------------------+--------------------+
+                        |                    |
+                      (end)              10nF (103)
+                   10k pot                capacitor
+                        |                    |
+                     (wiper)                |
+                        |                    |
+RP2350 GPIO ------------+--------------------+
+
+Version B
+
+            10k pot (Piher)
+         +------------------+
+         |                  |
+        (NC)              GND o─────────────── GND
+                            |
+                            |
+                          wiper
+                            |
+                            +───────●────── GPIO (RP2350)
+                                    |
+                                   ---  10nF (103)
+                                   ---
+                                    |
+                                   GND
+
+Version C
+
+
+3V3 ---- end of pot
+          |
+          |
+        10k pot
+          |
+          +------ wiper ----+---- GPIO
+          |                 |
+          |               10nF
+          |                 |
+         GND -------------- GND
+
+
+Version D
+
+3V3 ---- 10k pot ----+
+                     |
+                   wiper -------- RP2350 GPIO (input)
+                     |
+                    GND
+
+Version E
+
+{
+  "name":"rp2350_paddle",
+  "parts":[
+    "pot:10k:Piher",
+    "cap:10nF:103",
+    "mcu:RP2350"
+  ],
+  "map":[
+    "pot.wiper->GPIO+cap.1",
+    "cap.2->GND",
+    "pot.A->GND",
+    "pot.B->NC"
+  ],
+  "gpio":"input_mode_after_charge",
+  "cap":"nonpolar",
+  "note":"RC paddle timing node"
+}
+
+gpio_put(pin, 1);
+busy_wait_us(50);
+gpio_set_dir(pin, GPIO_IN);
+
+
+
+Order Details
+Description	Item No.	Qty	Item Price	Total
+border
+10K ohm Piher Horizontal Trimpot	RT4360	8	$1.65	$13.20
+74LVC245 Channel Bus Transceiver DIP20	ZK8884	2	$5.60	$11.20
+74HC165 8-bit parallel in/out Shift Register IC	ZC4858	8	$2.10	$16.80
+10k Ohm 0.5 Watt Metal Film Resistors - Pack of 8	RR0596	10	$1.00	$10.00
+2N7000 N-Channel FET	ZT2400	12	$0.81	$9.72
+74LS374 Ocatl Tri D Flip Flop IC	ZS5274	2	$3.00	$6.00
+LM319 High Speed Dual Comparator Linear IC	ZL3319	4	$4.50	$18.00
+4046 Phase Lock Loop CMOS IC	ZC4046	2	$2.30	$4.60
+20k Ohm 0.5 Watt Metal Film Resistors - Pack of 8	RR0603	2	$1.00	$2.00
+2.2k Ohm 0.5 Watt Metal Film Resistors - Pack of 8	RR0580	2	$1.00	$2.00
+3.3k Ohm 0.5 Watt Metal Film Resistors - Pack of 8	RR0584	2	$1.00	$2.00
+4.7k Ohm 0.5 Watt Metal Film Resistors - Pack of 8	RR0588	1	$1.00	$1.00
+220k Ohm 0.5 Watt Metal Film Resistors - Pack of 8	RR0628	1	$1.00	$1.00
+75 Ohm 0.5 Watt Metal Film Resistors - Pack of 8	RR0545	2	$1.00	$2.00
+100pF 50VDC Ceramic Capacitors - Pack of 2	RC5324	1	$0.50	$0.50
+100nF 50VDC Ceramic Capacitors - Pack of 2	RC5360	15	$0.65	$9.75
+10uF 25VDC Electrolytic RB Capacitor	RE6070	2	$0.44	$0.88
+PC Mount RCA Socket	PS0279	4	$2.10	$8.40
+4051 Single 8-channel Analogue Multiplexer CMOS IC	ZC4051	3	$2.10	$6.30
+330 Ohm 0.5 Watt Metal Film Resistors - Pack of 8	RR0560	2	$1.00	$2.00
+DB9 Male Connector - Solder	PP0800	2	$1.75	$3.50
+
+
                110 Ω (MSB)
   GPIO Pin A ────[═══]────┐
                           │   (+)       (–) [Stripe]

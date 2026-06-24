@@ -1,12 +1,16 @@
 // elfutil.cpp
 
 #include "elf32.h"
+#include "thumb2.h"
+#include "thumb2dis.h"
+
 #include <iostream>
 #include <fstream>
 #include <cstdint>
 #include <cstring>
 
 void dumpMem(const uint8_t* values, int base32, size_t size);
+void dumpThumb2(const uint8_t* values, int base32, size_t size);
 
 typedef std::vector<char> bytes;
 
@@ -96,7 +100,7 @@ void print_symbols(const bytes& content, const struct elf32& hdr, const struct e
 }
 
 int main(int argc, char* argv[]){
-	std::cout << "elfutil 0.2" << std::endl;
+	std::cout << "elfutil 0.3.3" << std::endl;
 	if (argc < 2){
 		std::cerr << "usage: elfutil <elf32-file>" << std::endl;
 		return 1;
@@ -116,12 +120,13 @@ int main(int argc, char* argv[]){
 	elf32_phdr *ph=(elf32_phdr*)(content.data()+(elf32header.e_phoff-sizeof(elf32)));
 	elf32_shdr *sh=(elf32_shdr*)(content.data()+(elf32header.e_shoff-sizeof(elf32)));
 
-//	print_symbols(content, elf32header, sh);
+	print_symbols(content, elf32header, sh);
 
 	const char* strtab = get_shstrtab(content, elf32header, sh);
 
 	for(int i=0;i<elf32header.e_phnum;i++){
-		auto ptype=ptypes.find(ph[i].p_type)->second;
+		uint32_t t=ph[i].p_type;
+		auto ptype=typeString(t);
 		std::cout << "[ELF32] p" << i << ":{" << std::hex
 			<< "type:0x" << (ph[i].p_type) << "[" << ptype << "]"
 			<< ", vaddr:0x" << ph[i].p_vaddr 
@@ -131,12 +136,13 @@ int main(int argc, char* argv[]){
 	}
 
 	for(int i=0;i<elf32header.e_shnum;i++){
-		auto shtype=shtypes.find(sh[i].sh_type)->second;
+		auto shtype=typeString(sh[i].sh_type);
 		const char* name = strtab + sh[i].sh_name;
 		std::cout << "[ELF32] sh" << i << ":{name:\"" << name << "\", type:" << shtype <<  "}" << std::endl;
 //		std::cout << "sh" << i << " type:"<<sh[i].sh_type<<" size:"<<sh[i].sh_size << " entsize:" << sh[i].sh_entsize << std::endl;
 		if (strcmp(name, ".text") == 0) {
-	        dumpMem(reinterpret_cast<const uint8_t*>(content.data() + (sh[i].sh_offset - sizeof(elf32))), sh[i].sh_offset, sh[i].sh_size);
+//	        dumpMem(reinterpret_cast<const uint8_t*>(content.data() + (sh[i].sh_offset - sizeof(elf32))), sh[i].sh_offset, sh[i].sh_size);
+	        dumpThumb2(reinterpret_cast<const uint8_t*>(content.data() + (sh[i].sh_offset - sizeof(elf32))), sh[i].sh_offset, sh[i].sh_size);
 		}
 	}
 

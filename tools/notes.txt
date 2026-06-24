@@ -1,3 +1,101 @@
+void os_printf(const char *p_strFormat, ...)
+{
+//#define WARN_UNICODE  // Assert when %s and %S are used
+#define HACK_UNICODE  // Replaces %s and %S with %hs and %ls
+
+  WCHAR wstrBuffer[1024];
+  WCHAR wstrFormat[1024];
+  va_list argptr;
+
+#ifdef DEBUG
+  LPWSTR  pFormatStr = wstrFormat;
+  LPWSTR  pBufferStr = wstrBuffer;
+#endif
+
+#if defined(WARN_UNICODE) || defined(HACK_UNICODE)
+  int nCount, nFormatCount;
+  nFormatCount = 0;
+  for (nCount = 0; nCount < (int)strlen(p_strFormat); ++nCount)
+  {
+    wstrFormat[nFormatCount++] = p_strFormat[nCount];
+    if (p_strFormat[nCount] == '%')
+    {
+      ++nCount;
+      // Step over bits
+      while ((p_strFormat[nCount] >= '0' && p_strFormat[nCount] <= '9')||
+              (p_strFormat[nCount] == '*')||
+              (p_strFormat[nCount] == '.'))
+      {
+        wstrFormat[nFormatCount++] = p_strFormat[nCount];
+        ++nCount;
+      }
+      if (p_strFormat[nCount] == 'S')
+      {
+#ifdef WARN_UNICODE
+//        os_wprintf(L"os_printf(): String contains %%S\n");
+        os_assert(FALSE);
+#endif
+#ifdef HACK_UNICODE
+        wstrFormat[nFormatCount++] = 'l';
+        wstrFormat[nFormatCount++] = 's';
+#else
+        wstrFormat[nFormatCount++] = p_strFormat[nCount];
+#endif
+      }
+      else if (p_strFormat[nCount] == 's')
+      {
+#ifdef WARN_UNICODE
+//        os_wprintf(L"os_printf(): String contains %%s\n");
+        os_assert(FALSE);
+#endif
+#ifdef HACK_UNICODE
+        wstrFormat[nFormatCount++] = 'h';
+        wstrFormat[nFormatCount++] = 's';
+#else
+        wstrFormat[nFormatCount++] = p_strFormat[nCount];
+#endif
+      }
+      else
+        wstrFormat[nFormatCount++] = p_strFormat[nCount];
+    }
+  }
+  wstrFormat[nFormatCount++] = 0;
+#else // ! defined(WARN_UNICODE) || defined(HACK_UNICODE)
+  mbstowcs(wstrFormat, (const char *)p_strFormat, (size_t)strlen(p_strFormat));
+  wstrFormat[strlen(p_strFormat)] = 0;
+#endif // ! defined(WARN_UNICODE) || defined(HACK_UNICODE)
+
+  va_start(argptr, p_strFormat);
+  _vsnwprintf(wstrBuffer, 1024, wstrFormat, argptr);
+  va_end(argptr);
+
+  OutputDebugStringW(wstrBuffer);
+
+//  os_wprintf(wstrBuffer);
+}
+
+
+
+
+
+	// readLine() skips empty lines
+	std::optional<std::string> readLine2() {
+		std::lock_guard<std::mutex> lock(mutex);
+		size_t pos = buffer.find("\r\n",2);
+		while(pos==0){
+			buffer.erase(0, pos + 2);
+			return ":()";
+//			pos = buffer.find("\r\n",2);
+		}
+		if (pos != std::string::npos) {
+			std::string line = buffer.substr(0, pos);
+			buffer.erase(0, pos + 2);
+			return line;
+		}
+		return std::nullopt;
+	}
+
+
 simon was here , code released from entheogen 28/05/2026
 
 C:\nitrologic\entheogen\microtools\bin>reset.exe

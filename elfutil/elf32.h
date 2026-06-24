@@ -7,7 +7,7 @@
 #include <map>
 #include <string>
 
-void dumpMem(const uint8_t* base, size_t size);
+void dumpMem(const uint8_t* values, int base32, size_t size);
 
 
 enum etype{ET_NONE,ET_REL,ET_EXEC,ET_DYN,ET_CORE};
@@ -21,6 +21,12 @@ const std::map<uint32_t, std::string> ptypes = {
 	{0x6474e551, "GNU_EH_FRAME"}, 
 	{0x70000001, "ARM_EXIDX"}
 };
+
+std::string typeString(uint32_t ptype){
+	auto it = ptypes.find(ptype);
+	if (it != ptypes.end()) return it->second;
+	return "[PTYPE_UNKNOWN]";
+}
 
 const std::map<uint32_t, std::string> shtypes = {
 	{0, "NULL"}, {1, "PROGBITS"}, {2, "SYMTAB"}, {3, "STRTAB"}, {4, "RELA"}, {5, "HASH"}, {6, "DYNAMIC"}, {7, "NOTE"}, {8, "NOBITS"}, {9, "REL"}, {11, "DYNSYM"},

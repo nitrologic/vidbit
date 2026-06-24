@@ -1,5 +1,6 @@
-// rpccoms.cpp
-// 0.1 reset clock
+// rpccoms.cpp 
+
+// rpccoms 0.3.1 - reset clock
 
 // JSON RPC https://www.jsonrpc.org/specification
 
@@ -22,7 +23,32 @@
 
 #include <windows.h>
 
-bool printComPort(comHandle handle,const std::string &text);
+#include <sstream>
+#include <iomanip>
+
+int rpcCount=0;
+std::string rpcMethod(std::string methodName,std::string params){
+	int id=++rpcCount;
+	std::stringstream ss;
+	ss << "{\"jsonrpc\":\"2.0\",\"method\":\"" << methodName 
+		<< "\",\"params\":{" << params << "},\"id\":" << id << "}";
+	return ss.str();
+}
+
+bool writeComLine(comHandle handle,const std::string &text);
+void pollKeys();
+
+#include <stdarg.h>
+
+extern "C" void print(const char *format,...);
+
+void print(const char *format,...){
+	static char buffer[4096];
+	va_list args;
+	va_start(args,format);
+	vsnprintf(buffer,4096,format,args);
+	std::cout << buffer << std::endl;
+}
 
 struct comPort{
 	std::string name;
@@ -37,21 +63,19 @@ struct comPort{
 	}
 	void print(std::string line){
 		if(handle){
-			printComPort(handle,line);
+			writeComLine(handle,line);
 		}
 	}
 };
 
-
-
-bool anyKeyDown();
-void pollMessages(HWND targetWindow);
+//bool anyKeyDown();
+//void pollMessages(HWND targetWindow);
 
 inline byteData toBytes(const std::string& str) {
 	return byteData(str.begin(), str.end());
 }
 
-bool printComPort(comHandle handle,const std::string &text){
+bool writeComLine(comHandle handle,const std::string &text){
 	const byteData data=toBytes(text+"\r\n");
 	bool success=writeComPort(handle,data);
 	return success;
@@ -61,7 +85,7 @@ int readComPort(comHandle handle, uint8_t* buffer, size_t maxSize){
 	HANDLE h = (HANDLE)handle;
 	DWORD bytesRead = 0;
 	if (!ReadFile(h, buffer, (DWORD)maxSize, &bytesRead, NULL)) return -1;
-	if(bytesRead) std::cout << "[RPC] readfile bytesRead:" << bytesRead << std::endl;
+//	if(bytesRead) std::cout << "[RPC] readfile bytesRead:" << bytesRead << std::endl;
 	return (int)bytesRead;
 }
 
@@ -86,23 +110,6 @@ public:
 		if (pos != std::string::npos) {
 			std::string line = buffer.substr(0, pos);
 			buffer.erase(0, pos + 1);
-			return line;
-		}
-		return std::nullopt;
-	}
-
-	// readLine() skips empty lines
-	std::optional<std::string> readLine2() {
-		std::lock_guard<std::mutex> lock(mutex);
-		size_t pos = buffer.find("\r\n",2);
-		while(pos==0){
-			buffer.erase(0, pos + 2);
-			return ":()";
-//			pos = buffer.find("\r\n",2);
-		}
-		if (pos != std::string::npos) {
-			std::string line = buffer.substr(0, pos);
-			buffer.erase(0, pos + 2);
 			return line;
 		}
 		return std::nullopt;
@@ -243,14 +250,16 @@ int enumeratePorts(){
 }
 void printPorts(std::string line){
 	for (auto& port : comHandles) {
-//		printComPort(port.handle,line);
 		port.print(line);
 	}
-
 }
+
 int main() {
+	SetConsoleCP(CP_UTF8);
+	SetConsoleOutputCP(CP_UTF8);
+
 	HWND consoleWindow=GetConsoleWindow();
-	std::cout << "rpccoms 0.3 looking for \"USB\\VID_2E8A\" from "<<((int64_t)consoleWindow)<<std::endl;
+	std::cout << "rpccoms 0.3.1 looking for \"USB\\VID_2E8A\" from "<<((int64_t)consoleWindow)<<std::endl;
 	enumeratePorts();
 
 	std::this_thread::sleep_for(std::chrono::seconds(1));
@@ -265,11 +274,16 @@ int main() {
 	auto now = std::chrono::system_clock::now();
 	auto seconds = std::chrono::duration_cast<std::chrono::seconds>(now.time_since_epoch()).count();
 	std::string rtc = std::to_string(seconds+timezoneDelta);
-	std::string setRTC = "{\"jsonrpc\":\"2.0\",\"method\":\"rtc.set\",\"params\":{\"time\":" + rtc + "},\"id\":1}";
-//	std::string setRTC="{\"jsonrpc\":\"2.0\",\"method\":\"rtc.set\",\"params\":{\"time\":359155200},\"id\":1}\n";
-	std::cout << "[RPC] setRTC:" << setRTC << std::endl;
 
+	std::string setRTC=rpcMethod("rtc.set","\"time\":" + rtc);
+	std::cout << "[RPC] setRTC:" << setRTC << std::endl;
 	printPorts(setRTC);
+
+	std::string title="VIDBIT RPC 0.3.1";
+	std::string setTitle = rpcMethod("vidbit.set","\"title\":\"" + title + "\"}");
+	std::cout << "[RPC] setTitle:" << setTitle << std::endl;
+	printPorts(setTitle);
+
 
 	std::this_thread::sleep_for(std::chrono::seconds(1));
 
@@ -281,15 +295,12 @@ int main() {
 			std::cout << "[RPC] line:" << (lineValue.value()) << std::endl;
 		}else{
 			std::this_thread::sleep_for(std::chrono::milliseconds(5));			
-			pollMessages(consoleWindow);
-		}
-		bool shorty=anyKeyDown();
-		if(shorty){
-			std::cout << "[RPC] anykey:" << (shorty?1:0) << std::endl;
+//			pollMessages(consoleWindow);
+			pollKeys();
 		}
 		bool escape=GetAsyncKeyState(VK_ESCAPE)<0;
 		if(escape) break;
-		bool reset=GetAsyncKeyState(VK_SPACE)<0;
+		bool reset=GetAsyncKeyState(VK_F10)<0;
 		if(reset){
 			if(!inReset){
 				std::cout << "[RPC] reset" << std::endl;
@@ -306,14 +317,48 @@ int main() {
 	return 0;
 }
 
-bool anyKeyDown(){
-	BYTE keys[256];
-	if(!GetKeyboardState(keys)) return false;
-	for(int i = 0; i < 256; i++){
-		if(keys[i] & 0x80) return true;
-	}
-	return false;
+
+std::string toHex(int value) {
+	std::stringstream ss;
+	ss << std::setw(2) << std::setfill('0') << std::hex << (value&0xff);
+	return ss.str();
 }
+
+#include <conio.h> 
+
+void pollKeys(){
+	std::string text;
+	while(_kbhit()) {
+		char key = _getch();
+		switch(key){
+			case 9:
+				text+="\\t";
+				break;
+			case 10:
+				text+="\\n";
+				break;
+			case 13:	// TODO: reconsider \\r\\n
+				text+="\\n";
+				break;
+			case 27:
+				text+="\\x1B";
+				break;
+			default:
+				if(key<32||key>128){
+					text+=toHex(key);
+				}else{
+					text+=key;
+				}
+		}
+	}	
+	if(!text.empty()){
+		std::string keys = rpcMethod("vidbit.keys","\"text\":\"" + text + "\"}");
+//		std::cout << "[RPC] keys:" << keys << std::endl;
+		printPorts(keys);
+	}
+}
+
+// refuses to work as expected
 
 void pollMessages(HWND hwnd){
 	MSG msg;
@@ -322,4 +367,13 @@ void pollMessages(HWND hwnd){
 		TranslateMessage(&msg);
 		DispatchMessage(&msg); 
 	}
+}
+
+BYTE keys[256];
+bool anyKeyDown(){
+	if(!GetKeyboardState(keys)) return false;
+	for(int i = 0; i < 256; i++){
+		if(keys[i] & 0x80) return true;
+	}
+	return false;
 }

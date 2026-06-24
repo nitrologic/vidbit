@@ -78,34 +78,13 @@ this document - https://github.com/nitrologic/vidbit
 ## DDC2B / I²C
 
 
+# 74165
 
-
-# pics
-
-![alt text](pics/joy9.jpg) 
-
-
-# codeblocks
-
-```
-"rect":"▪▫■□▢▣",
-"hatched":"▤▥▦▧▨▩",
-"pointChars":"◯⊙⊚⦾⦿◉◎◍❂○●◦◌",
-"starChars":"✩✪✫✬✭✮✯✰✱✲✳✴✵✶✷✸✹✺✻✼✽✾✿❀❁",
-"circles":"◐◒◑◓◔◕",
-"markdown":"↩↪↗↘↖↙◀▶✳✴",
-"square":"🔳🔲✅❎",
-```
-
-# pics
-
-<img src="joy9.jpg" width="480"> 
-
-"upper": "𝙰𝙱𝙲𝙳𝙴𝙵𝙶𝙷𝙸𝙹𝙺𝙻𝙼𝙽𝙾𝙿𝚀𝚁𝚂𝚃𝚄𝚅𝚆𝚇𝚈𝚉"
-"lower": "𝚊𝚋𝚌𝚍𝚎𝚏𝚐𝚑𝚒𝚓𝚔𝚕𝚖𝚗𝚘𝚙𝚚𝚛𝚜𝚝𝚞𝚟𝚠𝚡𝚢𝚣"
-"digits": "𝟶𝟷𝟸𝟹𝟺𝟻𝟼𝟽𝟾𝟿"
-
-# ①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳
-
-import unicodedata
-clean = unicodedata.normalize("NFKC", "𝟶𝟷𝟸𝟹")  # → "0123"
+"◎ 1  _LOAD    VCC 16 ◎",
+"◎ 2  CLK      INH 15 ◎",
+"◎ 3  E          D 14 ◎",
+"◎ 4  F          C 13 ◎",
+"◎ 5  G          B 12 ◎",
+"◎ 6  H          A 11 ◎",
+"◎ 7  _QH      SER 10 ◎",
+"◎ 8  GND        QH 9 ◎"

@@ -1,0 +1,1190 @@
+C:\nitrologic\vidbit\elfutil>
+
+
+Program header (elf32_phdr)
+
+Describes a segment to load or interpret at runtime.
+
+p_type — segment type (LOAD, DYNAMIC, INTERP, etc.).
+p_offset — file offset where the segment begins.
+p_vaddr — virtual address where the segment should appear in memory.
+p_paddr — physical address (usually ignored on modern systems).
+p_filesz — number of bytes present in the file.
+p_memsz — number of bytes occupied in memory (may exceed p_filesz, e.g. .bss).
+p_flags — access permissions (R, W, X).
+p_align — required alignment in memory and file.
+Section header (elf32_shdr)
+
+Describes a section used mainly by linkers and debuggers.
+
+sh_name — offset into the section name string table.
+sh_type — section type (PROGBITS, SYMTAB, STRTAB, etc.).
+sh_flags — section attributes (allocatable, writable, executable, etc.).
+sh_addr — virtual address if loaded into memory.
+sh_offset — file offset of the section contents.
+sh_size — size of the section in bytes.
+sh_link — index of a related section (meaning depends on sh_type).
+sh_info — extra information (meaning depends on sh_type).
+sh_addralign — required alignment of the section.
+sh_entsize — size of each entry if the section contains a table (0 otherwise).
+
+In short, program headers describe how to load the file, while section headers describe how the file is organized for linking and debugging.
+
+
+
+
+ ꔀ Relay 1.9.4 glm-5.2 Z 🪣 0.7° $0.006 7.090KB 11.30s
+The tool is working. Here's a quick interpretation of the parsed header:
+
+╭────────────────┬────────────────┬─────────────────────────────────────────────────────────────────────────╮
+│  Field         │  Value         │  Meaning                                                                │
+├────────────────┼────────────────┼─────────────────────────────────────────────────────────────────────────┤
+│  `e_type`      │  `0x2`         │  `ET_EXEC` — executable file                                            │
+│  `e_machine`   │  `0x28`        │  `EM_ARM` — ARM architecture                                            │
+│  `e_entry`     │  `0x1000014d`  │  Entry point address                                                    │
+│  `e_phoff`     │  `0x34`        │  Program headers start at offset 52 (immediately after the ELF header)  │
+│  `e_shoff`     │  `0x3fca8`     │  Section headers at offset 261,032                                      │
+│  `e_phnum`     │  `8`           │  8 program headers (segments)                                           │
+│  `e_shnum`     │  `32`          │  32 section headers                                                     │
+│  `e_shstrndx`  │  `31`          │  Section name string table is the last section                          │
+╰────────────────┴────────────────┴─────────────────────────────────────────────────────────────────────────╯
+
+So `vidbot1.elf` is an ARM ELF32 executable — likely firmware or a bare-metal/embedded
+binary given the high entry address (`0x1000014d`).
+
+Natural next steps from here would be:
+
+1. Parse program headers (`e_phoff`, `e_phnum`) — to show segment types (LOAD, etc.),
+virtual addresses, file sizes, and memory sizes.
+2. Parse section headers (`e_shoff`, `e_shnum`) — using the string table at index 31 to
+resolve section names like `.text`, `.data`, `.bss`, etc.
+3. Decode `e_ident` further — endianness, ABI version, ELF class (32/64).
+
+Want me to draft `struct elf32_phdr` and `struct elf32_shdr` additions to `elf32.h` and extend
+`elfutil.cpp` to walk them?
+
+>[DROP]
+[RELAY] acceptConnections error: Listener has been closed
+exitForge Ending session.
+
+
+
+//	lreg		*linkup;
+//	int linkreg(lreg *j,lblock *b);
+
+
+/*
+#define PAD 0
+#define LNK 1
+#define INV 2
+#define RTS 3	//just wait til 6502 arrives:)
+#define GET 4
+#define XCPT 5
+#define XCHK 6
+#define UNK0 7
+#define MOV 8
+#define iADD 9
+#define iSUB 10
+#define iAND 11
+#define iOR 12
+#define iXOR 13
+#define iNEG 14
+#define iSHL 15
+#define iSHR 16
+#define iUSHR 17
+#define iDIV 18
+#define iMUL 19
+#define iREM 20
+#define SWCH 21
+#define iSGN 22
+#define iSLT 23
+
+#define bBRA 24
+#define bBEQ 25
+#define bBNE 26
+#define bBAL 27
+#define bBLT 28
+#define bBGE 29
+#define bBGT 30
+#define bBLE 31
+*/
+
+
+C:\nitrologic\vidbit\elfutil>bin\elfutil.exe vidbot1.elf 
+elfutil 0.3
+[ELF32] path:vidbot1.elf
+[ELF32] header:{e_type:0x2[ET_EXEC], e_machine:0x28[EM_ARM], e_entry:0x1000014d, e_phoff:0x34, e_shoff:0x3fca8, e_phnum:8, e_shnum:32, e_shstrndx:31}
+[ELF32] p0:{type:0x70000001[ARM_EXIDX], vaddr:0x10001494, memsz:0x8, filesz:0x8, flags:R--}
+[ELF32] p1:{type:0x1[LOAD], vaddr:0x10000000, memsz:0x14b8, filesz:0x14b8, flags:RWX}
+[ELF32] p2:{type:0x1[LOAD], vaddr:0x20000110, memsz:0x1e8, filesz:0x1e8, flags:RWX}
+[ELF32] p3:{type:0x1[LOAD], vaddr:0x100016a0, memsz:0x14, filesz:0x14, flags:R--}
+[ELF32] p4:{type:0x1[LOAD], vaddr:0x200002f8, memsz:0x1fc, filesz:0x0, flags:RW-}
+[ELF32] p5:{type:0x1[LOAD], vaddr:0x200004f4, memsz:0x800, filesz:0x0, flags:R--}
+[ELF32] p6:{type:0x1[LOAD], vaddr:0x20000000, memsz:0x110, filesz:0x0, flags:RW-}
+[ELF32] p7:{type:0x1[LOAD], vaddr:0x20081000, memsz:0x800, filesz:0x0, flags:R--}
+[ELF32] sh0:{name:"", type:NULL}
+[ELF32] sh1:{name:".text", type:PROGBITS}
+00001000  00 20 08 20 5d 01 00 10  1b 01 00 10 1d 01 00 10  |. . ]...........|
+00001010  11 01 00 10 11 01 00 10  11 01 00 10 11 01 00 10  |................|
+00001020  19 01 00 10 19 01 00 10  19 01 00 10 1f 01 00 10  |................|
+00001030  11 01 00 10 19 01 00 10  21 01 00 10 23 01 00 10  |........!...#...|
+00001040  11 01 00 10 11 01 00 10  11 01 00 10 11 01 00 10  |................|
+00001050  11 01 00 10 11 01 00 10  11 01 00 10 11 01 00 10  |................|
+00001060  11 01 00 10 11 01 00 10  11 01 00 10 11 01 00 10  |................|
+00001070  11 01 00 10 11 01 00 10  11 01 00 10 11 01 00 10  |................|
+00001080  11 01 00 10 11 01 00 10  11 01 00 10 11 01 00 10  |................|
+00001090  11 01 00 10 11 01 00 10  11 01 00 10 11 01 00 10  |................|
+000010a0  11 01 00 10 11 01 00 10  11 01 00 10 11 01 00 10  |................|
+000010b0  11 01 00 10 11 01 00 10  11 01 00 10 11 01 00 10  |................|
+000010c0  11 01 00 10 11 01 00 10  11 01 00 10 11 01 00 10  |................|
+000010d0  11 01 00 10 11 01 00 10  11 01 00 10 11 01 00 10  |................|
+000010e0  11 01 00 10 11 01 00 10  11 01 00 10 11 01 00 10  |................|
+000010f0  11 01 00 10 11 01 00 10  11 01 00 10 11 01 00 10  |................|
+00001100  11 01 00 10 11 01 00 10  11 01 00 10 11 01 00 10  |................|
+00001110  ef f3 05 80 10 38 00 be  00 be 00 be 00 be 00 be  |.....8..........|
+00001120  00 be 00 be f2 eb 88 71  9c 14 00 10 b8 14 00 10  |.......q........|
+00001130  a0 01 00 10 90 a3 1a e7  d3 de ff ff 42 01 21 10  |............B.!.|
+00001140  ff 01 00 00 68 15 00 00  79 35 12 ab 4f f0 00 00  |....h...y5..O...|
+00001150  1e 49 08 60 06 c8 81 f3  08 88 10 47 4f f0 50 40  |.I.`.......GO.P@|
+00001160  00 68 10 b1 4f f0 00 00  f2 e7 0d a4 0e cc 00 29  |.h..O..........)|
+00001170  02 d0 00 f0 12 f8 f9 e7  15 49 16 4a 00 20 00 e0  |.........I.J. ..|
+00001180  01 c1 91 42 fc d1 14 49  88 47 14 49 88 47 14 49  |...B...I.G.I.G.I|
+00001190  88 47 00 be fd e7 01 c9  01 c2 9a 42 fb d3 70 47  |.G.........B..pG|
+000011a0  b8 14 00 10 10 01 00 20  f8 02 00 20 a0 16 00 10  |....... ... ....|
+000011b0  00 00 08 20 00 00 08 20  a0 16 00 10 00 10 08 20  |... ... ....... |
+000011c0  00 10 08 20 00 00 00 00  70 47 00 00 08 ed 00 e0  |... ....pG......|
+000011d0  f8 02 00 20 f4 04 00 20  11 10 00 10 e5 01 00 10  |... ... ........|
+000011e0  09 10 00 10 01 20 70 47  0f b4 00 b5 09 48 83 b0  |..... pG.....H..|
+000011f0  04 9c 78 44 01 f0 30 f8  44 b1 05 a9 20 46 01 91  |..xD..0.D... F..|
+00001200  00 f0 e6 fe 04 48 78 44  01 f0 26 f8 01 20 00 f0  |.....HxD..&.. ..|
+00001210  f9 fe 00 bf 1a 12 00 00  16 12 00 00 09 4b 7b 44  |.............K{D|
+00001220  ef f3 10 80 72 b6 08 4a  9b 58 0b 33 d3 e8 cf 1f  |....r..J.X.3....|
+00001230  01 22 00 29 fa d1 c3 e8  41 2f 00 29 f6 d1 bf f3  |.".)....A/.)....|
+00001240  5f 8f 70 47 9e 00 00 10  00 00 00 00 05 4b 06 4a  |_.pG.........K.J|
+00001250  7b 44 9b 58 00 21 0b 33  c3 e8 8f 1f 80 f3 10 88  |{D.X.!.3........|
+00001260  70 47 00 bf 6c 00 00 10  00 00 00 00 70 b5 0c 46  |pG..l.......p..F|
+00001270  05 46 16 46 ff f7 d2 ff  01 23 04 f0 07 01 e2 08  |.F.F.....#......|
+00001280  8b 40 a9 5c 19 42 05 d1  19 43 a9 54 bd e8 70 40  |.@.\.B...C.T..p@|
+00001290  ff f7 dc bf 21 46 30 46  ff f7 a6 ff 04 4a 7a 44  |....!F0F.....JzD|
+000012a0  10 78 43 1c db b2 18 2b  28 bf 10 23 13 70 70 47  |.xC....+(..#.ppG|
+000012b0  a6 ff ff 0f 4f f0 e0 22  93 68 43 f0 00 53 93 60  |....O..".hC..S.`|
+000012c0  70 47 00 bf 00 21 06 4b  06 4a 7b 44 9b 58 03 f1  |pG...!.K.J{D.X..|
+000012d0  20 02 c3 e8 8f 1f 01 33  93 42 fa d1 70 47 00 bf  | ......3.B..pG..|
+000012e0  f2 ff ff 0f 00 00 00 00  4f f0 e0 23 4f f0 80 32  |........O..#O..2|
+000012f0  c3 f8 00 24 c3 f8 04 24  c3 f8 08 24 c3 f8 0c 24  |...$...$...$...$|
+00001300  c3 f8 10 24 c3 f8 14 24  c3 f8 18 24 c3 f8 1c 24  |...$...$...$...$|
+00001310  c3 f8 20 24 c3 f8 24 24  c3 f8 28 24 c3 f8 2c 24  |.. $..$$..($..,$|
+00001320  c3 f8 30 24 62 b6 70 47  42 b1 80 00 00 f1 60 40  |..0$b.pGB.....`@|
+00001330  00 f5 61 40 c0 f8 80 11  01 60 70 47 02 4b 20 30  |..a@.....`pG.K 0|
+00001340  43 f8 20 10 70 47 00 bf  00 e1 00 e0 4f f0 01 0c  |C. .pG......O...|
+00001350  0a 46 00 f0 1f 01 0c fa  01 f1 40 09 ff f7 e4 bf  |.F........@.....|
+00001360  02 4b 10 30 9b 68 53 f8  20 00 70 47 00 ed 00 e0  |.K.0.hS. .pG....|
+00001370  2d e9 f0 41 df f8 68 80  04 46 f8 44 0e 46 ef f3  |-..A..h..F.D.F..|
+00001380  10 87 72 b6 17 4b 58 f8  03 50 05 f1 09 03 d3 e8  |..r..KX..P......|
+00001390  cf 1f 01 22 00 29 fa d1  c3 e8 41 2f 00 29 f6 d1  |...".)....A/.)..|
+000013a0  bf f3 5f 8f ff f7 dc ff  0f 4b 58 f8 03 30 98 42  |.._......KX..0.B|
+000013b0  03 d0 b0 42 01 d0 00 f0  dd fc 08 4b 10 34 9b 68  |...B.......K.4.h|
+000013c0  43 f8 24 60 bf f3 5f 8f  00 22 05 f1 09 03 c3 e8  |C.$`.._.."......|
+000013d0  8f 2f 87 f3 10 88 bd e8  f0 81 00 bf 00 ed 00 e0  |./..............|
+000013e0  42 ff ff 0f 00 00 00 00  04 00 00 00 03 4b 04 4a  |B............K.J|
+000013f0  7b 44 9b 58 0b 44 03 60  70 47 00 bf cc fe ff 0f  |{D.X.D.`pG......|
+00001400  00 00 00 00 10 b5 04 46  ff f7 48 ff 01 46 20 46  |.......F..H..F F|
+00001410  ff f7 ec ff ff 23 23 71  bf f3 5f 8f 10 bd 00 bf  |.....##q.._.....|
+00001420  10 b5 04 46 ff f7 3a ff  01 46 20 46 ff f7 de ff  |...F..:..F F....|
+00001430  ff 23 a3 80 bf f3 5f 8f  10 bd 00 bf 38 b5 0b 4b  |.#...._.....8..K|
+00001440  0b 49 0c 4a 7b 44 5c 58  9d 58 ac 42 07 d2 23 68  |.I.J{D\X.X.B..#h|
+00001450  20 46 2b b1 08 34 ff f7  e3 ff ac 42 f7 d3 38 bd  | F+..4.....B..8.|
+00001460  08 34 ff f7 cf ff ac 42  f1 d3 38 bd 78 fe ff 0f  |.4.....B..8.x...|
+00001470  0c 00 00 00 08 00 00 00  0e 4b 7b 44 1a 68 ef f3  |.........K{D.h..|
+00001480  10 81 72 b6 d2 e8 cf cf  01 20 bc f1 00 0f f9 d1  |..r...... ......|
+00001490  c2 e8 4c 0f bc f1 00 0f  f4 d1 bf f3 5f 8f 00 22  |..L........._.."|
+000014a0  1b 68 c3 e8 8f 2f 81 f3  10 88 40 bf 00 20 00 21  |.h.../....@.. .!|
+000014b0  70 47 00 bf 72 00 00 10  2d e9 f0 4f 2d ed 02 8b  |pG..r...-..O-...|
+000014c0  87 b0 ef f3 05 83 db b2  10 3b 9a 08 18 bf 01 22  |.........;....."|
+000014d0  4f f0 01 01 03 f0 03 00  b1 4b 00 eb 82 02 7b 44  |O........K....{D|
+000014e0  53 f8 22 60 14 bf ac 4d  ac 4d ae 4a 05 f5 41 53  |S."`...M.M.J..AS|
+000014f0  7a 44 01 fa 00 fb 9f ed  a6 8b 02 90 03 92 c3 f8  |zD..............|
+00001500  04 b0 2e e0 b3 88 18 04  40 f1 92 80 b3 79 00 2b  |........@....y.+|
+00001510  40 f0 dc 80 b6 f9 08 10  00 29 c0 f2 1d 81 73 69  |@........)....si|
+00001520  01 eb 41 01 03 eb c1 03  d3 e9 02 47 b7 f1 ff 3f  |..A........G...?|
+00001530  08 bf b4 f1 ff 3f 0d d0  02 9b 05 eb 83 01 ab 6a  |.....?.........j|
+00001540  0a 69 d2 1a e3 1a 93 42  03 d3 2b 6a 13 ea 0b 0f  |.i.....B..+j....|
+00001550  00 d1 0c 61 28 46 00 f0  f7 fa a0 42 b9 41 c0 f2  |...a(F.....B.A..|
+00001560  fb 80 b6 f9 08 30 c5 f8  3c b0 00 2b 01 93 c9 db  |.....0..<..+....|
+00001570  d6 f8 14 90 03 eb 43 0a  28 46 09 eb ca 07 d7 e9  |......C.(F......|
+00001580  02 48 00 f0 e1 fa a0 42  71 eb 08 01 ba db b8 f1  |.H.....Bq.......|
+00001590  00 0f c0 f2 c3 80 d7 e9  04 31 03 9a 93 42 00 f0  |.........1...B..|
+000015a0  ed 80 7a 88 b6 f9 08 00  92 b2 42 ea 00 40 98 47  |..z.......B..@.G|
+000015b0  02 46 0b 46 52 ea 03 01  00 f0 b0 80 00 2b 80 f2  |.F.FR........+..|
+000015c0  d1 80 b4 eb 02 0e 68 eb  03 08 39 f9 3a 30 c7 e9  |......h...9.:0..|
+000015d0  02 e8 00 2b 96 db 71 69  03 eb 43 02 01 eb c2 02  |...+..qi..C.....|
+000015e0  d2 e9 02 70 be 45 78 eb  00 0c 4f ea 43 02 89 db  |...p.Ex...O.C...|
+000015f0  b4 46 2c f8 08 3f 0b e0  31 f9 32 30 a4 46 00 2b  |.F,..?..1.20.F.+|
+00001600  0d db 03 eb 43 00 01 eb  c0 00 5a 00 d0 e9 02 70  |....C.....Z....p|
+00001610  be 45 1a 44 78 eb 00 00  01 eb c2 04 ec da 29 f8  |.E.Dx.........).|
+00001620  3a 30 01 9b ac f8 00 30  b3 88 18 04 3f f5 6e af  |:0.....0....?.n.|
+00001630  33 69 ef f3 10 82 72 b6  d3 e8 cf 0f 01 21 00 28  |3i....r......!.(|
+00001640  fa d1 c3 e8 40 1f 00 28  f6 d1 bf f3 5f 8f 4f f6  |....@..(...._.O.|
+00001650  ff 74 b0 88 00 21 33 69  00 b2 b4 80 c3 e8 8f 1f  |.t...!3i........|
+00001660  82 f3 10 88 88 42 ff f6  51 af 07 46 a9 46 74 69  |.....B..Q..F.Fti|
+00001670  06 f1 08 08 07 eb 47 0e  04 eb ce 03 d3 e9 02 50  |......G........P|
+00001680  b6 f9 08 30 c4 46 00 2b  13 db b2 46 01 97 04 e0  |...0.F.+...F....|
+00001690  34 f9 36 30 94 46 00 2b  09 db 03 eb 43 06 04 eb  |4.60.F.+....C...|
+000016a0  c6 02 d2 e9 02 71 bd 42  70 eb 01 01 f0 da 56 46  |.....q.Bp.....VF|
+000016b0  01 9f ac f8 00 70 34 f9  3e 70 24 f8 3e 30 00 2f  |.....p4.>p$.>0./|
+000016c0  d8 da b3 79 4d 46 00 2b  3f f4 24 af 00 23 b3 71  |...yMF.+?.$..#.q|
+000016d0  b6 f9 08 30 06 f1 08 08  59 1c 3d d0 19 46 77 69  |...0....Y.=..Fwi|
+000016e0  03 e0 80 46 5a 1c 3f f4  17 af 03 eb 43 02 07 eb  |...FZ.?.....C...|
+000016f0  c2 00 b0 f8 02 c0 1c 46  1c f4 00 4f 9e 46 37 f9  |.......F...O.F7.|
+00001700  32 30 ee d0 8c 42 80 ed  02 8b 05 d0 a8 f8 00 30  |20...B.........0|
+00001710  31 89 27 f8 32 10 34 81  71 46 e3 e7 39 f8 3a 30  |1.'.2.4.qF..9.:0|
+00001720  33 81 33 69 ef f3 10 82  72 b6 d3 e8 cf 0f 01 21  |3.3i....r......!|
+00001730  00 28 fa d1 c3 e8 40 1f  00 28 f6 d1 bf f3 5f 8f  |.(....@..(...._.|
+00001740  73 88 31 69 29 f8 3a 30  01 9b 73 80 00 23 c1 e8  |s.1i).:0..s..#..|
+00001750  8f 3f 82 f3 10 88 d5 e6  40 bf 07 b0 bd ec 02 8b  |.?......@.......|
+00001760  bd e8 f0 8f 28 46 cd e9  04 23 00 f0 ed f9 04 9a  |....(F...#......|
+00001770  05 9b 10 eb 02 0e 43 eb  01 08 26 e7 08 46 0b 69  |......C...&..F.i|
+00001780  04 91 98 47 00 28 c9 d0  04 99 d1 e9 00 23 11 e7  |...G.(.......#..|
+00001790  ff ff ff ff ff ff ff ff  00 80 0b 40 00 00 0b 40  |...........@...@|
+000017a0  ee ff ff 0f c5 ff ff ff  01 48 78 44 70 47 00 bf  |.........HxDpG..|
+000017b0  9e fa ff 0f 01 46 f0 b5  00 69 ef f3 10 87 72 b6  |.....F...i....r.|
+000017c0  d0 e8 cf 5f 01 24 00 2d  fa d1 c0 e8 45 4f 00 2d  |..._.$.-....EO.-|
+000017d0  f6 d1 bf f3 5f 8f b1 f9  02 e0 4c 69 0e eb 4e 0c  |...._.....Li..N.|
+000017e0  be f1 00 0f 4f ea cc 05  04 eb cc 0c 3d db 60 5b  |....O.......=.`[|
+000017f0  00 26 48 80 08 69 c0 e8  8f 6f 87 f3 10 88 bc f8  |.&H..i...o......|
+00001800  02 00 cc e9 02 23 01 30  c0 f3 0e 00 01 28 38 bf  |.....#.0.....(8.|
+00001810  01 20 05 9b ac f8 02 00  cc f8 10 30 06 9b 40 ea  |. .........0..@.|
+00001820  0e 40 cc f8 14 30 0b 69  ef f3 10 82 72 b6 d3 e8  |.@...0.i....r...|
+00001830  cf cf 01 27 bc f1 00 0f  f9 d1 c3 e8 4c 7f bc f1  |...'........L...|
+00001840  00 0f f4 d1 bf f3 5f 8f  8b 88 63 53 a1 f8 04 e0  |......_...cS....|
+00001850  0b 69 c3 e8 8f 6f 82 f3  10 88 01 22 cb 68 09 78  |.i...o.....".h.x|
+00001860  03 f5 01 53 8a 40 5a 60  f0 bd 00 23 0a 69 c2 e8  |...S.@Z`...#.i..|
+00001870  8f 3f 87 f3 10 88 4f f0  ff 30 f0 bd 2d e9 f0 47  |.?....O..0..-..G|
+00001880  9d f8 28 90 05 46 dd e9  08 67 90 46 1c 46 b9 f1  |..(..F...g.F.F..|
+00001890  00 0f 06 d1 00 f0 60 f9  80 45 64 eb 01 01 00 29  |......`..Ed....)|
+000018a0  08 db 42 46 23 46 28 46  cd e9 08 67 bd e8 f0 47  |..BF#F(F...g...G|
+000018b0  ff f7 80 bf 48 46 bd e8  f0 87 00 bf 03 46 40 89  |....HF.......F@.|
+000018c0  b0 eb 21 4f 37 dd 58 69  0a 14 02 eb 42 02 10 b5  |..!O7.Xi....B...|
+000018d0  00 eb c2 00 1c 69 ef f3  10 8c 72 b6 d4 e8 cf ef  |.....i....r.....|
+000018e0  01 22 be f1 00 0f f9 d1  c4 e8 4e 2f be f1 00 0f  |."........N/....|
+000018f0  f4 d1 bf f3 5f 8f 42 88  89 b2 92 b2 8a 42 07 d0  |...._.B......B..|
+00001900  00 22 1b 69 c3 e8 8f 2f  8c f3 10 88 00 20 10 bd  |.".i.../..... ..|
+00001910  42 f4 00 42 42 80 01 21  00 22 18 69 99 71 c0 e8  |B..BB..!.".i.q..|
+00001920  8f 2f 8c f3 10 88 1c 78  da 68 08 46 02 f5 01 53  |./.....x.h.F...S|
+00001930  a1 40 59 60 10 bd 00 20  70 47 00 bf 2d e9 f0 41  |.@Y`... pG..-..A|
+00001940  06 46 0d 46 84 b0 ef f3  05 84 e4 b2 3c b1 26 4b  |.F.F........<.&K|
+00001950  58 6a a8 42 1d d2 00 20  04 b0 bd e8 f0 81 ff f7  |Xj.B... ........|
+00001960  23 ff d0 f8 0c 80 ff f7  1f ff 07 78 40 46 00 f0  |#..........x@F..|
+00001970  eb f8 04 37 58 f8 27 30  1b 1a 30 1a 65 eb 01 01  |...7X.'0..0.e...|
+00001980  98 42 71 f1 00 01 11 db  20 bf 17 4b 58 6a a8 42  |.Bq..... ..KXj.B|
+00001990  e1 d3 9b 6a b3 42 03 d3  01 20 04 b0 bd e8 f0 81  |...j.B... ......|
+000019a0  40 1b 18 bf 01 20 04 b0  bd e8 f0 81 ff f7 fc fe  |@.... ..........|
+000019b0  0e 4b 32 46 7b 44 00 93  cd e9 01 44 2b 46 ff f7  |.K2F{D.....D+F..|
+000019c0  5d ff 07 1e 08 4b c3 dd  5a 6a aa 42 0a d3 9b 6a  |]....K..Zj.B...j|
+000019d0  b3 42 05 d3 ff f7 e8 fe  39 46 ff f7 6f ff b6 e7  |.B......9F..o...|
+000019e0  aa 42 f7 d1 20 bf f5 e7  00 00 0b 40 c1 fa ff ff  |.B.. ......@....|
+000019f0  00 48 70 47 00 00 0b 40  2d e9 f8 4f 42 4c 43 4e  |.HpG...@-..OBLCN|
+00001a00  7c 44 25 69 7e 44 35 b1  bd e8 f8 4f 40 48 0a 21  ||D%i~D5....O@H.!|
+00001a10  78 44 ff f7 eb bc ff f7  eb ff 07 46 03 21 00 f0  |xD.........F.!..|
+00001a20  7f f8 e7 60 ff f7 3a fc  4f f0 03 0c 4f f0 50 4b  |...`..:.O...O.PK|
+00001a30  38 4a 33 4b b2 58 84 f8  00 c0 02 44 4f f0 02 00  |8J3K.X.....DO...|
+00001a40  22 61 db f8 00 20 4f f6  ff 71 62 70 62 69 4f f0  |"a... O..qbpbiO.|
+00001a50  08 08 a2 f8 48 00 4f f0  04 00 a2 f8 78 00 4f f0  |....H.O.....x.O.|
+00001a60  05 00 a2 f8 90 00 4f f0  06 00 a2 f8 a8 00 4f f0  |......O.......O.|
+00001a70  07 00 a2 f8 c0 00 4f f0  09 00 a2 f8 f0 00 4f f0  |......O.......O.|
+00001a80  0a 00 a2 f8 08 01 4f f0  0b 00 a2 f8 20 01 4f f0  |......O..... .O.|
+00001a90  0c 00 a2 f8 38 01 4f f0  0d 00 4f f0 0e 0e 4f f0  |....8.O...O...O.|
+00001aa0  01 09 4f f0 0f 0a fb 1a  b3 fa 83 f3 a2 f8 50 01  |..O...........P.|
+00001ab0  14 48 a1 80 a2 f8 60 c0  a2 f8 68 e1 a0 60 a4 f8  |.H....`...h..`..|
+00001ac0  02 a0 15 83 11 80 a2 f8  30 90 a2 f8 d8 80 12 4a  |........0......J|
+00001ad0  5b 09 7a 44 02 eb 03 12  10 49 9b 00 d4 60 03 eb  |[.zD.....I...`..|
+00001ae0  0c 04 20 46 c7 f8 20 80  79 44 ff f7 41 fc 07 f5  |.. F.. .yD..A...|
+00001af0  01 57 49 46 20 46 ff f7  29 fc c7 f8 00 80 83 e7  |.WIF F..).......|
+00001b00  00 80 0b 40 ff ff 10 00  48 f8 ff 0f b8 f8 ff 0f  |...@....H.......|
+00001b10  dc fa ff 0f 00 00 00 00  fa f9 ff 0f cd f9 ff ff  |................|
+00001b20  07 4b 10 b4 07 4a 05 4c  7b 44 a0 42 14 bf 18 46  |.K...J.L{D.B...F|
+00001b30  58 1c 7a 44 5d f8 04 4b  ff f7 98 bb 00 80 0b 40  |X.zD]..K.......@|
+00001b40  6c f9 ff 0f ee 08 00 00  03 46 41 6a 0a 46 98 6a  |l........FAj.F.j|
+00001b50  59 6a 8a 42 fa d1 70 47  01 48 ff f7 f5 bf 00 bf  |Yj.B..pG.H......|
+00001b60  00 00 0b 40 00 eb 40 0c  4f ea 8c 0c 0c f1 80 4c  |...@..@.O......L|
+00001b70  0c f5 80 3c f0 b5 dc f8  04 40 05 1f b4 f5 80 3f  |...<.....@.....?|
+00001b80  38 bf 4f f4 80 34 ed b2  38 bf cc f8 04 40 01 2d  |8.O..4..8....@.-|
+00001b90  2e d9 4f f4 00 67 28 4c  0c f5 40 56 7c 44 37 60  |..O..g(L..@V|D7`|
+00001ba0  54 f8 20 60 ce b9 dc f8  00 40 0c f5 80 5e 84 ea  |T. `.....@...^..|
+00001bb0  42 12 02 f0 e0 02 01 2d  ce f8 00 20 2c d9 4f f4  |B......-... ,.O.|
+00001bc0  00 64 4f f4 80 31 0c f5  00 52 14 60 1b 4a cc f8  |.dO..1...R.`.J..|
+00001bd0  04 10 7a 44 42 f8 20 30  f0 bd 64 69 b4 fb f6 fe  |..zDB. 0..di....|
+00001be0  0e f1 01 0e 0e eb 4e 0e  be f1 03 0e fc d2 da e7  |......N.........|
+00001bf0  01 29 ce d1 03 25 0c f5  40 54 25 60 dc f8 08 40  |.)...%..@T%`...@|
+00001c00  e4 07 fb d5 dc f8 00 40  0c f5 80 5e 84 ea 42 12  |.......@...^..B.|
+00001c10  02 f0 e0 02 ce f8 00 20  01 22 dc f8 00 40 4c 40  |....... ."...@L@|
+00001c20  04 f0 03 04 ce f8 00 40  02 fa 01 f1 dc f8 08 20  |.......@....... |
+00001c30  0a 42 fb d0 c3 e7 00 bf  fc f8 ff 0f c6 f8 ff 0f  |.B..............|
+00001c40  02 4b 7b 44 53 f8 20 00  70 47 00 bf 56 f8 ff 0f  |.K{DS. .pG..V...|
+00001c50  70 b4 03 9d 04 68 2d 03  45 ea 03 45 1b 4b 00 2c  |p....h-.E..E.K.,|
+00001c60  b3 fb f1 f3 b2 fb f3 f6  1f db 19 4a 19 4b 90 42  |...........J.K.B|
+00001c70  14 bf 4f f4 80 42 4f f4  00 42 17 4c 1a 60 03 f5  |..O..BO..B.L.`..|
+00001c80  80 53 1a 60 a3 68 32 ea  03 03 fb d1 21 22 00 f5  |.S.`.h2.....!"..|
+00001c90  40 53 04 33 01 60 86 60  1a 60 02 68 00 2a fc da  |@S.3.`.`.`.h.*..|
+00001ca0  08 22 c5 60 1a 60 70 bc  70 47 03 68 03 f0 3f 03  |.".`.`p.pG.h..?.|
+00001cb0  8b 42 da d1 83 68 c3 f3  0b 03 b3 42 d5 d1 c3 68  |.B...h.....B...h|
+00001cc0  03 f4 ee 23 ab 42 d0 d1  ed e7 00 bf 00 1b b7 00  |...#.B..........|
+00001cd0  00 80 05 40 00 20 02 40  00 00 02 40 01 23 00 eb  |...@. .@...@.#..|
+00001ce0  40 00 80 00 00 f1 80 40  00 f5 84 10 41 60 03 60  |@......@....A`.`|
+00001cf0  70 47 00 bf 00 23 db 8a  00 22 42 e8 00 f2 52 02  |pG...#..."B...R.|
+00001d00  01 d4 10 21 18 47 04 21  18 47 00 bf 03 4a d2 f8  |...!.G.!.G...J..|
+00001d10  28 38 00 2b fb d0 bf f3  5f 8f 70 47 00 00 0e 40  |(8.+...._.pG...@|
+00001d20  00 21 04 4b 04 4a bf f3  5f 8f 43 f8 04 1b 93 42  |.!.K.J.._.C....B|
+00001d30  f9 d1 70 47 0c 08 0e 40  2c 08 0e 40 ff f7 f0 bf  |..pG...@,..@....|
+00001d40  10 b4 4f f4 8d 70 4f f4  2a 64 06 4a 06 4b 07 49  |..O..pO.*d.J.K.I|
+00001d50  14 60 d0 60 19 60 53 68  00 2b fc da 5d f8 04 4b  |.`.`.`Sh.+..]..K|
+00001d60  70 47 00 bf 00 80 04 40  00 a0 04 40 00 b0 fa 00  |pG.....@...@....|
+00001d70  70 47 00 bf 02 48 08 b5  78 44 ff f7 35 fa 00 bf  |pG...H..xD..5...|
+00001d80  cc 06 00 00 70 b5 0a 4b  0a 49 0b 4a 7b 44 59 58  |....p..K.I.J{DYX|
+00001d90  9e 58 b1 42 0b d2 00 24  0d 46 01 3e 76 1a b6 08  |.X.B...$.F.>v...|
+00001da0  55 f8 04 3b 98 47 b4 42  04 f1 01 04 f8 d1 70 bd  |U..;.G.B......p.|
+00001db0  30 f5 ff 0f 28 00 00 00  20 00 00 00 10 b4 07 48  |0...(... ......H|
+00001dc0  07 4c 08 4b 08 4a 09 49  04 60 1a 60 8b 68 32 ea  |.L.K.J.I.`.`.h2.|
+00001dd0  03 03 fb d1 5d f8 04 4b  70 47 00 bf 00 20 02 40  |....]..KpG... .@|
+00001de0  7f 3b ef ef 00 30 02 40  f6 ff f3 03 00 00 02 40  |.;...0.@.......@|
+00001df0  04 4b db 6c b3 f5 00 4f  03 d1 4f f4 80 22 02 4b  |.K.l...O..O..".K|
+00001e00  da 64 70 47 00 00 11 50  00 20 11 50 4f f0 e0 22  |.dpG...P. .PO.."|
+00001e10  04 4b d2 f8 88 1d 0b 43  c2 f8 88 3d 10 ee 30 04  |.K.....C...=..0.|
+00001e20  70 47 00 bf 03 03 30 00  6f f0 60 41 04 4b 05 4a  |pG....0.o.`A.K.J|
+00001e30  19 60 93 68 db 43 33 f0  60 43 fa d1 70 47 00 bf  |.`.h.C3.`C..pG..|
+00001e40  00 30 02 40 00 00 02 40  10 b5 45 f2 53 20 ff f7  |.0.@...@..E.S ..|
+00001e50  51 ff bd e8 10 40 03 46  04 20 18 47 10 b5 45 f2  |Q....@.F. .G..E.|
+00001e60  53 20 ff f7 47 ff bd e8  10 40 03 46 01 20 18 47  |S ..G....@.F. .G|
+00001e70  ff f7 28 ba f8 b5 18 4f  18 4b 19 4a 7f 44 fc 58  |..(....O.K.J.D.X|
+00001e80  b9 58 18 4b 64 1a a6 10  44 2e 32 46 28 bf 44 22  |.X.Kd...D.2F(.D"|
+00001e90  fd 58 92 00 28 46 00 f0  ef f9 b4 f5 86 7f 14 d8  |.X..(F..........|
+00001ea0  11 4b c6 f1 44 01 fa 58  12 d0 2b 19 48 08 03 eb  |.K..D..X..+.H...|
+00001eb0  c0 00 c3 e9 00 22 08 33  83 42 fa d1 cb 07 04 d5  |.....".3.B......|
+00001ec0  21 f0 01 03 33 44 45 f8  23 20 02 4b 9d 60 f8 bd  |!...3DE.# .K.`..|
+00001ed0  43 23 f8 e7 00 ed 00 e0  40 f4 ff 0f 14 00 00 00  |C#......@.......|
+00001ee0  10 00 00 00 1c 00 00 00  04 00 00 00 00 23 70 b5  |.............#p.|
+00001ef0  2b 4c 82 b0 c4 f8 84 30  ff f7 22 ff 01 22 29 4b  |+L.....0.."..")K|
+00001f00  da 63 63 6c 01 2b fc d1  03 21 26 4a 24 4b 11 63  |.ccl.+...!&J$K.c|
+00001f10  9c 6b 01 2c fc d1 02 26  05 25 21 46 05 23 22 4a  |.k.,...&.%!F.#"J|
+00001f20  22 48 00 96 ff f7 94 fe  21 46 2b 46 20 4a 21 48  |"H......!F+F J!H|
+00001f30  00 95 ff f7 8d fe 00 22  04 20 31 46 1e 4b ff f7  |.......". 1F.K..|
+00001f40  11 fe 21 46 28 46 00 22  1c 4b ff f7 0b fe 00 22  |..!F(F.".K....."|
+00001f50  08 20 11 46 1a 4b ff f7  05 fe 00 22 09 20 11 46  |. .F.K.....". .F|
+00001f60  17 4b ff f7 ff fd 00 22  06 20 11 46 13 4b ff f7  |.K.....". .F.K..|
+00001f70  f9 fd 00 22 11 4b 07 20  11 46 ff f7 f3 fd 04 20  |...".K. .F..... |
+00001f80  ff f7 5e fe 00 24 0f 4b  a3 fb 00 35 ad 0c e0 b2  |..^..$.K...5....|
+00001f90  29 46 01 34 ff f7 a2 fe  06 2c f8 d1 02 b0 70 bd  |)F.4.....,....p.|
+00001fa0  00 00 01 40 00 30 01 40  00 2f 68 59 00 00 05 40  |...@.0.@./hY...@|
+00001fb0  00 8c 86 47 00 80 05 40  00 1b b7 00 80 d1 f0 08  |...G...@........|
+00001fc0  00 6c dc 02 83 de 1b 43  00 b9 70 47 00 f0 34 b9  |.l.....C..pG..4.|
+00001fd0  10 b5 0a 4b 84 b0 7b 44  1c 68 54 b1 03 46 08 48  |...K..{D.hT..F.H|
+00001fe0  00 91 4f f0 ff 32 03 a9  78 44 a0 47 01 20 04 b0  |..O..2..xD.G. ..|
+00001ff0  10 bd 00 f0 31 f9 20 46  04 b0 10 bd f2 f4 ff 0f  |....1. F........|
+00002000  dd ff ff ff 00 be fd e7  08 b5 ff f7 fb ff 00 bf  |................|
+00002010  70 b5 0b 4c ff f7 b6 fe  0a 4a 0b 4b 7c 44 a2 58  |p..L.....J.K|D.X|
+00002020  e6 58 b2 42 0b d2 00 24  15 46 01 3e b6 1a b6 08  |.X.B...$.F.>....|
+00002030  55 f8 04 3b 98 47 b4 42  04 f1 01 04 f8 d1 70 bd  |U..;.G.B......p.|
+00002040  a0 f2 ff 0f 24 00 00 00  18 00 00 00 03 68 08 46  |....$........h.F|
+00002050  11 46 18 47 43 7d 2d e9  f0 47 81 46 0f 46 16 46  |.F.GC}-..G.F.F.F|
+00002060  00 2b 44 d0 00 2a 3c dd  03 7d 00 20 4d 1e 01 46  |.+D..*<..}. M..F|
+00002070  15 f8 01 2f df f8 84 80  0a 2a f8 44 01 f1 01 04  |.../.....*.D....|
+00002080  0e d0 a6 42 1c d0 2b 78  21 46 a3 f1 0d 03 b3 fa  |...B..+x!F......|
+00002090  83 f3 15 f8 01 2f 5b 09  0a 2a 01 f1 01 04 f0 d1  |...../[..*......|
+000020a0  00 2b ee d1 81 42 a1 eb  00 01 38 44 1b dc 02 21  |.+...B....8D...!|
+000020b0  40 46 d9 f8 00 30 98 47  a6 42 08 d0 20 46 e2 e7  |@F...0.G.B.. F..|
+000020c0  86 42 04 dd 31 1a d9 f8  00 30 38 44 98 47 37 44  |.B..1....08D.G7D|
+000020d0  17 f8 01 3c a3 f1 0d 03  b3 fa 83 f3 5b 09 89 f8  |...<........[...|
+000020e0  14 30 bd e8 f0 87 d9 f8  00 30 98 47 df e7 38 46  |.0.......0.G..8F|
+000020f0  d9 f8 00 30 11 46 bd e8  f0 47 18 47 12 04 00 00  |...0.F...G.G....|
+00002100  10 b5 ff f7 29 fd 4f f0  ff 3e 6f f0 00 4c 08 4a  |....).O..>o..L.J|
+00002110  82 18 41 f1 00 03 07 48  96 45 7c eb 03 01 38 bf  |..A....H.E|...8.|
+00002120  72 46 bd e8 10 40 38 bf  63 46 78 44 00 f0 48 b9  |rF...@8.cFxD..H.|
+00002130  40 42 0f 00 8a f1 ff 0f  01 48 78 44 00 f0 44 b9  |@B.......HxD..D.|
+00002140  7a f1 ff 0f 2d e9 f0 4f  0d 46 83 b0 1c 46 06 46  |z...-..O.F...F.F|
+00002150  91 46 ff f7 d5 ff 6b 1c  80 46 46 d0 24 b3 28 4f  |.F....k..FF.$.(O|
+00002160  7f 44 28 4b 7b 44 1c 68  bc b1 b9 f1 00 0f 1e d1  |.D(K{D.h........|
+00002170  df f8 94 90 f9 44 01 e0  24 69 74 b1 23 68 00 2b  |.....D..$it.#h.+|
+00002180  fa d0 d9 f8 00 30 0b b1  9c 42 f5 d1 20 46 2a 46  |.....0...B.. F*F|
+00002190  31 46 b8 47 24 69 00 2c  f0 d1 b8 f1 00 0f 29 d1  |1F.G$i.,......).|
+000021a0  28 46 03 b0 bd e8 f0 8f  18 4f 7f 44 d9 e7 df f8  |(F.......O.D....|
+000021b0  60 90 4f f0 0a 0b f9 44  0d f1 07 0a 02 e0 24 69  |`.O....D......$i|
+000021c0  00 2c ea d0 23 68 00 2b  f9 d0 d9 f8 00 30 0b b1  |.,..#h.+.....0..|
+000021d0  a3 42 f4 d1 2a 46 31 46  20 46 b8 47 01 22 51 46  |.B..*F1F F.G."QF|
+000021e0  20 46 8d f8 07 b0 b8 47  e9 e7 30 46 00 f0 ba f8  | F.....G..0F....|
+000021f0  05 46 b3 e7 ff f7 a0 ff  28 46 03 b0 bd e8 f0 8f  |.F......(F......|
+00002200  f1 fe ff ff 5c f3 ff 0f  50 f3 ff 0f 9f fe ff ff  |....\...P.......|
+00002210  0e f3 ff 0f 07 4b 10 b5  7b 44 1c 68 2c b1 63 68  |.....K..{D.h,.ch|
+00002220  23 b1 98 47 24 69 00 2c  f9 d1 10 bd 24 69 00 2c  |#..G$i.,....$i.,|
+00002230  f5 d1 10 bd a8 f2 ff 0f  01 23 10 b5 04 46 82 b0  |.........#...F..|
+00002240  00 22 19 46 0d f1 07 00  8d f8 07 40 ff f7 7a ff  |.".F.......@..z.|
+00002250  20 46 02 b0 10 bd 00 bf  38 b5 05 46 00 f0 82 f8  | F......8..F....|
+00002260  01 23 04 46 1a 46 21 46  28 46 ff f7 6b ff ff f7  |.#.F.F!F(F..k...|
+00002270  d1 ff 20 46 38 bd 00 bf  84 46 41 ea 00 03 13 f0  |.. F8....FA.....|
+00002280  03 03 49 d1 40 3a 23 d3  0b 68 03 60 4b 68 43 60  |..I.@:#..h.`KhC`|
+00002290  8b 68 83 60 cb 68 c3 60  0b 69 03 61 4b 69 43 61  |.h.`.h.`.i.aKiCa|
+000022a0  8b 69 83 61 cb 69 c3 61  0b 6a 03 62 4b 6a 43 62  |.i.a.i.a.j.bKjCb|
+000022b0  8b 6a 83 62 cb 6a c3 62  0b 6b 03 63 4b 6b 43 63  |.j.b.j.b.k.cKkCc|
+000022c0  8b 6b 83 63 cb 6b c3 63  40 30 40 31 40 3a db d2  |.k.c.k.c@0@1@:..|
+000022d0  30 32 0b d3 0b 68 03 60  4b 68 43 60 8b 68 83 60  |02...h.`KhC`.h.`|
+000022e0  cb 68 c3 60 10 30 10 31  10 3a f3 d2 0c 32 05 d3  |.h.`.0.1.:...2..|
+000022f0  51 f8 04 3b 40 f8 04 3b  04 3a f9 d2 04 32 08 d0  |Q..;@..;.:...2..|
+00002300  d2 07 1c bf 11 f8 01 3b  00 f8 01 3b 01 d3 0b 88  |.......;...;....|
+00002310  03 80 60 46 70 47 00 bf  08 2a 13 d3 8b 07 b1 d0  |..`FpG...*......|
+00002320  10 f0 03 03 ae d0 c3 f1  04 03 d2 1a db 07 1c bf  |................|
+00002330  11 f8 01 3b 00 f8 01 3b  a4 d3 31 f8 02 3b 20 f8  |...;...;..1..; .|
+00002340  02 3b 9f e7 04 3a d9 d3  01 3a 11 f8 01 3b 00 f8  |.;...:...:...;..|
+00002350  01 3b f9 d2 0b 78 03 70  4b 78 43 70 8b 78 83 70  |.;...x.pKxCp.x.p|
+00002360  60 46 70 47 20 f0 03 01  10 f0 03 00 c0 f1 00 00  |`FpG ...........|
+00002370  51 f8 04 3b 00 f1 04 0c  4f ea cc 0c 6f f0 00 02  |Q..;....O...o...|
+00002380  1c bf 22 fa 0c f2 13 43  4f f0 01 0c 4c ea 0c 2c  |.."....CO...L..,|
+00002390  4c ea 0c 4c a3 eb 0c 02  22 ea 03 02 12 ea cc 12  |L..L....".......|
+000023a0  04 bf 51 f8 04 3b 04 30  f4 d0 c2 f1 00 01 02 ea  |..Q..;.0........|
+000023b0  01 02 b2 fa 82 f2 c2 f1  1f 02 00 eb d2 00 70 47  |..............pG|
+000023c0  5f f8 00 f0 d1 01 00 20  5f f8 00 f0 05 02 00 20  |_...... _...... |
+000023d0  49 0e 00 10 bd 0d 00 10  f1 0d 00 10 ed 0e 00 10  |I...............|
+000023e0  29 0e 00 10 3d 0d 00 10  71 0e 00 10 0d 0d 00 10  |)...=...q.......|
+000023f0  3d 04 00 10 75 0e 00 10  f9 09 00 10 71 0d 00 10  |=...u.......q...|
+00002400  5d 0e 00 10 0d 0e 00 10  b5 02 00 10 e9 02 00 10  |]...............|
+[ELF32] sh2:{name:".rodata", type:PROGBITS}
+[ELF32] sh3:{name:".ARM.exidx", type:ARM_EXIDX}
+[ELF32] sh4:{name:".binary_info", type:PROGBITS}
+[ELF32] sh5:{name:".ram_vector_table", type:NOBITS}
+[ELF32] sh6:{name:".uninitialized_data", type:PROGBITS}
+[ELF32] sh7:{name:".data", type:PROGBITS}
+[ELF32] sh8:{name:".got", type:PROGBITS}
+[ELF32] sh9:{name:".got.plt", type:PROGBITS}
+[ELF32] sh10:{name:".tdata", type:PROGBITS}
+[ELF32] sh11:{name:".tbss", type:NOBITS}
+[ELF32] sh12:{name:".bss", type:NOBITS}
+[ELF32] sh13:{name:".heap", type:NOBITS}
+[ELF32] sh14:{name:".scratch_x", type:PROGBITS}
+[ELF32] sh15:{name:".scratch_y", type:PROGBITS}
+[ELF32] sh16:{name:".stack_dummy", type:NOBITS}
+[ELF32] sh17:{name:".flash_end", type:PROGBITS}
+[ELF32] sh18:{name:".debug_info", type:PROGBITS}
+[ELF32] sh19:{name:".debug_abbrev", type:PROGBITS}
+[ELF32] sh20:{name:".debug_aranges", type:PROGBITS}
+[ELF32] sh21:{name:".debug_rnglists", type:PROGBITS}
+[ELF32] sh22:{name:".debug_line", type:PROGBITS}
+[ELF32] sh23:{name:".debug_str", type:PROGBITS}
+[ELF32] sh24:{name:".comment", type:PROGBITS}
+[ELF32] sh25:{name:".ARM.attributes", type:ARM_ATTRIBUTES}
+[ELF32] sh26:{name:".debug_frame", type:PROGBITS}
+[ELF32] sh27:{name:".debug_loclists", type:PROGBITS}
+[ELF32] sh28:{name:".debug_line_str", type:PROGBITS}
+[ELF32] sh29:{name:".symtab", type:SYMTAB}
+[ELF32] sh30:{name:".strtab", type:STRTAB}
+[ELF32] sh31:{name:".shstrtab", type:STRTAB}
+
+elfutil 0.2
+[ELF32] path:vidbot1.elf
+[ELF32] header:{e_type:0x2[ET_EXEC], e_machine:0x28[EM_ARM], e_entry:0x1000014d, e_phoff:0x34, e_shoff:0x3fca8, e_phnum:8, e_shnum:32, e_shstrndx:31}
+[ELF32] p0:{type:0x70000001[ARM_EXIDX], vaddr:0x10001494, memsz:0x8, filesz:0x8, flags:R--}
+[ELF32] p1:{type:0x1[LOAD], vaddr:0x10000000, memsz:0x14b8, filesz:0x14b8, flags:RWX}
+[ELF32] p2:{type:0x1[LOAD], vaddr:0x20000110, memsz:0x1e8, filesz:0x1e8, flags:RWX}
+[ELF32] p3:{type:0x1[LOAD], vaddr:0x100016a0, memsz:0x14, filesz:0x14, flags:R--}
+[ELF32] p4:{type:0x1[LOAD], vaddr:0x200002f8, memsz:0x1fc, filesz:0x0, flags:RW-}
+[ELF32] p5:{type:0x1[LOAD], vaddr:0x200004f4, memsz:0x800, filesz:0x0, flags:R--}
+[ELF32] p6:{type:0x1[LOAD], vaddr:0x20000000, memsz:0x110, filesz:0x0, flags:RW-}
+[ELF32] p7:{type:0x1[LOAD], vaddr:0x20081000, memsz:0x800, filesz:0x0, flags:R--}
+[ELF32] sh0:{name:"", type:NULL}
+[ELF32] sh1:{name:".text", type:PROGBITS}
+00001000  00 20 08 20 5d 01 00 10  1b 01 00 10 1d 01 00 10  |. . ]...........|
+00001010  11 01 00 10 11 01 00 10  11 01 00 10 11 01 00 10  |................|
+00001020  19 01 00 10 19 01 00 10  19 01 00 10 1f 01 00 10  |................|
+00001030  11 01 00 10 19 01 00 10  21 01 00 10 23 01 00 10  |........!...#...|
+00001040  11 01 00 10 11 01 00 10  11 01 00 10 11 01 00 10  |................|
+00001050  11 01 00 10 11 01 00 10  11 01 00 10 11 01 00 10  |................|
+00001060  11 01 00 10 11 01 00 10  11 01 00 10 11 01 00 10  |................|
+00001070  11 01 00 10 11 01 00 10  11 01 00 10 11 01 00 10  |................|
+00001080  11 01 00 10 11 01 00 10  11 01 00 10 11 01 00 10  |................|
+00001090  11 01 00 10 11 01 00 10  11 01 00 10 11 01 00 10  |................|
+000010a0  11 01 00 10 11 01 00 10  11 01 00 10 11 01 00 10  |................|
+000010b0  11 01 00 10 11 01 00 10  11 01 00 10 11 01 00 10  |................|
+000010c0  11 01 00 10 11 01 00 10  11 01 00 10 11 01 00 10  |................|
+000010d0  11 01 00 10 11 01 00 10  11 01 00 10 11 01 00 10  |................|
+000010e0  11 01 00 10 11 01 00 10  11 01 00 10 11 01 00 10  |................|
+000010f0  11 01 00 10 11 01 00 10  11 01 00 10 11 01 00 10  |................|
+00001100  11 01 00 10 11 01 00 10  11 01 00 10 11 01 00 10  |................|
+00001110  ef f3 05 80 10 38 00 be  00 be 00 be 00 be 00 be  |.....8..........|
+00001120  00 be 00 be f2 eb 88 71  9c 14 00 10 b8 14 00 10  |.......q........|
+00001130  a0 01 00 10 90 a3 1a e7  d3 de ff ff 42 01 21 10  |............B.!.|
+00001140  ff 01 00 00 68 15 00 00  79 35 12 ab 4f f0 00 00  |....h...y5..O...|
+00001150  1e 49 08 60 06 c8 81 f3  08 88 10 47 4f f0 50 40  |.I.`.......GO.P@|
+00001160  00 68 10 b1 4f f0 00 00  f2 e7 0d a4 0e cc 00 29  |.h..O..........)|
+
+elfutil 0.2
+[ELF32] path:vidbot1.elf
+[ELF32] header:{e_type:0x2[ET_EXEC], e_machine:0x28[EM_ARM], e_entry:0x1000014d, e_phoff:0x34, e_shoff:0x3fca8, e_phnum:8, e_shnum:32, e_shstrndx:31}
+[ELF32] p0:{type:0x70000001[ARM_EXIDX], vaddr:0x10001494, memsz:0x8, filesz:0x8, flags:R--}
+[ELF32] p1:{type:0x1[LOAD], vaddr:0x10000000, memsz:0x14b8, filesz:0x14b8, flags:RWX}
+[ELF32] p2:{type:0x1[LOAD], vaddr:0x20000110, memsz:0x1e8, filesz:0x1e8, flags:RWX}
+[ELF32] p3:{type:0x1[LOAD], vaddr:0x100016a0, memsz:0x14, filesz:0x14, flags:R--}
+[ELF32] p4:{type:0x1[LOAD], vaddr:0x200002f8, memsz:0x1fc, filesz:0x0, flags:RW-}
+[ELF32] p5:{type:0x1[LOAD], vaddr:0x200004f4, memsz:0x800, filesz:0x0, flags:R--}
+[ELF32] p6:{type:0x1[LOAD], vaddr:0x20000000, memsz:0x110, filesz:0x0, flags:RW-}
+[ELF32] p7:{type:0x1[LOAD], vaddr:0x20081000, memsz:0x800, filesz:0x0, flags:R--}
+[ELF32] sh0:{name:"", type:NULL}
+[ELF32] sh1:{name:".text", type:PROGBITS}
+[ELF32] sh2:{name:".rodata", type:PROGBITS}
+[ELF32] sh3:{name:".ARM.exidx", type:ARM_EXIDX}
+[ELF32] sh4:{name:".binary_info", type:PROGBITS}
+[ELF32] sh5:{name:".ram_vector_table", type:NOBITS}
+[ELF32] sh6:{name:".uninitialized_data", type:PROGBITS}
+[ELF32] sh7:{name:".data", type:PROGBITS}
+[ELF32] sh8:{name:".got", type:PROGBITS}
+[ELF32] sh9:{name:".got.plt", type:PROGBITS}
+[ELF32] sh10:{name:".tdata", type:PROGBITS}
+[ELF32] sh11:{name:".tbss", type:NOBITS}
+[ELF32] sh12:{name:".bss", type:NOBITS}
+[ELF32] sh13:{name:".heap", type:NOBITS}
+[ELF32] sh14:{name:".scratch_x", type:PROGBITS}
+[ELF32] sh15:{name:".scratch_y", type:PROGBITS}
+[ELF32] sh16:{name:".stack_dummy", type:NOBITS}
+[ELF32] sh17:{name:".flash_end", type:PROGBITS}
+[ELF32] sh18:{name:".debug_info", type:PROGBITS}
+[ELF32] sh19:{name:".debug_abbrev", type:PROGBITS}
+[ELF32] sh20:{name:".debug_aranges", type:PROGBITS}
+[ELF32] sh21:{name:".debug_rnglists", type:PROGBITS}
+[ELF32] sh22:{name:".debug_line", type:PROGBITS}
+[ELF32] sh23:{name:".debug_str", type:PROGBITS}
+[ELF32] sh24:{name:".comment", type:PROGBITS}
+[ELF32] sh25:{name:".ARM.attributes", type:ARM_ATTRIBUTES}
+[ELF32] sh26:{name:".debug_frame", type:PROGBITS}
+[ELF32] sh27:{name:".debug_loclists", type:PROGBITS}
+[ELF32] sh28:{name:".debug_line_str", type:PROGBITS}
+[ELF32] sh29:{name:".symtab", type:SYMTAB}
+[ELF32] sh30:{name:".strtab", type:STRTAB}
+[ELF32] sh31:{name:".shstrtab", type:STRTAB}
+
+[ELF32] symbols (478):
+[ELF32] sym0:{name:"<null>", value:0x0, size:0x0}
+[ELF32] sym1:{name:"<null>", value:0x10000000, size:0x0}
+[ELF32] sym2:{name:"<null>", value:0x10001410, size:0x0}
+[ELF32] sym3:{name:"<null>", value:0x10001494, size:0x0}
+[ELF32] sym4:{name:"<null>", value:0x1000149c, size:0x0}
+[ELF32] sym5:{name:"<null>", value:0x20000000, size:0x0}
+[ELF32] sym6:{name:"<null>", value:0x20000110, size:0x0}
+[ELF32] sym7:{name:"<null>", value:0x20000110, size:0x0}
+[ELF32] sym8:{name:"<null>", value:0x200002c0, size:0x0}
+[ELF32] sym9:{name:"<null>", value:0x200002ec, size:0x0}
+[ELF32] sym10:{name:"<null>", value:0x200002f8, size:0x0}
+[ELF32] sym11:{name:"<null>", value:0x200002f8, size:0x0}
+[ELF32] sym12:{name:"<null>", value:0x200002f8, size:0x0}
+[ELF32] sym13:{name:"<null>", value:0x200004f4, size:0x0}
+[ELF32] sym14:{name:"<null>", value:0x20080000, size:0x0}
+[ELF32] sym15:{name:"<null>", value:0x20081000, size:0x0}
+[ELF32] sym16:{name:"<null>", value:0x20081000, size:0x0}
+[ELF32] sym17:{name:"<null>", value:0x100016a0, size:0x0}
+[ELF32] sym18:{name:"<null>", value:0x0, size:0x0}
+[ELF32] sym19:{name:"<null>", value:0x0, size:0x0}
+[ELF32] sym20:{name:"<null>", value:0x0, size:0x0}
+[ELF32] sym21:{name:"<null>", value:0x0, size:0x0}
+[ELF32] sym22:{name:"<null>", value:0x0, size:0x0}
+[ELF32] sym23:{name:"<null>", value:0x0, size:0x0}
+[ELF32] sym24:{name:"<null>", value:0x0, size:0x0}
+[ELF32] sym25:{name:"<null>", value:0x0, size:0x0}
+[ELF32] sym26:{name:"<null>", value:0x0, size:0x0}
+[ELF32] sym27:{name:"<null>", value:0x0, size:0x0}
+[ELF32] sym28:{name:"<null>", value:0x0, size:0x0}
+[ELF32] sym29:{name:"crt0.S.obj", value:0x0, size:0x0}
+[ELF32] sym30:{name:"$d", value:0x10000000, size:0x0}
+[ELF32] sym31:{name:"_reset_handler", value:0x1000015d, size:0x0}
+[ELF32] sym32:{name:"$t", value:0x10000110, size:0x0}
+[ELF32] sym33:{name:"binary_info_header", value:0x10000124, size:0x0}
+[ELF32] sym34:{name:"data_cpy_table", value:0x100001a0, size:0x0}
+[ELF32] sym35:{name:"$d", value:0x10000138, size:0x0}
+[ELF32] sym36:{name:"embedded_block", value:0x10000138, size:0x0}
+[ELF32] sym37:{name:"embedded_block_end", value:0x1000014c, size:0x0}
+[ELF32] sym38:{name:"embedded_end_block", value:0x100016a0, size:0x0}
+[ELF32] sym39:{name:"$t", value:0x1000014c, size:0x0}
+[ELF32] sym40:{name:"_enter_vtable_in_r0", value:0x10000150, size:0x0}
+[ELF32] sym41:{name:"hold_non_core0_in_bootrom", value:0x10000164, size:0x0}
+[ELF32] sym42:{name:"data_cpy", value:0x1000019a, size:0x0}
+[ELF32] sym43:{name:"bss_fill_test", value:0x10000182, size:0x0}
+[ELF32] sym44:{name:"bss_fill_loop", value:0x10000180, size:0x0}
+[ELF32] sym45:{name:"platform_entry", value:0x10000186, size:0x0}
+[ELF32] sym46:{name:"data_cpy_loop", value:0x10000196, size:0x0}
+[ELF32] sym47:{name:"$d", value:0x100001a0, size:0x0}
+[ELF32] sym48:{name:"$t", value:0x100001c8, size:0x0}
+[ELF32] sym49:{name:"$d", value:0x20081000, size:0x0}
+[ELF32] sym50:{name:"StackSize", value:0x800, size:0x0}
+[ELF32] sym51:{name:"$d", value:0x200004f4, size:0x0}
+[ELF32] sym52:{name:"HeapSize", value:0x800, size:0x0}
+[ELF32] sym53:{name:"$d", value:0x100016a0, size:0x0}
+[ELF32] sym54:{name:"embedded_end_block_end", value:0x100016b4, size:0x0}
+[ELF32] sym55:{name:"$d", value:0x100001ca, size:0x0}
+[ELF32] sym56:{name:"$d", value:0x100001cc, size:0x0}
+[ELF32] sym57:{name:"bot1.cpp", value:0x0, size:0x0}
+[ELF32] sym58:{name:"$t", value:0x100001e4, size:0x0}
+[ELF32] sym59:{name:"panic.c", value:0x0, size:0x0}
+[ELF32] sym60:{name:"$d", value:0x10001410, size:0x0}
+[ELF32] sym61:{name:"$t", value:0x100001e8, size:0x0}
+[ELF32] sym62:{name:"$d", value:0x10000214, size:0x0}
+[ELF32] sym63:{name:"claim.c", value:0x0, size:0x0}
+[ELF32] sym64:{name:"$t", value:0x1000021c, size:0x0}
+[ELF32] sym65:{name:"$d", value:0x10000244, size:0x0}
+[ELF32] sym66:{name:"$t", value:0x1000024c, size:0x0}
+[ELF32] sym67:{name:"$d", value:0x10000264, size:0x0}
+[ELF32] sym68:{name:"$t", value:0x1000026c, size:0x0}
+[ELF32] sym69:{name:"sync.c", value:0x0, size:0x0}
+[ELF32] sym70:{name:"$t", value:0x1000029c, size:0x0}
+[ELF32] sym71:{name:"$d", value:0x100002b0, size:0x0}
+[ELF32] sym72:{name:"striped_spin_lock_num", value:0x20000248, size:0x1}
+[ELF32] sym73:{name:"sync_spin_lock.c", value:0x0, size:0x0}
+[ELF32] sym74:{name:"$t", value:0x100002b4, size:0x0}
+[ELF32] sym75:{name:"spinlock_set_extexclall", value:0x100002b5, size:0xe}
+[ELF32] sym76:{name:"$t", value:0x100002c4, size:0x0}
+[ELF32] sym77:{name:"$d", value:0x100002e0, size:0x0}
+[ELF32] sym78:{name:"$d", value:0x10001408, size:0x0}
+[ELF32] sym79:{name:"$d", value:0x20000478, size:0x0}
+[ELF32] sym80:{name:"irq.c", value:0x0, size:0x0}
+[ELF32] sym81:{name:"$t", value:0x100002e8, size:0x0}
+[ELF32] sym82:{name:"$t", value:0x10000328, size:0x0}
+[ELF32] sym83:{name:"$d", value:0x10000348, size:0x0}
+[ELF32] sym84:{name:"$t", value:0x1000034c, size:0x0}
+[ELF32] sym85:{name:"$t", value:0x10000360, size:0x0}
+[ELF32] sym86:{name:"$d", value:0x1000036c, size:0x0}
+[ELF32] sym87:{name:"$t", value:0x10000370, size:0x0}
+[ELF32] sym88:{name:"$d", value:0x100003dc, size:0x0}
+[ELF32] sym89:{name:"$d", value:0x1000140c, size:0x0}
+[ELF32] sym90:{name:"lock_core.c", value:0x0, size:0x0}
+[ELF32] sym91:{name:"$t", value:0x100003ec, size:0x0}
+[ELF32] sym92:{name:"$d", value:0x100003fc, size:0x0}
+[ELF32] sym93:{name:"mutex.c", value:0x0, size:0x0}
+[ELF32] sym94:{name:"$t", value:0x10000404, size:0x0}
+[ELF32] sym95:{name:"$t", value:0x10000420, size:0x0}
+[ELF32] sym96:{name:"$t", value:0x1000043c, size:0x0}
+[ELF32] sym97:{name:"$d", value:0x1000046c, size:0x0}
+[ELF32] sym98:{name:"$t", value:0x20000110, size:0x0}
+[ELF32] sym99:{name:"$t", value:0x20000160, size:0x0}
+[ELF32] sym100:{name:"$t", value:0x200001d0, size:0x0}
+[ELF32] sym101:{name:"$t", value:0x20000204, size:0x0}
+[ELF32] sym102:{name:"$d", value:0x100013f0, size:0x0}
+[ELF32] sym103:{name:"time.c", value:0x0, size:0x0}
+[ELF32] sym104:{name:"$t", value:0x10000478, size:0x0}
+[ELF32] sym105:{name:"sleep_until_callback", value:0x10000479, size:0x40}
+[ELF32] sym106:{name:"$d", value:0x100004b4, size:0x0}
+[ELF32] sym107:{name:"sleep_notifier", value:0x200004f0, size:0x4}
+[ELF32] sym108:{name:"$t", value:0x100004b8, size:0x0}
+[ELF32] sym109:{name:"alarm_pool_irq_handler", value:0x100004b9, size:0x2f0}
+[ELF32] sym110:{name:"$d", value:0x10000790, size:0x0}
+[ELF32] sym111:{name:"pools", value:0x200004d0, size:0x20}
+[ELF32] sym112:{name:"$t", value:0x100007a8, size:0x0}
+[ELF32] sym113:{name:"$d", value:0x100007b0, size:0x0}
+[ELF32] sym114:{name:"default_alarm_pool", value:0x2000024c, size:0x18}
+[ELF32] sym115:{name:"$t", value:0x100007b4, size:0x0}
+[ELF32] sym116:{name:"$t", value:0x1000087c, size:0x0}
+[ELF32] sym117:{name:"$t", value:0x100008bc, size:0x0}
+[ELF32] sym118:{name:"$t", value:0x1000093c, size:0x0}
+[ELF32] sym119:{name:"$d", value:0x100009e8, size:0x0}
+[ELF32] sym120:{name:"$t", value:0x100009f0, size:0x0}
+[ELF32] sym121:{name:"$d", value:0x100009f4, size:0x0}
+[ELF32] sym122:{name:"$t", value:0x100009f8, size:0x0}
+[ELF32] sym123:{name:"$d", value:0x10000b00, size:0x0}
+[ELF32] sym124:{name:"$d", value:0x100013f8, size:0x0}
+[ELF32] sym125:{name:"$d", value:0x200004d0, size:0x0}
+[ELF32] sym126:{name:"$d", value:0x200004f0, size:0x0}
+[ELF32] sym127:{name:"$d", value:0x2000024c, size:0x0}
+[ELF32] sym128:{name:"default_alarm_pool_entries", value:0x200002f8, size:0x180}
+[ELF32] sym129:{name:"$d", value:0x200002f8, size:0x0}
+[ELF32] sym130:{name:"timer.c", value:0x0, size:0x0}
+[ELF32] sym131:{name:"$d", value:0x10001424, size:0x0}
+[ELF32] sym132:{name:"$t", value:0x10000b20, size:0x0}
+[ELF32] sym133:{name:"$d", value:0x10000b3c, size:0x0}
+[ELF32] sym134:{name:"claimed", value:0x20000498, size:0x2}
+[ELF32] sym135:{name:"$t", value:0x10000b48, size:0x0}
+[ELF32] sym136:{name:"$t", value:0x10000b58, size:0x0}
+[ELF32] sym137:{name:"$d", value:0x10000b60, size:0x0}
+[ELF32] sym138:{name:"$d", value:0x20000498, size:0x0}
+[ELF32] sym139:{name:"clocks.c", value:0x0, size:0x0}
+[ELF32] sym140:{name:"configured_freq", value:0x2000049c, size:0x28}
+[ELF32] sym141:{name:"$t", value:0x10000b64, size:0x0}
+[ELF32] sym142:{name:"$d", value:0x10000c38, size:0x0}
+[ELF32] sym143:{name:"$t", value:0x10000c40, size:0x0}
+[ELF32] sym144:{name:"$d", value:0x10000c4c, size:0x0}
+[ELF32] sym145:{name:"$d", value:0x2000049c, size:0x0}
+[ELF32] sym146:{name:"pll.c", value:0x0, size:0x0}
+[ELF32] sym147:{name:"$t", value:0x10000c50, size:0x0}
+[ELF32] sym148:{name:"$d", value:0x10000ccc, size:0x0}
+[ELF32] sym149:{name:"ticks.c", value:0x0, size:0x0}
+[ELF32] sym150:{name:"$t", value:0x10000cdc, size:0x0}
+[ELF32] sym151:{name:"bootrom.c", value:0x0, size:0x0}
+[ELF32] sym152:{name:"$t", value:0x10000cf4, size:0x0}
+[ELF32] sym153:{name:"bootrom_lock.c", value:0x0, size:0x0}
+[ELF32] sym154:{name:"$t", value:0x10000d0c, size:0x0}
+[ELF32] sym155:{name:"$d", value:0x10000d1c, size:0x0}
+[ELF32] sym156:{name:"$d", value:0x100013ec, size:0x0}
+[ELF32] sym157:{name:"boot_lock.c", value:0x0, size:0x0}
+[ELF32] sym158:{name:"$t", value:0x10000d20, size:0x0}
+[ELF32] sym159:{name:"$d", value:0x10000d34, size:0x0}
+[ELF32] sym160:{name:"$t", value:0x10000d3c, size:0x0}
+[ELF32] sym161:{name:"$d", value:0x100013e4, size:0x0}
+[ELF32] sym162:{name:"xosc.c", value:0x0, size:0x0}
+[ELF32] sym163:{name:"$t", value:0x10000d40, size:0x0}
+[ELF32] sym164:{name:"$d", value:0x10000d64, size:0x0}
+[ELF32] sym165:{name:"runtime.c", value:0x0, size:0x0}
+[ELF32] sym166:{name:"$t", value:0x10000d70, size:0x0}
+[ELF32] sym167:{name:"first_per_core_initializer", value:0x10000d71, size:0x2}
+[ELF32] sym168:{name:"$d", value:0x10001448, size:0x0}
+[ELF32] sym169:{name:"$t", value:0x10000d74, size:0x0}
+[ELF32] sym170:{name:"$d", value:0x10000d80, size:0x0}
+[ELF32] sym171:{name:"$t", value:0x10000d84, size:0x0}
+[ELF32] sym172:{name:"$d", value:0x10000db0, size:0x0}
+[ELF32] sym173:{name:"$d", value:0x100013fc, size:0x0}
+[ELF32] sym174:{name:"runtime_init.c", value:0x0, size:0x0}
+[ELF32] sym175:{name:"$t", value:0x10000dbc, size:0x0}
+[ELF32] sym176:{name:"$d", value:0x10000ddc, size:0x0}
+[ELF32] sym177:{name:"$t", value:0x10000df0, size:0x0}
+[ELF32] sym178:{name:"$d", value:0x10000e04, size:0x0}
+[ELF32] sym179:{name:"$t", value:0x10000e0c, size:0x0}
+[ELF32] sym180:{name:"$d", value:0x10000e24, size:0x0}
+[ELF32] sym181:{name:"$t", value:0x10000e28, size:0x0}
+[ELF32] sym182:{name:"$d", value:0x10000e40, size:0x0}
+[ELF32] sym183:{name:"$t", value:0x10000e48, size:0x0}
+[ELF32] sym184:{name:"$t", value:0x10000e5c, size:0x0}
+[ELF32] sym185:{name:"$t", value:0x10000e70, size:0x0}
+[ELF32] sym186:{name:"$t", value:0x10000e74, size:0x0}
+[ELF32] sym187:{name:"$d", value:0x10000ed4, size:0x0}
+[ELF32] sym188:{name:"$d", value:0x100013f4, size:0x0}
+[ELF32] sym189:{name:"$d", value:0x20000000, size:0x0}
+[ELF32] sym190:{name:"$d", value:0x100013e8, size:0x0}
+[ELF32] sym191:{name:"$d", value:0x100013e0, size:0x0}
+[ELF32] sym192:{name:"$d", value:0x100013dc, size:0x0}
+[ELF32] sym193:{name:"$d", value:0x10001404, size:0x0}
+[ELF32] sym194:{name:"$d", value:0x100013d8, size:0x0}
+[ELF32] sym195:{name:"$d", value:0x100013d4, size:0x0}
+[ELF32] sym196:{name:"$d", value:0x10001400, size:0x0}
+[ELF32] sym197:{name:"$d", value:0x100013d0, size:0x0}
+[ELF32] sym198:{name:"runtime_init_clocks.c", value:0x0, size:0x0}
+[ELF32] sym199:{name:"$t", value:0x10000eec, size:0x0}
+[ELF32] sym200:{name:"$d", value:0x10000fa0, size:0x0}
+[ELF32] sym201:{name:"printf.c", value:0x0, size:0x0}
+[ELF32] sym202:{name:"$t", value:0x10000fc8, size:0x0}
+[ELF32] sym203:{name:"_out_char", value:0x10000fc9, size:0x8}
+[ELF32] sym204:{name:"lazy_vsnprintf", value:0x200004cc, size:0x4}
+[ELF32] sym205:{name:"$t", value:0x10000fd0, size:0x0}
+[ELF32] sym206:{name:"$d", value:0x10000ffc, size:0x0}
+[ELF32] sym207:{name:"$d", value:0x200004cc, size:0x0}
+[ELF32] sym208:{name:"newlib_interface.c", value:0x0, size:0x0}
+[ELF32] sym209:{name:"$t", value:0x10001004, size:0x0}
+[ELF32] sym210:{name:"$t", value:0x10001008, size:0x0}
+[ELF32] sym211:{name:"$t", value:0x10001010, size:0x0}
+[ELF32] sym212:{name:"$d", value:0x10001040, size:0x0}
+[ELF32] sym213:{name:"stdio.c", value:0x0, size:0x0}
+[ELF32] sym214:{name:"$t", value:0x1000104c, size:0x0}
+[ELF32] sym215:{name:"stdio_out_chars_no_crlf", value:0x1000104d, size:0x8}
+[ELF32] sym216:{name:"$t", value:0x10001054, size:0x0}
+[ELF32] sym217:{name:"stdio_out_chars_crlf", value:0x10001055, size:0xac}
+[ELF32] sym218:{name:"$d", value:0x100010fc, size:0x0}
+[ELF32] sym219:{name:"crlf_str.0", value:0x10001490, size:0x2}
+[ELF32] sym220:{name:"drivers", value:0x200004c4, size:0x4}
+[ELF32] sym221:{name:"filter", value:0x200004c8, size:0x4}
+[ELF32] sym222:{name:"$t", value:0x10001100, size:0x0}
+[ELF32] sym223:{name:"$d", value:0x10001130, size:0x0}
+[ELF32] sym224:{name:"print_mutex", value:0x200002b8, size:0x8}
+[ELF32] sym225:{name:"$t", value:0x10001138, size:0x0}
+[ELF32] sym226:{name:"$d", value:0x10001140, size:0x0}
+[ELF32] sym227:{name:"$t", value:0x10001144, size:0x0}
+[ELF32] sym228:{name:"$d", value:0x10001200, size:0x0}
+[ELF32] sym229:{name:"$t", value:0x10001214, size:0x0}
+[ELF32] sym230:{name:"$d", value:0x10001234, size:0x0}
+[ELF32] sym231:{name:"$t", value:0x10001238, size:0x0}
+[ELF32] sym232:{name:"$t", value:0x10001258, size:0x0}
+[ELF32] sym233:{name:"$d", value:0x10001490, size:0x0}
+[ELF32] sym234:{name:"$d", value:0x200002b8, size:0x0}
+[ELF32] sym235:{name:"$d", value:0x200004c8, size:0x0}
+[ELF32] sym236:{name:"$d", value:0x200004c4, size:0x0}
+[ELF32] sym237:{name:"libc_a-memcpy.o", value:0x0, size:0x0}
+[ELF32] sym238:{name:"$t", value:0x10001278, size:0x0}
+[ELF32] sym239:{name:"$d", value:0x10001494, size:0x0}
+[ELF32] sym240:{name:"strlen-stub.c", value:0x0, size:0x0}
+[ELF32] sym241:{name:"$t", value:0x10001364, size:0x0}
+[ELF32] sym242:{name:"standard_binary_info.c", value:0x0, size:0x0}
+[ELF32] sym243:{name:"$d", value:0x1000149c, size:0x0}
+[ELF32] sym244:{name:"__bi_ptr84", value:0x1000149c, size:0x4}
+[ELF32] sym245:{name:"__bi_84", value:0x20000264, size:0xc}
+[ELF32] sym246:{name:"$d", value:0x10001454, size:0x0}
+[ELF32] sym247:{name:"$d", value:0x20000264, size:0x0}
+[ELF32] sym248:{name:"$d", value:0x100014a0, size:0x0}
+[ELF32] sym249:{name:"__bi_ptr78", value:0x100014a0, size:0x4}
+[ELF32] sym250:{name:"__bi_78", value:0x20000270, size:0xc}
+[ELF32] sym251:{name:"$d", value:0x20000270, size:0x0}
+[ELF32] sym252:{name:"$d", value:0x100014a4, size:0x0}
+[ELF32] sym253:{name:"__bi_ptr54", value:0x100014a4, size:0x4}
+[ELF32] sym254:{name:"__bi_54", value:0x2000027c, size:0xc}
+[ELF32] sym255:{name:"$d", value:0x2000027c, size:0x0}
+[ELF32] sym256:{name:"$d", value:0x100014a8, size:0x0}
+[ELF32] sym257:{name:"__bi_ptr48", value:0x100014a8, size:0x4}
+[ELF32] sym258:{name:"__bi_48", value:0x20000288, size:0xc}
+[ELF32] sym259:{name:"$d", value:0x20000288, size:0x0}
+[ELF32] sym260:{name:"$d", value:0x100014ac, size:0x0}
+[ELF32] sym261:{name:"__bi_ptr42", value:0x100014ac, size:0x4}
+[ELF32] sym262:{name:"__bi_42", value:0x20000294, size:0xc}
+[ELF32] sym263:{name:"$d", value:0x20000294, size:0x0}
+[ELF32] sym264:{name:"$d", value:0x100014b0, size:0x0}
+[ELF32] sym265:{name:"__bi_ptr34", value:0x100014b0, size:0x4}
+[ELF32] sym266:{name:"__bi_34", value:0x200002a0, size:0xc}
+[ELF32] sym267:{name:"$d", value:0x200002a0, size:0x0}
+[ELF32] sym268:{name:"$d", value:0x100014b4, size:0x0}
+[ELF32] sym269:{name:"__bi_ptr26", value:0x100014b4, size:0x4}
+[ELF32] sym270:{name:"__bi_26", value:0x200002ac, size:0xc}
+[ELF32] sym271:{name:"$d", value:0x200002ac, size:0x0}
+[ELF32] sym272:{name:"<null>", value:0x0, size:0x0}
+[ELF32] sym273:{name:"__mutex_array_end", value:0x200002c0, size:0x0}
+[ELF32] sym274:{name:"__mutex_array_start", value:0x200002b8, size:0x0}
+[ELF32] sym275:{name:"__init_array_end", value:0x10001410, size:0x0}
+[ELF32] sym276:{name:"__preinit_array_end", value:0x10001410, size:0x0}
+[ELF32] sym277:{name:"_GLOBAL_OFFSET_TABLE_", value:0x200002ec, size:0x0}
+[ELF32] sym278:{name:"__init_array_start", value:0x10001410, size:0x0}
+[ELF32] sym279:{name:"__preinit_array_start", value:0x100013d0, size:0x0}
+[ELF32] sym280:{name:"$d", value:0x20000248, size:0x0}
+[ELF32] sym281:{name:"$d", value:0x10000124, size:0x0}
+[ELF32] sym282:{name:"__best_effort_wfe_or_timeout_veneer", value:0x20000241, size:0x8}
+[ELF32] sym283:{name:"$t", value:0x20000240, size:0x0}
+[ELF32] sym284:{name:"$d", value:0x20000244, size:0x0}
+[ELF32] sym285:{name:"__mutex_try_enter_block_until_veneer", value:0x100013c1, size:0x8}
+[ELF32] sym286:{name:"$t", value:0x100013c0, size:0x0}
+[ELF32] sym287:{name:"$d", value:0x100013c4, size:0x0}
+[ELF32] sym288:{name:"__mutex_exit_veneer", value:0x100013c9, size:0x8}
+[ELF32] sym289:{name:"$t", value:0x100013c8, size:0x0}
+[ELF32] sym290:{name:"$d", value:0x100013cc, size:0x0}
+[ELF32] sym291:{name:"irq_set_exclusive_handler", value:0x10000371, size:0x7c}
+[ELF32] sym292:{name:"__boot2_start__", value:0x10001410, size:0x0}
+[ELF32] sym293:{name:"isr_securefault", value:0x10000111, size:0x0}
+[ELF32] sym294:{name:"_sw_spin_locks", value:0x20000478, size:0x20}
+[ELF32] sym295:{name:"isr_irq30", value:0x10000111, size:0x0}
+[ELF32] sym296:{name:"__data_start__", value:0x20000110, size:0x0}
+[ELF32] sym297:{name:"__unhandled_user_irq", value:0x10000111, size:0x0}
+[ELF32] sym298:{name:"__binary_info_end", value:0x100014b8, size:0x0}
+[ELF32] sym299:{name:"__tls_base", value:0x200002f8, size:0x0}
+[ELF32] sym300:{name:"isr_irq49", value:0x10000111, size:0x0}
+[ELF32] sym301:{name:"clock_get_hz", value:0x10000c41, size:0x10}
+[ELF32] sym302:{name:"runtime_init", value:0x10001011, size:0x3c}
+[ELF32] sym303:{name:"spin_locks_reset", value:0x100002c5, size:0x24}
+[ELF32] sym304:{name:"runtime_init_per_core_irq_priorities", value:0x100002e9, size:0x40}
+[ELF32] sym305:{name:"__exidx_end", value:0x1000149c, size:0x0}
+[ELF32] sym306:{name:"xosc_init", value:0x10000d41, size:0x30}
+[ELF32] sym307:{name:"rom_func_lookup", value:0x10000cf5, size:0x16}
+[ELF32] sym308:{name:"stdio_putchar", value:0x10001239, size:0x1e}
+[ELF32] sym309:{name:"__etext", value:0x100014b8, size:0x0}
+[ELF32] sym310:{name:"isr_irq13", value:0x10000111, size:0x0}
+[ELF32] sym311:{name:"__embedded_block_end", value:0x1000014c, size:0x0}
+[ELF32] sym312:{name:"isr_irq43", value:0x10000111, size:0x0}
+[ELF32] sym313:{name:"isr_irq45", value:0x10000111, size:0x0}
+[ELF32] sym314:{name:"isr_irq27", value:0x10000111, size:0x0}
+[ELF32] sym315:{name:"isr_irq32", value:0x10000111, size:0x0}
+[ELF32] sym316:{name:"hard_assertion_failure", value:0x10000d75, size:0x10}
+[ELF32] sym317:{name:"__scratch_x_end__", value:0x20080000, size:0x0}
+[ELF32] sym318:{name:"alarm_pool_get_default_timer", value:0x100009f1, size:0x8}
+[ELF32] sym319:{name:"isr_irq31", value:0x10000111, size:0x0}
+[ELF32] sym320:{name:"isr_pendsv", value:0x10000121, size:0x0}
+[ELF32] sym321:{name:"runtime_init_bootrom_reset", value:0x10000e49, size:0x14}
+[ELF32] sym322:{name:"memcpy", value:0x10001279, size:0xec}
+[ELF32] sym323:{name:"__pre_init_runtime_init_install_ram_vector_table", value:0x100013f4, size:0x4}
+[ELF32] sym324:{name:"isr_irq5", value:0x10000111, size:0x0}
+[ELF32] sym325:{name:"isr_irq11", value:0x10000111, size:0x0}
+[ELF32] sym326:{name:"isr_nmi", value:0x1000011b, size:0x0}
+[ELF32] sym327:{name:"isr_irq23", value:0x10000111, size:0x0}
+[ELF32] sym328:{name:"__HeapLimit", value:0x20080000, size:0x0}
+[ELF32] sym329:{name:"runtime_init_early_resets", value:0x10000dbd, size:0x34}
+[ELF32] sym330:{name:"__bss_start__", value:0x200002f8, size:0x0}
+[ELF32] sym331:{name:"__scratch_y_start__", value:0x20081000, size:0x0}
+[ELF32] sym332:{name:"isr_usagefault", value:0x10000111, size:0x0}
+[ELF32] sym333:{name:"isr_irq48", value:0x10000111, size:0x0}
+[ELF32] sym334:{name:"__wrap_putchar", value:0x10001239, size:0x1e}
+[ELF32] sym335:{name:"isr_irq35", value:0x10000111, size:0x0}
+[ELF32] sym336:{name:"clock_configure_undivided", value:0x10000b65, size:0xdc}
+[ELF32] sym337:{name:"runtime_init_bootrom_locking_enable", value:0x10000d0d, size:0x14}
+[ELF32] sym338:{name:"isr_irq18", value:0x10000111, size:0x0}
+[ELF32] sym339:{name:"__exidx_start", value:0x10001494, size:0x0}
+[ELF32] sym340:{name:"isr_irq50", value:0x10000111, size:0x0}
+[ELF32] sym341:{name:"isr_hardfault", value:0x1000011d, size:0x0}
+[ELF32] sym342:{name:"runtime_init_post_clock_resets", value:0x10000e29, size:0x20}
+[ELF32] sym343:{name:"time_us_64", value:0x10000b59, size:0xc}
+[ELF32] sym344:{name:"isr_irq40", value:0x10000111, size:0x0}
+[ELF32] sym345:{name:"__logical_binary_start", value:0x10000000, size:0x0}
+[ELF32] sym346:{name:"isr_irq28", value:0x10000111, size:0x0}
+[ELF32] sym347:{name:"isr_irq19", value:0x10000111, size:0x0}
+[ELF32] sym348:{name:"isr_irq36", value:0x10000111, size:0x0}
+[ELF32] sym349:{name:"weak_raw_vprintf", value:0x10000fd1, size:0x34}
+[ELF32] sym350:{name:"hw_claim_unlock", value:0x1000024d, size:0x20}
+[ELF32] sym351:{name:"_entry_point", value:0x1000014d, size:0x0}
+[ELF32] sym352:{name:"isr_irq41", value:0x10000111, size:0x0}
+[ELF32] sym353:{name:"isr_irq0", value:0x10000111, size:0x0}
+[ELF32] sym354:{name:"__scratch_x_source__", value:0x100016a0, size:0x0}
+[ELF32] sym355:{name:"stdio_put_string", value:0x10001145, size:0xd0}
+[ELF32] sym356:{name:"__pre_init_runtime_init_early_resets", value:0x100013d4, size:0x4}
+[ELF32] sym357:{name:"boot_locks_reset", value:0x10000d21, size:0x1c}
+[ELF32] sym358:{name:"__StackBottom", value:0x20081800, size:0x0}
+[ELF32] sym359:{name:"runtime_init_spin_locks_reset", value:0x10000e71, size:0x4}
+[ELF32] sym360:{name:"isr_irq6", value:0x10000111, size:0x0}
+[ELF32] sym361:{name:"isr_invalid", value:0x10000119, size:0x0}
+[ELF32] sym362:{name:"tick_start", value:0x10000cdd, size:0x16}
+[ELF32] sym363:{name:"unhandled_user_irq_num_in_r0", value:0x10000116, size:0x0}
+[ELF32] sym364:{name:"runtime_init_per_core_enable_coprocessors", value:0x10000e0d, size:0x1c}
+[ELF32] sym365:{name:"hw_claim_or_assert", value:0x1000026d, size:0x30}
+[ELF32] sym366:{name:"isr_memmanage", value:0x10000111, size:0x0}
+[ELF32] sym367:{name:"__flash_binary_end", value:0x100016b4, size:0x0}
+[ELF32] sym368:{name:"runtime_init_usb_power_down", value:0x10000df1, size:0x1c}
+[ELF32] sym369:{name:"__StackOneBottom", value:0x20081000, size:0x0}
+[ELF32] sym370:{name:"end", value:0x200004f4, size:0x0}
+[ELF32] sym371:{name:"alarm_pool_add_alarm_at", value:0x1000087d, size:0x3e}
+[ELF32] sym372:{name:"__StackOneTop", value:0x20081000, size:0x0}
+[ELF32] sym373:{name:"__data_end__", value:0x200002f8, size:0x0}
+[ELF32] sym374:{name:"next_striped_spin_lock_num", value:0x1000029d, size:0x18}
+[ELF32] sym375:{name:"recursive_mutex_init", value:0x10000421, size:0x1a}
+[ELF32] sym376:{name:"irq_get_vtable_handler", value:0x10000361, size:0x10}
+[ELF32] sym377:{name:"__bss_end__", value:0x200004f4, size:0x0}
+[ELF32] sym378:{name:"alarm_pool_get_default", value:0x100007a9, size:0xc}
+[ELF32] sym379:{name:"mutex_exit", value:0x20000205, size:0x3a}
+[ELF32] sym380:{name:"isr_irq37", value:0x10000111, size:0x0}
+[ELF32] sym381:{name:"__scratch_y_end__", value:0x20081000, size:0x0}
+[ELF32] sym382:{name:"__binary_info_start", value:0x1000149c, size:0x0}
+[ELF32] sym383:{name:"__pre_init_runtime_init_bootrom_reset", value:0x100013d0, size:0x4}
+[ELF32] sym384:{name:"isr_irq42", value:0x10000111, size:0x0}
+[ELF32] sym385:{name:"__wrap_puts", value:0x10001259, size:0x1e}
+[ELF32] sym386:{name:"__scratch_y_source__", value:0x100016a0, size:0x0}
+[ELF32] sym387:{name:"isr_irq22", value:0x10000111, size:0x0}
+[ELF32] sym388:{name:"__vectors", value:0x10000000, size:0x0}
+[ELF32] sym389:{name:"isr_irq17", value:0x10000111, size:0x0}
+[ELF32] sym390:{name:"__pre_init_runtime_init_boot_locks_reset", value:0x100013e4, size:0x4}
+[ELF32] sym391:{name:"isr_irq38", value:0x10000111, size:0x0}
+[ELF32] sym392:{name:"runtime_init_mutex", value:0x1000043d, size:0x3c}
+[ELF32] sym393:{name:"__pre_init_runtime_init_post_clock_resets", value:0x100013e0, size:0x4}
+[ELF32] sym394:{name:"isr_irq14", value:0x10000111, size:0x0}
+[ELF32] sym395:{name:"panic", value:0x100001e9, size:0x34}
+[ELF32] sym396:{name:"__pre_init_runtime_init_per_core_enable_coprocessors", value:0x10001404, size:0x4}
+[ELF32] sym397:{name:"__vectors_end", value:0x10000110, size:0x0}
+[ELF32] sym398:{name:"__default_isrs_start", value:0x10000110, size:0x0}
+[ELF32] sym399:{name:"mutex_try_enter", value:0x20000111, size:0x50}
+[ELF32] sym400:{name:"__flash_binary_start", value:0x10000000, size:0x0}
+[ELF32] sym401:{name:"mutex_init", value:0x10000405, size:0x1a}
+[ELF32] sym402:{name:"isr_irq2", value:0x10000111, size:0x0}
+[ELF32] sym403:{name:"__tdata_end", value:0x200002f8, size:0x0}
+[ELF32] sym404:{name:"__boot2_end__", value:0x10001410, size:0x0}
+[ELF32] sym405:{name:"best_effort_wfe_or_timeout", value:0x1000093d, size:0xb4}
+[ELF32] sym406:{name:"main", value:0x100001e5, size:0x4}
+[ELF32] sym407:{name:"__pre_init_runtime_init_clocks", value:0x100013dc, size:0x4}
+[ELF32] sym408:{name:"isr_irq10", value:0x10000111, size:0x0}
+[ELF32] sym409:{name:"lock_init", value:0x100003ed, size:0x18}
+[ELF32] sym410:{name:"isr_irq8", value:0x10000111, size:0x0}
+[ELF32] sym411:{name:"__binary_info_header_end", value:0x10000138, size:0x0}
+[ELF32] sym412:{name:"__pre_init_first_per_core_initializer", value:0x100013fc, size:0x4}
+[ELF32] sym413:{name:"irq_set_enabled", value:0x1000034d, size:0x14}
+[ELF32] sym414:{name:"isr_debugmonitor", value:0x10000111, size:0x0}
+[ELF32] sym415:{name:"__tls_end", value:0x200002f8, size:0x0}
+[ELF32] sym416:{name:"__end__", value:0x200004f4, size:0x0}
+[ELF32] sym417:{name:"stdio_flush", value:0x10001215, size:0x24}
+[ELF32] sym418:{name:"ram_vector_table", value:0x20000000, size:0x110}
+[ELF32] sym419:{name:"isr_irq24", value:0x10000111, size:0x0}
+[ELF32] sym420:{name:"isr_irq46", value:0x10000111, size:0x0}
+[ELF32] sym421:{name:"isr_irq1", value:0x10000111, size:0x0}
+[ELF32] sym422:{name:"irq_set_mask_n_enabled", value:0x10000329, size:0x24}
+[ELF32] sym423:{name:"isr_irq47", value:0x10000111, size:0x0}
+[ELF32] sym424:{name:"alarm_pool_add_alarm_at_force_in_context", value:0x100007b5, size:0xc8}
+[ELF32] sym425:{name:"isr_irq51", value:0x10000111, size:0x0}
+[ELF32] sym426:{name:"stdout_serialize_end", value:0x10001139, size:0xc}
+[ELF32] sym427:{name:"isr_irq7", value:0x10000111, size:0x0}
+[ELF32] sym428:{name:"__StackTop", value:0x20082000, size:0x0}
+[ELF32] sym429:{name:"isr_irq21", value:0x10000111, size:0x0}
+[ELF32] sym430:{name:"hw_claim_lock", value:0x1000021d, size:0x30}
+[ELF32] sym431:{name:"isr_irq39", value:0x10000111, size:0x0}
+[ELF32] sym432:{name:"isr_irq20", value:0x10000111, size:0x0}
+[ELF32] sym433:{name:"isr_irq15", value:0x10000111, size:0x0}
+[ELF32] sym434:{name:"stdout_serialize_begin", value:0x10001101, size:0x38}
+[ELF32] sym435:{name:"runtime_init_boot_locks_reset", value:0x10000d3d, size:0x4}
+[ELF32] sym436:{name:"isr_irq25", value:0x10000111, size:0x0}
+[ELF32] sym437:{name:"__pre_init_spinlock_set_extexclall", value:0x10001408, size:0x4}
+[ELF32] sym438:{name:"isr_irq34", value:0x10000111, size:0x0}
+[ELF32] sym439:{name:"isr_svcall", value:0x1000011f, size:0x0}
+[ELF32] sym440:{name:"__scratch_x_start__", value:0x20080000, size:0x0}
+[ELF32] sym441:{name:"__VECTOR_TABLE", value:0x10000000, size:0x0}
+[ELF32] sym442:{name:"mutex_try_enter_block_until", value:0x200001d1, size:0x34}
+[ELF32] sym443:{name:"__StackLimit", value:0x20080000, size:0x0}
+[ELF32] sym444:{name:"__pre_init_runtime_init_mutex", value:0x100013f0, size:0x4}
+[ELF32] sym445:{name:"exit", value:0x10001009, size:0x6}
+[ELF32] sym446:{name:"isr_irq4", value:0x10000111, size:0x0}
+[ELF32] sym447:{name:"isr_busfault", value:0x10000111, size:0x0}
+[ELF32] sym448:{name:"runtime_init_clocks", value:0x10000eed, size:0xdc}
+[ELF32] sym449:{name:"stdio_puts", value:0x10001259, size:0x1e}
+[ELF32] sym450:{name:"__tbss_end", value:0x200002f8, size:0x0}
+[ELF32] sym451:{name:"__pre_init_runtime_init_bootrom_locking_enable", value:0x100013ec, size:0x4}
+[ELF32] sym452:{name:"mutex_enter_block_until", value:0x20000161, size:0x6e}
+[ELF32] sym453:{name:"runtime_init_install_ram_vector_table", value:0x10000e75, size:0x78}
+[ELF32] sym454:{name:"_exit", value:0x10001005, size:0x4}
+[ELF32] sym455:{name:"isr_irq16", value:0x10000111, size:0x0}
+[ELF32] sym456:{name:"__pre_init_runtime_init_default_alarm_pool", value:0x100013f8, size:0x4}
+[ELF32] sym457:{name:"isr_irq44", value:0x10000111, size:0x0}
+[ELF32] sym458:{name:"isr_irq29", value:0x10000111, size:0x0}
+[ELF32] sym459:{name:"isr_irq26", value:0x10000111, size:0x0}
+[ELF32] sym460:{name:"strlen", value:0x10001365, size:0x5c}
+[ELF32] sym461:{name:"__default_isrs_end", value:0x10000124, size:0x0}
+[ELF32] sym462:{name:"isr_irq33", value:0x10000111, size:0x0}
+[ELF32] sym463:{name:"__pre_init_runtime_init_per_core_bootrom_reset", value:0x10001400, size:0x4}
+[ELF32] sym464:{name:"__pre_init_runtime_init_spin_locks_reset", value:0x100013e8, size:0x4}
+[ELF32] sym465:{name:"runtime_run_initializers", value:0x10000d85, size:0x38}
+[ELF32] sym466:{name:"__pre_init_runtime_init_usb_power_down", value:0x100013d8, size:0x4}
+[ELF32] sym467:{name:"isr_irq3", value:0x10000111, size:0x0}
+[ELF32] sym468:{name:"isr_systick", value:0x10000123, size:0x0}
+[ELF32] sym469:{name:"__pre_init_runtime_init_per_core_irq_priorities", value:0x1000140c, size:0x4}
+[ELF32] sym470:{name:"runtime_init_per_core_bootrom_reset", value:0x10000e5d, size:0x14}
+[ELF32] sym471:{name:"timer_hardware_alarm_claim", value:0x10000b21, size:0x28}
+[ELF32] sym472:{name:"alarm_pool_cancel_alarm", value:0x100008bd, size:0x7e}
+[ELF32] sym473:{name:"timer_time_us_64", value:0x10000b49, size:0x10}
+[ELF32] sym474:{name:"isr_irq12", value:0x10000111, size:0x0}
+[ELF32] sym475:{name:"isr_irq9", value:0x10000111, size:0x0}
+[ELF32] sym476:{name:"pll_init", value:0x10000c51, size:0x8c}
+[ELF32] sym477:{name:"runtime_init_default_alarm_pool", value:0x100009f9, size:0x128}
+[ELF32] p0:{type:0x70000001, vaddr:0x10001494, memsz:0x8, filesz:0x8}
+[ELF32] p1:{type:0x1, vaddr:0x10000000, memsz:0x14b8, filesz:0x14b8}
+[ELF32] p2:{type:0x1, vaddr:0x20000110, memsz:0x1e8, filesz:0x1e8}
+[ELF32] p3:{type:0x1, vaddr:0x100016a0, memsz:0x14, filesz:0x14}
+[ELF32] p4:{type:0x1, vaddr:0x200002f8, memsz:0x1fc, filesz:0x0}
+[ELF32] p5:{type:0x1, vaddr:0x200004f4, memsz:0x800, filesz:0x0}
+[ELF32] p6:{type:0x1, vaddr:0x20000000, memsz:0x110, filesz:0x0}
+[ELF32] p7:{type:0x1, vaddr:0x20081000, memsz:0x800, filesz:0x0}
+
+C:\nitrologic\vidbit\elfutil>bin\elfutil.exe vidbot1.elf 
+elfutil 0.2
+elf loaded path:vidbot1.elf
+e_type:0x2 ET_EXEC
+e_machine:0x28 EM_ARM
+e_entry:0x1000014d
+e_phoff:0x34
+e_shoff:0x3fca8
+e_phnum:8
+e_shnum:32
+e_shstrndx:31
+p0 type:70000001 vaddr:10001494 memsz:8 filesz:8
+p1 type:1 vaddr:10000000 memsz:14b8 filesz:14b8
+p2 type:1 vaddr:20000110 memsz:1e8 filesz:1e8
+p3 type:1 vaddr:100016a0 memsz:14 filesz:14
+p4 type:1 vaddr:200002f8 memsz:1fc filesz:0
+p5 type:1 vaddr:200004f4 memsz:800 filesz:0
+p6 type:1 vaddr:20000000 memsz:110 filesz:0
+p7 type:1 vaddr:20081000 memsz:800 filesz:0
+sh0 name: 
+sh1 name: .text
+sh2 name: .rodata
+sh3 name: .ARM.exidx
+sh4 name: .binary_info
+sh5 name: .ram_vector_table
+sh6 name: .uninitialized_data
+sh7 name: .data
+sh8 name: .got
+sh9 name: .got.plt
+sha name: .tdata
+shb name: .tbss
+shc name: .bss
+shd name: .heap
+she name: .scratch_x
+shf name: .scratch_y
+sh10 name: .stack_dummy
+sh11 name: .flash_end
+sh12 name: .debug_info
+sh13 name: .debug_abbrev
+sh14 name: .debug_aranges
+sh15 name: .debug_rnglists
+sh16 name: .debug_line
+sh17 name: .debug_str
+sh18 name: .comment
+sh19 name: .ARM.attributes
+sh1a name: .debug_frame
+sh1b name: .debug_loclists
+sh1c name: .debug_line_str
+sh1d name: .symtab
+sh1e name: .strtab
+sh1f name: .shstrtab
+
+
+/*
+
+#define EI_MAG0       0
+#define EI_MAG1       1
+#define EI_MAG2       2
+#define EI_MAG3       3
+#define EI_CLASS      4
+#define EI_DATA       5
+#define EI_VERSION    6
+#define EI_OSABI      7
+#define EI_ABIVERSION 8
+
+#define ELFCLASS32  1
+#define ELFCLASS64  2
+
+#define ELFDATA2LSB 1
+#define ELFDATA2MSB 2
+
+enum et { NONE, REL, EXEC, DYN, CORE };
+
+#define EM_ARM  0x28
+
+#define PT_NULL    0
+#define PT_LOAD    1
+#define PT_DYNAMIC 2
+#define PT_INTERP  3
+#define PT_NOTE    4
+#define PT_SHLIB   5
+#define PT_PHDR    6
+#define PT_TLS     7
+
+#define PF_X  0x1
+#define PF_W  0x2
+#define PF_R  0x4
+
+#define SHT_NULL     0
+#define SHT_PROGBITS 1
+#define SHT_SYMTAB   2
+#define SHT_STRTAB   3
+#define SHT_RELA     4
+#define SHT_HASH     5
+#define SHT_DYNAMIC  6
+#define SHT_NOTE     7
+#define SHT_NOBITS   8
+#define SHT_REL      9
+#define SHT_SHLIB    10
+#define SHT_DYNSYM   11
+
+struct elf32 {
+	uint8_t  e_ident[16];
+	uint16_t e_type;
+	uint16_t e_machine;
+	uint32_t e_version;
+	uint32_t e_entry;
+	uint32_t e_phoff;
+	uint32_t e_shoff;
+	uint32_t e_flags;
+	uint16_t e_ehsize;
+	uint16_t e_phentsize;
+	uint16_t e_phnum;
+	uint16_t e_shentsize;
+	uint16_t e_shnum;
+	uint16_t e_shstrndx;
+};
+
+struct elf32_phdr {
+	uint32_t p_type;
+	uint32_t p_offset;
+	uint32_t p_vaddr;
+	uint32_t p_paddr;
+	uint32_t p_filesz;
+	uint32_t p_memsz;
+	uint32_t p_flags;
+	uint32_t p_align;
+};
+
+struct elf32_shdr {
+	uint32_t sh_name;
+	uint32_t sh_type;
+	uint32_t sh_flags;
+	uint32_t sh_addr;
+	uint32_t sh_offset;
+	uint32_t sh_size;
+	uint32_t sh_link;
+	uint32_t sh_info;
+	uint32_t sh_addralign;
+	uint32_t sh_entsize;
+};
+
+*/
