@@ -354,7 +354,7 @@ void pollKeys(){
 	}	
 	if(!text.empty()){
 		std::string keys = rpcMethod("vidbit.keys","\"text\":\"" + text + "\"}");
-//		std::cout << "[RPC] keys:" << keys << std::endl;
+		std::cout << "[RPC] keys:" << keys << std::endl;
 		printPorts(keys);
 	}
 }
