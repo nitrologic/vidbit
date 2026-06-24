@@ -259,7 +259,8 @@ int main() {
 	SetConsoleOutputCP(CP_UTF8);
 
 	HWND consoleWindow=GetConsoleWindow();
-	std::cout << "rpccoms 0.3.1 looking for \"USB\\VID_2E8A\" from "<<((int64_t)consoleWindow)<<std::endl;
+	std::cout << "rpccoms 0.3.2 looking for \"USB\\VID_2E8A\""<<std::endl;
+	std::cout << " HWND:"<<((int64_t)consoleWindow)<<std::endl;
 	enumeratePorts();
 
 	std::this_thread::sleep_for(std::chrono::seconds(1));

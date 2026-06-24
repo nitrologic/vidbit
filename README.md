@@ -2,13 +2,24 @@
 
 ![alt text](pics/vidbitsnap.png) 
 
-# nitrologic microPAL VidBit 0.0.6 🤖
+# nitrologic VIDBIT
 
 An RP2350 microcontroller video game harness.
 
 ## tools
 
 * resetcoms 0.1 - send reboot command to all com ports with path "USB\\VID_2E8" 
+* rpccoms 0.3.2 - rtc.set and vidbit.set title
+
+### rpc
+
+```
+rpccoms 0.3.2 looking for "USB\VID_2E8A"
+ from HWND:395130
+[RPC] ignoring {port:COM1,path:ACPI\PNP0501\0,info:Communications Port (COM1)}
+[RPC] setRTC:{"jsonrpc":"2.0","method":"rtc.set","params":{"time":1782380920},"id":1}
+[RPC] setTitle:{"jsonrpc":"2.0","method":"vidbit.set","params":{"title":"VIDBIT RPC 0.3.1"}},"id":2}
+```
 
 ## documentation
 
