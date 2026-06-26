@@ -12,28 +12,50 @@
 // restart 
 // 
 
-#include <nitrohost.h>
-
 #include <iostream>
-#include "tools.h"
-
 #include <thread>
 #include <atomic>
 #include <chrono>
-
 #include <windows.h>
-
 #include <sstream>
 #include <iomanip>
+#include <optional>
+
+//#include <nitrohost.h>
+//#include "tools.h"
+
+#include <vector>
+#include <string>
+#include <cstdint>
+
+struct ComPortInfo {
+	std::string portName;
+	std::string devicePath;
+	std::string portDescription;
+};
+
+using byteData=std::vector<uint8_t> ;
+using comHandle=void *;
+
+std::vector<ComPortInfo> enumerateComPorts();
+comHandle openComPort(const std::string& portName);
+bool writeComPort(comHandle handle, const byteData &payload);
+void closeComPort(comHandle handle);
+
 
 int rpcCount=0;
-std::string rpcMethod(std::string methodName,std::string params){
+std::string rpcMethod(std::string methodName,std::optional<std::string> params=std::nullopt){
 	int id=++rpcCount;
 	std::stringstream ss;
-	ss << "{\"jsonrpc\":\"2.0\",\"method\":\"" << methodName 
-		<< "\",\"params\":{" << params << "},\"id\":" << id << "}";
+	if(params){
+		ss << "{\"jsonrpc\":\"2.0\",\"method\":\"" << methodName << "\",\"params\":{" << params.value() << "},\"id\":" << id << "}";
+	}else{
+		ss << "{\"jsonrpc\":\"2.0\",\"method\":\"" << methodName << "\",\"id\":" << id << "}";
+	}
 	return ss.str();
 }
+
+const std::string getInfo=rpcMethod("vidbit.info");
 
 bool writeComLine(comHandle handle,const std::string &text);
 void pollKeys();
@@ -280,11 +302,13 @@ int main() {
 	std::cout << "[RPC] setRTC:" << setRTC << std::endl;
 	printPorts(setRTC);
 
-	std::string title="VIDBIT RPC 0.3.1";
+	std::cout << "[RPC] info:" << getInfo << std::endl;
+	printPorts(getInfo);
+
+	std::string title="VIDBIT RPC 0.3.2";
 	std::string setTitle = rpcMethod("vidbit.set","\"title\":\"" + title + "\"}");
 	std::cout << "[RPC] setTitle:" << setTitle << std::endl;
 	printPorts(setTitle);
-
 
 	std::this_thread::sleep_for(std::chrono::seconds(1));
 
@@ -307,6 +331,7 @@ int main() {
 				std::cout << "[RPC] reset" << std::endl;
 				inReset=true;
 				scanPorts();
+				printPorts(getInfo);
 			}
 		}else{
 			inReset=false;
