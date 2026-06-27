@@ -48,7 +48,7 @@ std::string rpcMethod(std::string methodName,std::optional<std::string> params=s
 	int id=++rpcCount;
 	std::stringstream ss;
 	if(params){
-		ss << "{\"jsonrpc\":\"2.0\",\"method\":\"" << methodName << "\",\"params\":{" << params.value() << "},\"id\":" << id << "}";
+		ss << "{\"jsonrpc\":\"2.0\",\"method\":\"" << methodName << "\",\"id\":" << id << ",\"params\":{" << params.value() << "}}";
 	}else{
 		ss << "{\"jsonrpc\":\"2.0\",\"method\":\"" << methodName << "\",\"id\":" << id << "}";
 	}
@@ -305,10 +305,10 @@ int main() {
 	std::cout << "[RPC] info:" << getInfo << std::endl;
 	printPorts(getInfo);
 
-	std::string title="VIDBIT RPC 0.3.2";
-	std::string setTitle = rpcMethod("vidbit.set","\"title\":\"" + title + "\"}");
-	std::cout << "[RPC] setTitle:" << setTitle << std::endl;
-	printPorts(setTitle);
+	std::string about="VIDBIT RPC 0.3.2";
+	std::string setAbout = rpcMethod("vidbit.set","\"about\":\"" + about + "\"}");
+	std::cout << "[RPC] setAbout:" << setAbout << std::endl;
+	printPorts(setAbout);
 
 	std::this_thread::sleep_for(std::chrono::seconds(1));
 
