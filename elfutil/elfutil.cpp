@@ -100,7 +100,7 @@ void print_symbols(const bytes& content, const struct elf32& hdr, const struct e
 }
 
 int main(int argc, char* argv[]){
-	std::cout << "elfutil 0.3.3" << std::endl;
+	std::cout << "elfutil 0.3.4" << std::endl;
 	if (argc < 2){
 		std::cerr << "usage: elfutil <elf32-file>" << std::endl;
 		return 1;
@@ -136,7 +136,7 @@ int main(int argc, char* argv[]){
 	}
 
 	for(int i=0;i<elf32header.e_shnum;i++){
-		auto shtype=typeString(sh[i].sh_type);
+		auto shtype=headerString(sh[i].sh_type);
 		const char* name = strtab + sh[i].sh_name;
 		std::cout << "[ELF32] sh" << i << ":{name:\"" << name << "\", type:" << shtype <<  "}" << std::endl;
 //		std::cout << "sh" << i << " type:"<<sh[i].sh_type<<" size:"<<sh[i].sh_size << " entsize:" << sh[i].sh_entsize << std::endl;

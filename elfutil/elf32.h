@@ -34,6 +34,12 @@ const std::map<uint32_t, std::string> shtypes = {
 	{0x70000001, "ARM_EXIDX"}
 };
 
+std::string headerString(uint32_t shtype){
+	auto it = shtypes.find(shtype);
+	if (it != shtypes.end()) return it->second;
+	return "[SHTYPE_UNKNOWN]";
+}
+
 std::string pflags_string(uint32_t flags) {
 	std::string s;
 	s += (flags & 0x4) ? 'R' : '-';
