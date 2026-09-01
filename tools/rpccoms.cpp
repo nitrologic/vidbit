@@ -299,15 +299,15 @@ int main() {
 	std::string rtc = std::to_string(seconds+timezoneDelta);
 
 	std::string setRTC=rpcMethod("rtc.set","\"time\":" + rtc);
-	std::cout << "[RPC] setRTC:" << setRTC << std::endl;
 	printPorts(setRTC);
+	std::cout << "[TX] setRTC:" << setRTC << std::endl;
 
-	std::cout << "[RPC] info:" << getInfo << std::endl;
 	printPorts(getInfo);
+	std::cout << "[TX] info:" << getInfo << std::endl;
 
 	std::string about="VIDBIT RPC 0.3.2";
 	std::string setAbout = rpcMethod("vidbit.set","\"about\":\"" + about + "\"}");
-	std::cout << "[RPC] setAbout:" << setAbout << std::endl;
+//	std::cout << "[RPC] setAbout:" << setAbout << std::endl;
 	printPorts(setAbout);
 
 	std::this_thread::sleep_for(std::chrono::seconds(1));
@@ -317,7 +317,7 @@ int main() {
 	while(true){
 		lineValue=rpcFifo.readLine();
 		if(lineValue.has_value()){
-			std::cout << "[RPC] line:" << (lineValue.value()) << std::endl;
+			std::cout << "[RX] line:" << (lineValue.value()) << std::endl;
 		}else{
 			std::this_thread::sleep_for(std::chrono::milliseconds(5));			
 //			pollMessages(consoleWindow);

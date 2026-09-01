@@ -9,8 +9,8 @@ ninja
 popd
 
 if %errorlevel% neq 0 (
-    echo cmake ninja failure errorlevel:%errorlevel%
-    exit /b %errorlevel%
+	echo cmake ninja failure errorlevel:%errorlevel%
+	exit /b %errorlevel%
 )
 
 bin\elfutil.exe vidbot2.elf

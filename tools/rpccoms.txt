@@ -1,4 +1,4 @@
-rpccomms
+rpccoms
 
 Escape key to quit
 
